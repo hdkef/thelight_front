@@ -6,14 +6,17 @@ const routes: Routes = [
   {path:'landing-page',loadChildren:()=>{
     return import('./landing-page/landing-page.module').then((m)=>{return m.LandingPageModule})
   }},
-  {path:'search/:query',loadChildren:()=>{
+  {path:'search',loadChildren:()=>{
     return import('./search/search.module').then((m)=>{return m.SearchModule})
   }},
   {path:'admin',loadChildren:()=>{
     return import('./admin/admin.module').then((m)=>{return m.AdminModule})
   }},
-  {path:'view/:ID',loadChildren:()=>{
+  {path:'view',loadChildren:()=>{
     return import('./article-view/article-view.module').then((m)=>{return m.ArticleViewModule})
+  }},
+  {path:'about',loadChildren:()=>{
+    return import('./about/about.module').then((m)=>{return m.AboutModule})
   }},
 ];
 

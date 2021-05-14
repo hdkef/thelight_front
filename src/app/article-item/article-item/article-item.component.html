@@ -15,6 +15,6 @@
         <a *ngFor="let t of article.Tag">{{t}}</a>
     </div>
     <mat-card-actions>
-        <button mat-stroked-button>read more..</button>
+        <button mat-stroked-button (click)="readMore()">read more..</button>
     </mat-card-actions>
 </mat-card>

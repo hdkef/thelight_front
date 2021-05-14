@@ -1,1 +1,15 @@
-<p>article view works</p>
+<div id="container">
+    <h1>
+        {{article.Title}}
+    </h1>
+    <h4>
+        {{article.Date}}
+    </h4>
+    <div id="preview-image">
+        <img [src]="article.ImageURL">
+    </div>
+    <div id="body">
+        {{article.Body}}
+    </div>
+    <app-writer-info [writer]="article.WriterInfo"></app-writer-info>
+</div>

@@ -1,0 +1,11 @@
+#container {
+    display: flex;
+    justify-content: center;
+    background-color: whitesmoke;
+}
+
+#container img{
+    display: block;
+    width:32px;
+    margin:12px;
+}

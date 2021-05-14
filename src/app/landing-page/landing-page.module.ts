@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { ArticleItemModule } from '../article-item/article-item.module';
 import { ArticleListComponent } from './article-list/article-list.component';
+import { PaginatorModule } from '../paginator/paginator.module';
 
 
 
@@ -23,7 +24,8 @@ import { ArticleListComponent } from './article-list/article-list.component';
       {path:'',component:LandingPageComponent},
     ]),
     SharedModule,
-    ArticleItemModule
+    ArticleItemModule,
+    PaginatorModule,
   ]
 })
 export class LandingPageModule { }

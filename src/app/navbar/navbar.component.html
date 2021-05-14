@@ -3,9 +3,12 @@
 </div>
 <div id="toggle" *ngIf="toggle">
     <div class="dropdown">
-        <a routerLink='admin'>admin login</a>
+        <a routerLink='landing-page' (click)="showHide()">landing page</a>
     </div>
     <div class="dropdown">
-        <a routerLink='landing-page'>about the light</a>
+        <a routerLink='admin' (click)="showHide()">admin</a>
+    </div>
+    <div class="dropdown">
+        <a routerLink='about' (click)="showHide()">about the light</a>
     </div>
 </div>

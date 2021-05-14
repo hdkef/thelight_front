@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArticleViewComponent } from './article-view/article-view.component';
 import { RouterModule } from '@angular/router';
-import { ArticleItemComponent } from '../article-item/article-item/article-item.component';
+import { WriterInfoModule } from '../writer-info/writer-info.module';
 
 
 
@@ -13,8 +13,9 @@ import { ArticleItemComponent } from '../article-item/article-item/article-item.
   imports: [
     CommonModule,
     RouterModule.forChild([
-      {path:'',component:ArticleItemComponent},
+      {path:'',component:ArticleViewComponent},
     ]),
+    WriterInfoModule,
   ]
 })
 export class ArticleViewModule { }
