@@ -1,0 +1,11 @@
+<div id="menu">
+    <img src="assets/menu.svg" style="cursor: pointer;" (click)="showHide()">
+</div>
+<div id="toggle" *ngIf="toggle">
+    <div class="dropdown">
+        <a routerLink='admin'>admin login</a>
+    </div>
+    <div class="dropdown">
+        <a routerLink='landing-page'>about the light</a>
+    </div>
+</div>

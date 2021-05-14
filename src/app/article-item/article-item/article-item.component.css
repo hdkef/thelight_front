@@ -1,0 +1,30 @@
+mat-card {
+    margin-top:20px;
+    background-color: whitesmoke;
+    width:333px;
+    margin-bottom: 20px;
+    margin-left:20px;
+    margin-right: 20px;
+}
+
+.img-preview {
+    margin:9px;
+}
+
+.img-preview img {
+    width: 100%;
+}
+
+.tag {
+    margin:0;
+    padding:0;
+    display: flex;
+    justify-content: left;
+}
+
+.tag a {
+    color: rgba(0,0,0,.54);
+    text-decoration: underline;
+    margin-right:5px;
+    font-size: smaller;
+}

@@ -1,0 +1,20 @@
+<mat-card>
+    <mat-card-title>
+        {{article.Title}}
+    </mat-card-title>
+    <mat-card-subtitle>
+        {{article.Date}}
+    </mat-card-subtitle>
+    <div class="img-preview">
+        <img [src]="article.ImageURL">
+    </div>
+    <mat-card-subtitle>
+        {{article.Preview}}
+    </mat-card-subtitle>
+    <div class="tag">
+        <a *ngFor="let t of article.Tag">{{t}}</a>
+    </div>
+    <mat-card-actions>
+        <button mat-stroked-button>read more..</button>
+    </mat-card-actions>
+</mat-card>
