@@ -1,0 +1,14 @@
+.card {
+    padding: 5px;
+    margin:10px;
+    border:1px solid black;
+}
+
+.imageurl {
+    display: flex;
+    justify-content: center;
+}
+
+.imageurl img{
+    width: 100%;
+}

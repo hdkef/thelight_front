@@ -1,0 +1,34 @@
+#title {
+    width: 100%;
+    background-color: wheat;
+}
+
+#settings input, #settings textarea, #settings button{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+#grid-view {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#article-list {
+    margin-top:25px;
+}
+
+#btn-group {
+    margin-top:25px;   
+}
+
+#btn-group button{
+    display: block;
+    margin-left: 10px;
+}
+
+@media only screen and (max-width:750px) {
+    #grid-view {
+        grid-template-columns: 1fr;
+    }
+}

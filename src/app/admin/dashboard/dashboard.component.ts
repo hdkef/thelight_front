@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MockArticleService } from 'src/app/mock-article.service';
+import { Article } from 'src/app/models/article';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  articles:Article[]
+
+  constructor(private mock:MockArticleService) { }
 
   ngOnInit(): void {
+    this.articles = this.mock.articles
   }
 
 }
