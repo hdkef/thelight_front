@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button'
 import {MatInputModule} from '@angular/material/input'
 import {MatCardModule} from '@angular/material/card'
-
+import {MatSelectModule} from '@angular/material/select'
 
 @NgModule({
   declarations: [],
@@ -14,6 +14,7 @@ import {MatCardModule} from '@angular/material/card'
     MatButtonModule,
     MatInputModule,
     MatCardModule,
+    MatSelectModule,
   ]
 })
 export class SharedModule { }

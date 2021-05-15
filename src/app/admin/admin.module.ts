@@ -6,6 +6,7 @@ import { EditArticleComponent } from './edit-article/edit-article.component';
 import { AdmArticleListComponent } from './adm-article-list/adm-article-list.component';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -25,7 +26,8 @@ import { LoginComponent } from './login/login.component';
       {path:'login',component:LoginComponent},
       {path:'create-article',component:CreateArticleComponent},
       {path:'edit-article',component:EditArticleComponent},
-    ])
+    ]),
+    SharedModule,
   ]
 })
 export class AdminModule { }

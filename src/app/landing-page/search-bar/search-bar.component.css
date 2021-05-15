@@ -7,10 +7,27 @@
     width: 100%;
     padding-top:10px;
     padding-bottom:5px;
-    padding-left:30px;
-    padding-right: 30px;
+    padding-left:10px;
+    padding-right: 10px;
+}
+
+#wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+#sinput {
+    width: 80%;
+    padding-right: 10px;
+}
+
+#sfilter {
+    width: 20%;
+    padding-left: 10px;
+    justify-items: center;
 }
 
 mat-form-field {
     width: 100%;
 }
+

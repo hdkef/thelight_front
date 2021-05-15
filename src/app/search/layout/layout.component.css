@@ -1,0 +1,15 @@
+#container {
+    display: flex;
+    justify-content: center;
+}
+
+#grid-view {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media only screen and (max-width:750px) {
+    #grid-view {
+        grid-template-columns: 1fr;
+    }
+}

@@ -4,6 +4,7 @@ import { ArticleViewComponent } from './article-view/article-view.component';
 import { RouterModule } from '@angular/router';
 import { WriterInfoModule } from '../writer-info/writer-info.module';
 import { CommentModule } from '../comment/comment.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -18,6 +19,7 @@ import { CommentModule } from '../comment/comment.module';
     ]),
     WriterInfoModule,
     CommentModule,
+    SharedModule,
   ]
 })
 export class ArticleViewModule { }

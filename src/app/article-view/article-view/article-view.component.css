@@ -5,7 +5,9 @@
 }
 
 #title {
+    margin-top:25px;
     padding:19px;
+    background-color: wheat;
 }
 
 #container h1{
@@ -36,7 +38,13 @@
 }
 
 #comment-sec {
+    border-top: 1px solid black;
     margin-top: 100px;
+}
+
+#toggle {
+    padding-top:5px;
+    padding-bottom: 5px;
 }
 
 @media only screen and (max-width:750px){

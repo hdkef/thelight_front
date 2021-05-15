@@ -14,7 +14,11 @@
         {{article.Body}}
     </div>
     <app-writer-info [writer]="article.WriterInfo"></app-writer-info>
-    <div id="comment-sec">
-        <app-comment *ngFor="let comment of article.Comment" [comment]="comment"></app-comment>
+    <div id="toggle" *ngIf="!isCommentLoaded">
+        <button mat-flat-button (click)="showComments()">show comments...</button>
+    </div>
+    <div id="comment-sec" *ngIf="isCommentLoaded">
+        <h4>comments</h4>
+        <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
     </div>
 </div>
