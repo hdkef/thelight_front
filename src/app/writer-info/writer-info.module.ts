@@ -9,7 +9,7 @@ import { WriterInfoComponent } from './writer-info/writer-info.component';
     WriterInfoComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports:[
     WriterInfoComponent

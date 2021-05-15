@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ArticleViewComponent } from './article-view/article-view.component';
 import { RouterModule } from '@angular/router';
 import { WriterInfoModule } from '../writer-info/writer-info.module';
+import { CommentModule } from '../comment/comment.module';
 
 
 
@@ -16,6 +17,7 @@ import { WriterInfoModule } from '../writer-info/writer-info.module';
       {path:'',component:ArticleViewComponent},
     ]),
     WriterInfoModule,
+    CommentModule,
   ]
 })
 export class ArticleViewModule { }

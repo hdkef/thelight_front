@@ -14,7 +14,7 @@ import { NavbarComponent } from './navbar/navbar.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

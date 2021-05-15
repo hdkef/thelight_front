@@ -1,10 +1,11 @@
 #container {
-    border-top:1px solid black;
-    margin-top: 20px;
-    padding-top: 10px;
-    padding-bottom: 25px;
-    padding-left:9px;
-    padding-right: 9px;
+    margin-top:55px;
+    padding:19px;
+}
+
+mat-card {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #left {

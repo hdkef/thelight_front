@@ -1,10 +1,12 @@
 <div id="container">
-    <h1>
-        {{article.Title}}
-    </h1>
-    <h4>
-        {{article.Date}}
-    </h4>
+    <div id="title">
+        <h1>
+            {{article.Title}}
+        </h1>
+        <p>
+            {{article.Date}}
+        </p>
+    </div>
     <div id="preview-image">
         <img [src]="article.ImageURL">
     </div>
@@ -12,4 +14,7 @@
         {{article.Body}}
     </div>
     <app-writer-info [writer]="article.WriterInfo"></app-writer-info>
+    <div id="comment-sec">
+        <app-comment *ngFor="let comment of article.Comment" [comment]="comment"></app-comment>
+    </div>
 </div>

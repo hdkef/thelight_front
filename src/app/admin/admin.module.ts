@@ -5,6 +5,7 @@ import { CreateArticleComponent } from './create-article/create-article.componen
 import { EditArticleComponent } from './edit-article/edit-article.component';
 import { AdmArticleListComponent } from './adm-article-list/adm-article-list.component';
 import { RouterModule } from '@angular/router';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -13,12 +14,17 @@ import { RouterModule } from '@angular/router';
     DashboardComponent,
     CreateArticleComponent,
     EditArticleComponent,
-    AdmArticleListComponent
+    AdmArticleListComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild([
-      {path:'',component:DashboardComponent}
+      {path:'',pathMatch:'full',redirectTo:'login'},
+      {path:'dashboard',component:DashboardComponent},
+      {path:'login',component:LoginComponent},
+      {path:'create-article',component:CreateArticleComponent},
+      {path:'edit-article',component:EditArticleComponent},
     ])
   ]
 })

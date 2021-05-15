@@ -4,6 +4,15 @@
     margin-right: 200px;
 }
 
+#title {
+    padding:19px;
+}
+
+#container h1{
+    padding-top: 25px;
+    margin-top: 0;
+}
+
 #preview-image{
     display: flex;
     justify-content: center;
@@ -11,17 +20,23 @@
 }
 
 #preview-image img{
+    padding: 19px;
     display: block;
     width:100%;
     overflow-y: hidden;
 }
 
 #body {
+    padding:19px;
     margin-top: 35px;
 }
 
 #body p {
     display: block;
+}
+
+#comment-sec {
+    margin-top: 100px;
 }
 
 @media only screen and (max-width:750px){
