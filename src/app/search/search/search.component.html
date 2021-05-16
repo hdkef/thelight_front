@@ -1,18 +1,18 @@
 <div id="search-bar">
     <div id="search-field">
-        <form>
+        <form [formGroup]="searchForm" (ngSubmit)="goSearch()">
             <div id="wrapper">
                 <div id="sinput">
                     <mat-form-field>
-                        <input matInput type="text" placeholder="search articles here...">
+                        <input matInput type="text" placeholder="search articles here..." formControlName="Key">
                     </mat-form-field>
                 </div>
                 <div id="sfilter">
                     <mat-form-field>
                         <mat-label>filter by</mat-label>
-                        <mat-select value="title">
-                            <mat-option value="title">title</mat-option>
-                            <mat-option value="tag">tag</mat-option>
+                        <mat-select value="title" formControlName="Filter">
+                            <mat-option value="Title">title</mat-option>
+                            <mat-option value="Tag">tag</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>

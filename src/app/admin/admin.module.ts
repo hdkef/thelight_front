@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SharedModule } from '../shared/shared.module';
 
-
 @NgModule({
   declarations: [
     LoginComponent,
@@ -25,6 +24,7 @@ import { SharedModule } from '../shared/shared.module';
       }},
     ]),
     SharedModule,
-  ]
+  ],
+  providers:[]
 })
 export class AdminModule { }

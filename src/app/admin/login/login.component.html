@@ -1,15 +1,17 @@
 <div id="container">
-    <mat-card>
-        <mat-card-title>login</mat-card-title>
-    
-        <mat-form-field>
-            <input matInput placeholder="Name">
-        </mat-form-field>
-    
-        <mat-form-field>
-            <input matInput placeholder="Pass" type="password">
-        </mat-form-field>
-    
-        <button mat-flat-button color="primary">login</button>
-    </mat-card>
+    <form [formGroup]="loginForm">
+        <mat-card>
+            <mat-card-title>login</mat-card-title>
+        
+            <mat-form-field>
+                <input matInput placeholder="Name" formControlName="Name">
+            </mat-form-field>
+        
+            <mat-form-field>
+                <input matInput placeholder="Pass" type="password" formControlName="Pass">
+            </mat-form-field>
+        
+            <button mat-flat-button color="primary" [disabled]="loginForm.invalid">login</button>
+        </mat-card>
+    </form>
 </div>

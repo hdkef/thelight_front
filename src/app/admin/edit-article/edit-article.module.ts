@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { EditArticleComponent } from './edit-article.component';
 import { RouterModule } from '@angular/router';
 import {QuillModule} from 'ngx-quill'
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import {QuillModule} from 'ngx-quill'
     RouterModule.forChild([
       {path:'',component:EditArticleComponent}
     ]),
+    ReactiveFormsModule,
     QuillModule.forRoot({
       modules:{
         toolbar:[

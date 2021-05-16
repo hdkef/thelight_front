@@ -4,6 +4,7 @@ import {MatButtonModule} from '@angular/material/button'
 import {MatInputModule} from '@angular/material/input'
 import {MatCardModule} from '@angular/material/card'
 import {MatSelectModule} from '@angular/material/select'
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
@@ -15,6 +16,7 @@ import {MatSelectModule} from '@angular/material/select'
     MatInputModule,
     MatCardModule,
     MatSelectModule,
+    ReactiveFormsModule,
   ]
 })
 export class SharedModule { }

@@ -1,23 +1,25 @@
 <div id="container">
+    <form [formGroup]="articleForm" (ngSubmit)="goPublish()">
     <div id="title">
         <h1>edit article</h1>
     </div>
     <div id="input-group">
-        <input placeholder="give a title...">
-        <input placeholder="add an ImageURL...">
-        <div id="peek">
-            <img src="https://pbs.twimg.com/profile_images/1363210545118150659/Uo-XiGtv_400x400.jpg">
+        <input placeholder="give a title..." formControlName="Title">
+        <input placeholder="add an ImageURL..." formControlName="ImageURL">
+        <div id="peek" *ngIf="ImageURL">
+            <img [src]="ImageURL">
         </div>
-        <button>peek</button>
-        <input placeholder="add some tags...">
-        <p>angular web developer programming</p>
-        <button>add</button>
+        <button type="button" (click)="peek()">peek</button>
+        <input placeholder="add some tags..." formControlName="addTag">
+        <p>{{TagString}}</p>
+        <button type="button" (click)="addTag()">add</button>
+        <button type="button" (click)="removeTag()">remove</button>
     </div>
     <div id="btn-group">
-        <button>save</button>
-        <button>publish</button>
-        <button>delete</button>
-        <button>preview</button>
+        <button type="button">save</button>
+        <button type="submit">publish</button>
+        <button type="button">preview</button>
     </div>
-    <quill-editor></quill-editor>
+    <quill-editor formControlName="Body"></quill-editor>
+    </form>
 </div>
