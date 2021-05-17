@@ -1,5 +1,5 @@
 <div id="container">
-    <form [formGroup]="loginForm">
+    <form [formGroup]="loginForm" (ngSubmit)="goLogin()">
         <mat-card>
             <mat-card-title>login</mat-card-title>
         

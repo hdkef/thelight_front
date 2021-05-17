@@ -7,6 +7,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { HttpClientModule } from '@angular/common/http';
+import { AppReducer } from './redux/reducers/app-reducer';
+import { AuthEffect } from './redux/effects/auth-effect';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,9 @@ import { EffectsModule } from '@ngrx/effects';
     NoopAnimationsModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
+    HttpClientModule,
+    StoreModule.forRoot(AppReducer),
+    EffectsModule.forRoot([AuthEffect]),
   ],
   providers: [],
   bootstrap: [AppComponent]
