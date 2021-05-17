@@ -22,6 +22,9 @@ import { SharedModule } from '../shared/shared.module';
       {path:'edit-article',loadChildren:()=>{
         return import('./edit-article/edit-article.module').then((m)=>{return m.EditArticleModule})
       }},
+      {path:'media',loadChildren:()=>{
+        return import('./media/media.module').then((m)=>{return m.MediaModule})
+      }},
     ]),
     SharedModule,
   ],

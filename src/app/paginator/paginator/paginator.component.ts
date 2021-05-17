@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-paginator',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./paginator.component.css']
 })
 export class PaginatorComponent implements OnInit {
+
+  @Output()pageEvent:EventEmitter<Number> = new EventEmitter()
 
   curPage = 1
 
@@ -19,12 +21,12 @@ export class PaginatorComponent implements OnInit {
       return
     }else{
       this.curPage +=i
-      this.retrieve(this.curPage)
+      this.emitPagingEvent(this.curPage)
     }
   }
 
-  retrieve(page){
-    alert(page)
+  emitPagingEvent(page){
+    this.pageEvent.emit(page)
   }
 
 }

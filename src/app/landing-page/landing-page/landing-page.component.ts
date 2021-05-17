@@ -10,6 +10,11 @@ export class LandingPageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+  }
+
+  onPageEvent(page){
+    alert(page)
   }
 
 }

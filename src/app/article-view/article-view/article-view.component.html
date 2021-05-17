@@ -19,6 +19,15 @@
     </div>
     <div id="comment-sec" *ngIf="isCommentLoaded">
         <h4>comments</h4>
+        <form [formGroup]="commentForm">
+            <mat-form-field>
+                <input matInput placeholder="Name" formControlName="Name">
+            </mat-form-field>
+            <mat-form-field>
+                <textarea matInput placeholder="what do you think?.." formControlName="Text"></textarea>
+            </mat-form-field>
+            <button mat-flat-button type="submit" color="primary">send</button>
+        </form>
         <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
     </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MockArticleService } from 'src/app/mock-article.service';
 import { Article } from 'src/app/models/article';
@@ -16,12 +17,20 @@ export class ArticleViewComponent implements OnInit {
   ID:string
   article:Article
   comments:Comment[]
+  commentForm:FormGroup
   isCommentLoaded:boolean = false
 
   ngOnInit(): void {
      this.ID = this.router.snapshot.queryParamMap.get('ID')
      console.log(this.ID)
      this.article = this.retrieveArticle(this.ID)
+  }
+
+  createCommentForm(){
+    this.commentForm = new FormGroup({
+      'Name': new FormControl(null,Validators.required),
+      'Text': new FormControl(null,Validators.required),
+    })
   }
 
   //TOBEIMPLEMENTED
@@ -31,6 +40,7 @@ export class ArticleViewComponent implements OnInit {
   }
 
   showComments(){
+    this.createCommentForm()
     this.retrieveComment()
     this.isCommentLoaded = !this.isCommentLoaded
   }

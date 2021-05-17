@@ -12,15 +12,15 @@
     </div>
     <div class="btn-group">
         <h4>actions</h4>
-        <button>list article</button>
+        <button (click)="getArticles()" [disabled]="showArticles">list article</button>
         <a routerLink="../create-article"><button>create article</button></a>
-        <button>manage media</button>
+        <a routerLink="../media"><button>manage media</button></a>
     </div>
-    <div id="article-list">
+    <div id="article-list" *ngIf="showArticles">
         <h4>article list</h4>
         <div id="grid-view">
             <app-article-item *ngFor="let article of articles" [article]="article"></app-article-item>
         </div>
+        <app-paginator (pageEvent)="onPageEvent($event)"></app-paginator>
     </div>
-    <app-paginator></app-paginator>
 </div>

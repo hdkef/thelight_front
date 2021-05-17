@@ -10,11 +10,21 @@ import { Article } from 'src/app/models/article';
 export class DashboardComponent implements OnInit {
 
   articles:Article[]
+  showArticles:boolean = false
 
   constructor(private mock:MockArticleService) { }
 
   ngOnInit(): void {
+    
+  }
+
+  getArticles(){
     this.articles = this.mock.articles
+    this.showArticles = !this.showArticles
+  }
+
+  onPageEvent(event){
+    alert(event)
   }
 
 }
