@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MockArticleService } from 'src/app/mock-article.service';
 import { Article } from 'src/app/models/article';
 
@@ -9,12 +9,12 @@ import { Article } from 'src/app/models/article';
 })
 export class ArticleListComponent implements OnInit {
 
-  articles:Article[]
+  @Input()articles:Article[]
 
   constructor(private mock:MockArticleService) { }
 
   ngOnInit(): void {
-    this.articles = this.mock.articles
+
   }
 
 }

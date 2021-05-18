@@ -14,6 +14,7 @@ export class PaginatorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.emitPagingEvent(1)
   }
 
   paginate(i){

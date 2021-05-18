@@ -10,6 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { AppReducer } from './redux/reducers/app-reducer';
 import { AuthEffect } from './redux/effects/auth-effect';
+import { ArticleEffect } from './redux/effects/article-effect';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { AuthEffect } from './redux/effects/auth-effect';
     EffectsModule.forRoot([]),
     HttpClientModule,
     StoreModule.forRoot(AppReducer),
-    EffectsModule.forRoot([AuthEffect]),
+    EffectsModule.forRoot([AuthEffect,ArticleEffect]),
   ],
   providers: [],
   bootstrap: [AppComponent]
