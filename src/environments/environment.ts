@@ -7,7 +7,8 @@ export const environment = {
   api:"http://localhost:4040",
   login:"/auth/login",
   autologin:"/auth/autologin",
-  articlegetall:"/article/getall"
+  articlegetall:"/article/getall",
+  articlegetone:"/article/getone",
 };
 
 /*

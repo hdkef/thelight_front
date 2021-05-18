@@ -1,19 +1,19 @@
 <div id="container">
     <div id="title">
         <h1>
-            {{article.Title}}
+            {{(article | async)?.Title}}
         </h1>
         <p>
-            {{article.Date}}
+            {{(article | async)?.Date}}
         </p>
     </div>
     <div id="preview-image">
-        <img [src]="article.ImageURL">
+        <img [src]="(article | async)?.ImageURL">
     </div>
     <div id="body">
-        {{article.Body}}
+        {{(article | async)?.Body}}
     </div>
-    <app-writer-info [writer]="article.WriterInfo"></app-writer-info>
+    <app-writer-info [writer]="(article | async)?.WriterInfo"></app-writer-info>
     <div id="toggle" *ngIf="!isCommentLoaded">
         <button mat-flat-button (click)="showComments()">show comments...</button>
     </div>

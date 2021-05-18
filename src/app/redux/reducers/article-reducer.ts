@@ -32,8 +32,8 @@ export function ArticleReducer(
             return state
         case fromArticleAction.GET_CACHE_ARTICLES:
             return state
-        case fromArticleAction.GET_CACHE_ARTICLE:
-            return state
+        case fromArticleAction.RETRIEVE_NEW_ARTICLE:
+            return {...state,Article:action.payload}
         case fromArticleAction.RETRIEVE_NEW_ARTICLES:
             let oldArticlesCache = state.ArticlesCache
             let newArticlesCache = oldArticlesCache.concat(action.payload.Articles)

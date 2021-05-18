@@ -69,4 +69,44 @@ export class ArticleEffect {
             })
         )
     })
+
+    checkArticleCache = createEffect(()=>{
+        return this.action$.pipe(
+            ofType(fromArticleAction.CHECK_ARTICLE_CACHE),
+            withLatestFrom(this.store.select("article")),
+            switchMap((value)=>{
+                console.log("checkArticleCache", value)
+                let action:fromArticleAction.CheckArticleCache = value[0]
+                let state = value[1]
+                let ArticlesCache = state.ArticlesCache
+                let articleFound = ArticlesCache.filter((article)=>{
+                    return article.ID == action.payload
+                })[0]
+                if (articleFound){
+                    return of(new fromArticleAction.RetrieveCacheArticle(articleFound))
+                }else{
+                    return of(new fromArticleAction.GetNewArticle(action.payload))
+                }
+            })
+        )
+    })
+
+    getNewArticle = createEffect(()=>{
+        return this.action$.pipe(
+            ofType(fromArticleAction.GET_NEW_ARTICLE),
+            switchMap((action:fromArticleAction.GetNewArticle)=>{
+                console.log("getNewArticle")
+                let payload = JSON.stringify({ID:action.payload})
+                return this.http.post(`${environment.api}${environment.articlegetone}`,payload).pipe(
+                    map((data)=>{
+                        let article = data["ArticleFromServer"]
+                        return new fromArticleAction.RetrieveNewArticle(article)
+                    }),
+                    catchError((err)=>{
+                        return of(new fromArticleAction.SendInfo(err.error))
+                    })
+                )
+            })
+        )
+    })
 }

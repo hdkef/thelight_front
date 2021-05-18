@@ -6,7 +6,6 @@ export const CHECK_ARTICLE_CACHE = "Article Check Article Cache"
 export const RETRIEVE_CACHE_ARTICLES = "Article Retrieve Cache Articles"
 export const RETRIEVE_CACHE_ARTICLE = "Article Retrieve Cache Article"
 export const GET_CACHE_ARTICLES = "Article Get Cache Articles"
-export const GET_CACHE_ARTICLE = "Article Get Cache Article"
 export const GET_NEW_ARTICLES = "Article Get New Articles"
 export const GET_NEW_ARTICLE = "Article Get New Article"
 export const RETRIEVE_NEW_ARTICLES = "Article Retrieve New Articles"
@@ -21,7 +20,7 @@ export class CheckArticlesCache implements Action{
 
 export class CheckArticleCache implements Action{
     type: string = CHECK_ARTICLE_CACHE
-    constructor(public payload:Number){}
+    constructor(public payload:string){}
 }
 
 export class RetrieveCacheArticles implements Action{
@@ -46,11 +45,6 @@ export class GetCacheArticles implements Action{
 
 export class GetNewArticle implements Action{
     type: string = GET_NEW_ARTICLE
-    constructor(public payload:string){}
-}
-
-export class GetCacheArticle implements Action{
-    type: string = GET_CACHE_ARTICLE
     constructor(public payload:string){}
 }
 

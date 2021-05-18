@@ -2,11 +2,11 @@
     <h2>About Writer</h2>
     <div id="left">
         <div id="avatar">
-            <img [src]="writer.AvatarURL">
+            <img [src]="(writerasync | async)?.AvatarURL">
         </div>
         <div id="bio">
-            <h3>{{writer.Name}}</h3>
-            <p>{{writer.Bio}}</p>
+            <h3>{{(writerasync | async)?.Name}}</h3>
+            <p>{{(writerasync | async)?.Bio}}</p>
         </div>
     </div>
 </div>
