@@ -20,7 +20,7 @@
     <div id="article-list" *ngIf="showArticles">
         <h4>article list</h4>
         <div id="grid-view">
-            <app-article-item *ngFor="let article of articles" [article]="article"></app-article-item>
+            <app-article-item *ngFor="let article of articles | async" [article]="article"></app-article-item>
         </div>
         <app-paginator (pageEvent)="onPageEvent($event)"></app-paginator>
     </div>

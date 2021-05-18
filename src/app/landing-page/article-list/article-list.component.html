@@ -1,5 +1,5 @@
 <div id="container">
     <div id="grid-view">
-        <app-article-item *ngFor="let article of articles" [article]="article"></app-article-item>
+        <app-article-item *ngFor="let article of articlesasync | async" [article]="article"></app-article-item>
     </div>
 </div>

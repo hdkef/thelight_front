@@ -21,23 +21,22 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   }
 
   articleSubs:Subscription
-  articles:Article[]
-  initArticles:boolean = false
+  articles:Promise<Article[]>
 
   ngOnInit(): void {
     this.articleSubs = this.store.select("article").subscribe((data)=>{
-      this.articles = data["Articles"]
+      let articles = data["Articles"]
+      if (articles){
+        this.articles = new Promise((resolve,_)=>{
+          resolve(articles)
+        })
+      } 
     })
   }
 
   onPageEvent(page){
     console.log("onPageEvent")
-    if (page == 1 && !this.initArticles){
-      this.initArticles = !this.initArticles
-      this.store.dispatch(new fromArticleAction.GetNewArticles(page))
-    }else{
-      this.store.dispatch(new fromArticleAction.CheckArticlesCache(page))
-    }
+    this.store.dispatch(new fromArticleAction.CheckArticlesCache(page))
   }
 
 }

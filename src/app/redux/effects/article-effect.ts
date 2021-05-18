@@ -62,9 +62,12 @@ export class ArticleEffect {
                 let state = value[1]
                 let ArticlesCache = state.ArticlesCache
                 let nextpage = action.payload
-                let firstslice = (<number>nextpage - 1) * 2
+                let firstslice = (<number>nextpage - 1) * 6
                 let endslice = <number>nextpage * 6
                 let articles = ArticlesCache.slice(firstslice,endslice)
+                console.log("firstslice : ", firstslice)
+                console.log("endslice : ", endslice)
+                console.log("articles length from cache : ", articles.length)
                 return of(new fromArticleAction.RetrieveCacheArticles(articles))
             })
         )
@@ -79,13 +82,27 @@ export class ArticleEffect {
                 let action:fromArticleAction.CheckArticleCache = value[0]
                 let state = value[1]
                 let ArticlesCache = state.ArticlesCache
-                let articleFound = ArticlesCache.filter((article)=>{
-                    return article.ID == action.payload
+                if (ArticlesCache){
+                    return of(new fromArticleAction.GetCacheArticle({ID:action.payload,ArticlesCache:ArticlesCache}))
+                }else{
+                    return of(new fromArticleAction.GetNewArticle(action.payload))
+                }
+            })
+        )
+    })
+
+    getCacheArticle = createEffect(()=>{
+        return this.action$.pipe(
+            ofType(fromArticleAction.GET_CACHE_ARTICLE),
+            switchMap((action:fromArticleAction.GetCacheArticle)=>{
+                console.log("getCacheArticle")
+                let articleFound = action.payload.ArticlesCache.filter((article)=>{
+                    return article.ID == action.payload.ID
                 })[0]
                 if (articleFound){
                     return of(new fromArticleAction.RetrieveCacheArticle(articleFound))
                 }else{
-                    return of(new fromArticleAction.GetNewArticle(action.payload))
+                    return of(new fromArticleAction.GetNewArticle(action.payload.ID))
                 }
             })
         )

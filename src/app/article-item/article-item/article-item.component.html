@@ -1,18 +1,18 @@
 <mat-card>
     <mat-card-title>
-        {{article.Title}}
+        {{(articleasync | async)?.Title}}
     </mat-card-title>
     <mat-card-subtitle>
-        {{article.Date}}
+        {{(articleasync | async)?.Date}}
     </mat-card-subtitle>
     <div class="img-preview">
-        <img [src]="article.ImageURL">
+        <img [src]="(articleasync | async)?.ImageURL">
     </div>
     <mat-card-subtitle>
-        {{article.Preview}}
+        {{(articleasync | async)?.Preview}}
     </mat-card-subtitle>
     <div class="tag">
-        <a *ngFor="let t of article.Tag">{{t}}</a>
+        <a *ngFor="let t of (articleasync | async)?.Tag">{{t}}</a>
     </div>
     <mat-card-actions>
         <button mat-stroked-button (click)="readMore()">read more..</button>

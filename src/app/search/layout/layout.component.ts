@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MockArticleService } from 'src/app/mock-article.service';
 import { Article } from 'src/app/models/article';
 
 @Component({
@@ -9,12 +8,12 @@ import { Article } from 'src/app/models/article';
 })
 export class LayoutComponent implements OnInit {
 
-  articles:Article[]
+  articles:Promise<Article[]>
 
-  constructor(private mock:MockArticleService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.articles = this.mock.articles
+    
   }
 
 }

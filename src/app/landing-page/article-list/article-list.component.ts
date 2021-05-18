@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MockArticleService } from 'src/app/mock-article.service';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Article } from 'src/app/models/article';
 
 @Component({
@@ -7,14 +6,19 @@ import { Article } from 'src/app/models/article';
   templateUrl: './article-list.component.html',
   styleUrls: ['./article-list.component.css']
 })
-export class ArticleListComponent implements OnInit {
+export class ArticleListComponent implements OnChanges {
 
   @Input()articles:Article[]
+  articlesasync:Promise<Article[]>
 
-  constructor(private mock:MockArticleService) { }
-
-  ngOnInit(): void {
-
+  constructor() { }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.articles){
+      this.articlesasync = new Promise((resolve,_)=>{
+        resolve(this.articles)
+      })
+    }
   }
 
 }

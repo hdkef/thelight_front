@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { MockArticleService } from 'src/app/mock-article.service';
 import { Article } from 'src/app/models/article';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
 import * as fromAuthAction from '../../redux/actions/auth-action'
+import * as fromArticleAction from '../../redux/actions/article-action'
 
 @Component({
   selector: 'app-dashboard',
@@ -14,11 +14,12 @@ import * as fromAuthAction from '../../redux/actions/auth-action'
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  articles:Article[]
+  articles:Promise<Article[]>
   showArticles:boolean = false
   authSubs:Subscription
+  articleSubs:Subscription
 
-  constructor(private mock:MockArticleService, private store:Store<AppState>, private router:Router) { }
+  constructor(private store:Store<AppState>, private router:Router) { }
   
   ngOnDestroy(): void {
     if (this.authSubs){
@@ -39,12 +40,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getArticles(){
-    this.articles = this.mock.articles
+    this.articleSubs = this.store.select("article").subscribe((data)=>{
+      let articles = data["Articles"]
+      if (articles){
+        this.articles = new Promise((resolve,_)=>{
+          resolve(articles)
+        })
+      }
+    })
     this.showArticles = !this.showArticles
   }
 
   onPageEvent(event){
-    alert(event)
+    console.log("TAKE ME HOME I'M FALLLING")
+    this.store.dispatch(new fromArticleAction.CheckArticlesCache(event))
   }
 
 }

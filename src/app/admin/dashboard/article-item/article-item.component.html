@@ -1,13 +1,13 @@
 <div class="card">
-    <h1>{{article.Title}}</h1>
+    <h1>{{(articleasync | async)?.Title}}</h1>
     <div class="imageurl">
-        <img [src]="article.ImageURL">
+        <img [src]="(articleasync | async)?.ImageURL">
     </div>
-    <p>{{article.Preview}}</p>
+    <p>{{(articleasync | async)?.Preview}}</p>
     <div>
         <button (click)="goEdit()">edit</button>
         <button>delete</button>
-        <button>view</button>
+        <button (click)="goView()">view</button>
         <button>analyze</button>
     </div>
 </div>

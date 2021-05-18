@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { MockArticleService } from 'src/app/mock-article.service';
+import { Store } from '@ngrx/store';
 import { Article } from 'src/app/models/article';
+import { AppState } from 'src/app/redux/reducers/app-reducer';
+import * as fromArticleAction from '../../redux/actions/article-action'
 
 @Component({
   selector: 'app-edit-article',
@@ -12,10 +14,10 @@ import { Article } from 'src/app/models/article';
 export class EditArticleComponent implements OnInit, OnDestroy {
 
 
-  constructor(private route:ActivatedRoute, private mock:MockArticleService) { }
+  constructor(private route:ActivatedRoute, private store:Store<AppState>) { }
   
   ngOnDestroy(): void {
-    
+    this.store.dispatch(new fromArticleAction.DestroyArticle())
   }
 
   articleForm:FormGroup
@@ -24,20 +26,36 @@ export class EditArticleComponent implements OnInit, OnDestroy {
   ImageURL:string = ""
 
   ngOnInit(): void {
+    this.initForm()
     let ID = this.route.snapshot.queryParamMap.get("ID")
-    let article = this.mock.articles.filter((x=>{return x.ID = ID}))[0]
-    this.initiation(article)
+    this.store.select("article").subscribe((data)=>{
+      console.log(data)
+      let article = data["Article"]
+      if (article){
+        this.setForm(article)
+      }
+    })
+    this.store.dispatch(new fromArticleAction.CheckArticleCache(ID))
   }
 
-  initiation(article:Article){
-    this.articleForm = new FormGroup({
-      'Title': new FormControl(article.Title, Validators.required),
-      'ImageURL': new FormControl(article.ImageURL, Validators.required),
-      'addTag': new FormControl(null),
-      'Body': new FormControl(article.Body, Validators.required),
+  setForm(article:Article){
+    this.articleForm.setValue({
+      "Title":article.Title,
+      "ImageURL":article.ImageURL,
+      "addTag":null,
+      "Body":article.Body,
     })
     this.Tag = article.Tag
     this.TagString = this.Tag.toString()
+  }
+
+  initForm(){
+    this.articleForm = new FormGroup({
+      'Title': new FormControl(null, Validators.required),
+      'ImageURL': new FormControl(null, Validators.required),
+      'addTag': new FormControl(null),
+      'Body': new FormControl(null, Validators.required),
+    })
   }
 
   peek(){

@@ -1,4 +1,5 @@
 import { Article } from "src/app/models/article";
+import { Comment } from "src/app/models/comment";
 import * as fromArticleAction from '../actions/article-action'
 
 export interface State {
@@ -7,14 +8,16 @@ export interface State {
     Article:Article,
     Info:string,
     ArticlesCache:Article[],
+    Comments:Comment[],
 }
 
 const initialState:State = {
     TotalPage:0,
-    Articles:[],
+    Articles:null,
     Article:null,
     Info:"",
-    ArticlesCache:[],
+    ArticlesCache:null,
+    Comments:null,
 }
 
 export function ArticleReducer(
@@ -32,12 +35,18 @@ export function ArticleReducer(
             return state
         case fromArticleAction.GET_CACHE_ARTICLES:
             return state
+        case fromArticleAction.GET_CACHE_ARTICLE:
+            return state
         case fromArticleAction.RETRIEVE_NEW_ARTICLE:
             return {...state,Article:action.payload}
         case fromArticleAction.RETRIEVE_NEW_ARTICLES:
-            let oldArticlesCache = state.ArticlesCache
-            let newArticlesCache = oldArticlesCache.concat(action.payload.Articles)
-            return {...state,Articles:action.payload.Articles,ArticlesCache:newArticlesCache,TotalPage:action.payload.TotalPage}
+            if (state.ArticlesCache){
+                let oldArticlesCache = state.ArticlesCache
+                let newArticlesCache = oldArticlesCache.concat(action.payload.Articles)
+                return {...state,Articles:action.payload.Articles,ArticlesCache:newArticlesCache,TotalPage:action.payload.TotalPage}
+            }else{
+                return {...state,Articles:action.payload.Articles,ArticlesCache:action.payload.Articles,TotalPage:action.payload.TotalPage}
+            }
         case fromArticleAction.RETRIEVE_CACHE_ARTICLES:
             return {...state,Articles:action.payload}
         case fromArticleAction.RETRIEVE_CACHE_ARTICLE:
