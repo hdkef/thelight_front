@@ -12,6 +12,7 @@ import { AppReducer } from './redux/reducers/app-reducer';
 import { AuthEffect } from './redux/effects/auth-effect';
 import { ArticleEffect } from './redux/effects/article-effect';
 import { CommentEffect } from './redux/effects/comment-effect';
+import { MediaEffect } from './redux/effects/media-effect';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { CommentEffect } from './redux/effects/comment-effect';
     EffectsModule.forRoot([]),
     HttpClientModule,
     StoreModule.forRoot(AppReducer),
-    EffectsModule.forRoot([AuthEffect,ArticleEffect,CommentEffect]),
+    EffectsModule.forRoot([AuthEffect,ArticleEffect,CommentEffect, MediaEffect]),
   ],
   providers: [],
   bootstrap: [AppComponent]

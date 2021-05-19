@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MockMediaService } from 'src/app/mock-media.service';
+import { Store } from '@ngrx/store';
 import { Media } from 'src/app/models/media';
+import { AppState } from 'src/app/redux/reducers/app-reducer';
+import * as fromMediaAction from '../../../redux/actions/media-action'
 
 @Component({
   selector: 'app-media',
@@ -9,18 +11,23 @@ import { Media } from 'src/app/models/media';
 })
 export class MediaComponent implements OnInit {
 
-  constructor(private mockmed:MockMediaService) { }
+  constructor(private store:Store<AppState>) { }
 
   mediasasync:Promise<Media[]>
 
   ngOnInit(): void {
-    this.mediasasync = new Promise((resolve,_)=>{
-      resolve(this.mockmed.medias)
+    this.store.select("media").subscribe((data)=>{
+      let medias = data["Medias"]
+      if (medias){
+        this.mediasasync = new Promise((resolve,_)=>{
+          resolve(medias)
+        })
+      }
     })
   }
 
   onPageEvent(event){
-    alert(event)
+    this.store.dispatch(new fromMediaAction.TryPagingFromClient(event))
   }
 
 }

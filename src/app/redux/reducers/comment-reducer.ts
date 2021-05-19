@@ -24,7 +24,7 @@ export function CommentReducer (
         case fromCommentAction.INSERT_COMMENT:
             return state
         case fromCommentAction.DESTROY_COMMENT:
-            return {...state,Comments:null}
+            return initialState
         case fromCommentAction.SEND_INFO:
             return {...state,Info:action.payload}
         default:

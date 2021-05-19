@@ -9,7 +9,8 @@ export const environment = {
   autologin:"/auth/autologin",
   articlegetall:"/article/getall",
   articlegetone:"/article/getone",
-  commentgetall:"/comment/getall"
+  commentgetall:"/comment/getall",
+  mediaws:"ws://localhost:4040/media/ws",
 };
 
 /*
