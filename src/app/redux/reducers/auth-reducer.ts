@@ -17,7 +17,7 @@ const initialState:State = {
 }
 
 export function AuthReducer(
-    state = initialState,
+    state:State = initialState,
     action,
 ){
     switch (action.type){

@@ -8,7 +8,6 @@ export interface State {
     Article:Article,
     Info:string,
     ArticlesCache:Article[],
-    Comments:Comment[],
 }
 
 const initialState:State = {
@@ -17,11 +16,10 @@ const initialState:State = {
     Article:null,
     Info:"",
     ArticlesCache:null,
-    Comments:null,
 }
 
 export function ArticleReducer(
-    state = initialState,
+    state:State = initialState,
     action,
 ){
     switch(action.type){

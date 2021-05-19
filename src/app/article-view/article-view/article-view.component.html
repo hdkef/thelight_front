@@ -28,6 +28,6 @@
             </mat-form-field>
             <button mat-flat-button type="submit" color="primary">send</button>
         </form>
-        <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+        <app-comment *ngFor="let comment of comments | async" [comment]="comment"></app-comment>
     </div>
 </div>

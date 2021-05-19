@@ -9,6 +9,7 @@ export const environment = {
   autologin:"/auth/autologin",
   articlegetall:"/article/getall",
   articlegetone:"/article/getone",
+  commentgetall:"/comment/getall"
 };
 
 /*
