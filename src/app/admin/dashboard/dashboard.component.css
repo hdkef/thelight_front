@@ -27,6 +27,14 @@
     margin-left: 10px;
 }
 
+#media {
+    /* top:25px;
+    right: 0;
+    left: 0;
+    position: fixed;
+    z-index: 30000; */
+}
+
 @media only screen and (max-width:750px) {
     #grid-view {
         grid-template-columns: 1fr;

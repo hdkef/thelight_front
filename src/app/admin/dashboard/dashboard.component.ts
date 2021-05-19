@@ -52,7 +52,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onPageEvent(event){
-    console.log("TAKE ME HOME I'M FALLLING")
     this.store.dispatch(new fromArticleAction.CheckArticlesCache(event))
   }
 

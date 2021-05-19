@@ -3,21 +3,18 @@
     justify-content: center;
 }
 
-mat-card {
+#loginf {
     margin-top: 20vh;
-    width:250px;
-    padding:33px;
 }
 
-mat-form-field {
+#loginf input, #login button{
     display: block;
 }
 
 @media only screen and (max-width:750px){
     
-    mat-card {
-        width:80%;
-        padding:33px;
+    #loginf {
+        margin-top:5vh;
     }
 }
 

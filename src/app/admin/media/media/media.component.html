@@ -1,1 +1,7 @@
-<p>media works!</p>
+<div id="wrapper">
+    <app-media-input></app-media-input>
+    <div id="gridview">
+        <app-media-item *ngFor="let media of mediasasync | async" [media]="media"></app-media-item>
+    </div>
+    <app-paginator (pageEvent)="onPageEvent($event)"></app-paginator>
+</div>

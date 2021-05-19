@@ -1,0 +1,21 @@
+#wrapper {
+    margin:0 auto;
+    width: 50%;
+    border: 1px solid black;
+}
+
+#gridview {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media only screen and (max-width:750px){
+
+    #wrapper {
+        width: 100%;
+    }
+
+    #gridview{
+        grid-template-columns: 1fr;
+    }
+}

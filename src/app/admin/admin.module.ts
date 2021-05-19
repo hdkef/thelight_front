@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { SharedModule } from '../shared/shared.module';
         return import('./media/media.module').then((m)=>{return m.MediaModule})
       }},
     ]),
-    SharedModule,
+    ReactiveFormsModule
   ],
   providers:[]
 })

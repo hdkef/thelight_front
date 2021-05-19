@@ -14,7 +14,7 @@
         <h4>actions</h4>
         <button (click)="getArticles()" [disabled]="showArticles">list article</button>
         <a routerLink="../create-article"><button>create article</button></a>
-        <a routerLink="../media"><button>manage media</button></a>
+        <a routerLink="../media" target="_blank"><button>manage media</button></a>
         <button (click)="goLogout()">logout</button>
     </div>
     <div id="article-list" *ngIf="showArticles">
