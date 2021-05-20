@@ -11,6 +11,7 @@ export const environment = {
   articlegetone:"/article/getone",
   commentgetall:"/comment/getall",
   mediaws:"ws://localhost:4040/media/ws",
+  mediaupload:"/media/upload",
 };
 
 /*

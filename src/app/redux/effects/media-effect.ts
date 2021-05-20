@@ -5,13 +5,14 @@ import { AppState } from "../reducers/app-reducer"
 import * as fromMediaAction from '../../redux/actions/media-action'
 import { Injectable } from "@angular/core"
 import { Actions, createEffect, ofType } from "@ngrx/effects"
-import { switchMap, withLatestFrom } from "rxjs/operators"
+import { catchError, map, switchMap, withLatestFrom } from "rxjs/operators"
 import { of } from "rxjs"
+import { HttpClient } from "@angular/common/http"
 
 @Injectable()
 export class MediaEffect {
 
-    constructor(private action$:Actions,private store:Store<AppState>){}
+    constructor(private action$:Actions,private store:Store<AppState>, private http:HttpClient){}
 
     ws:WebSocket
     Token:string
@@ -70,6 +71,32 @@ export class MediaEffect {
                 }else{
                     return of(new fromMediaAction.SendInfo("FAILED INITIATING WS"))
                 }
+            })
+        )
+    })
+
+    mediaFromClient = createEffect(()=>{
+        return this.action$.pipe(
+            ofType(fromMediaAction.MEDIA_FROM_CLIENT),
+            withLatestFrom(this.store.select("auth")),
+            switchMap((value)=>{
+                let action:fromMediaAction.MediaFromClient= value[0]
+                let state = value[1]
+
+                let payload = new FormData()
+                let filename = new Date().toISOString()
+                payload.append('Image',action.payload,filename)
+                payload.append('ID',state.ID)
+
+                return this.http.post(`${environment.api}${environment.mediaupload}`,payload).pipe(
+                    map((data)=>{
+                        let msg = data["MSG"]
+                        return new fromMediaAction.SendInfo(msg)
+                    }),
+                    catchError((err)=>{
+                        return of(new fromMediaAction.SendInfo(err.error))
+                    })
+                )
             })
         )
     })

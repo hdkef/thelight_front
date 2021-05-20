@@ -8,8 +8,15 @@ export const PAGING_FROM_SERVER = "Media Paging From Server"
 export const TRY_PAGING_FROM_CLIENT = "Media Try Paging From Client"
 export const PAGING_FROM_CLIENT = "Media Paging From Client"
 export const MEDIA_FROM_SERVER = "Media Media From Server"
+export const MEDIA_FROM_CLIENT = "Media Media From Client"
 export const DESTROY_MEDIAS = "Media Destroy Medias"
 export const SEND_INFO = "Media Send Info"
+
+export class MediaFromClient implements Action{
+    type:string = MEDIA_FROM_CLIENT
+
+    constructor(public payload:File){}
+}
 
 export class TryPagingFromClient implements Action{
     type: string = TRY_PAGING_FROM_CLIENT

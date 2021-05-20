@@ -20,6 +20,8 @@ export function MediaReducer (
     switch(action.type){
         case fromMediaAction.INIT_MEDIA_WS:
             return state
+        case fromMediaAction.MEDIA_FROM_CLIENT:
+            return state
         case fromMediaAction.INIT_FROM_SERVER:
             console.log("init from server", action.payload)
             return {...state,Medias:action.payload}
@@ -29,9 +31,12 @@ export function MediaReducer (
             console.log("paging from server", action.payload)
             return {...state,Medias:action.payload}
         case fromMediaAction.MEDIA_FROM_SERVER: //TOBEIMPLEMENTED
-            return state
+            console.log("media from server", action.payload)
+            let tmp = [action.payload, ...state.Medias]
+            tmp.pop()
+            return {...state,Medias:tmp}
         case fromMediaAction.DESTROY_MEDIAS:
-            return {...state,Medias:null}
+            return {...state,Medias:null, Init:false}
         default:
             return state
     }

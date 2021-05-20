@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Media } from 'src/app/models/media';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
@@ -9,9 +9,14 @@ import * as fromMediaAction from '../../../redux/actions/media-action'
   templateUrl: './media.component.html',
   styleUrls: ['./media.component.css']
 })
-export class MediaComponent implements OnInit {
+export class MediaComponent implements OnInit, OnDestroy {
 
   constructor(private store:Store<AppState>) { }
+  
+  
+  ngOnDestroy(): void {
+    this.store.dispatch(new fromMediaAction.DestroyMedias())
+  }
 
   mediasasync:Promise<Media[]>
 
