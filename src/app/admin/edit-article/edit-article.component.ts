@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { Article } from 'src/app/models/article';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
 import * as fromArticleAction from '../../redux/actions/article-action'
@@ -14,22 +15,30 @@ import * as fromArticleAction from '../../redux/actions/article-action'
 export class EditArticleComponent implements OnInit, OnDestroy {
 
 
-  constructor(private route:ActivatedRoute, private store:Store<AppState>) { }
+  constructor(private route:ActivatedRoute, private store:Store<AppState>, private router:Router) { }
   
   ngOnDestroy(): void {
     this.store.dispatch(new fromArticleAction.DestroyArticle())
+    if (this.authSubs){
+      this.authSubs.unsubscribe()
+    }
   }
 
   articleForm:FormGroup
+  authSubs:Subscription
   Tag:string[] = []
   TagString:string = ""
   ImageURL:string = ""
 
   ngOnInit(): void {
+    this.authSubs = this.store.select("auth").subscribe((data)=>{
+      if (!data["ID"]){
+        this.router.navigateByUrl("/admin/login")
+      }
+    })
     this.initForm()
     let ID = this.route.snapshot.queryParamMap.get("ID")
     this.store.select("article").subscribe((data)=>{
-      console.log(data)
       let article = data["Article"]
       if (article){
         this.setForm(article)

@@ -90,4 +90,26 @@ export class AuthEffect {
     getfromLocal(){
         return localStorage.getItem("Bearer")
     }
+
+
+    postSettings = createEffect(()=>{
+        return this.action$.pipe(
+            ofType(fromAuthAction.POST_SETTINGS),
+            switchMap((action:fromAuthAction.PostSettings)=>{
+                let payload = action.payload
+                return this.http.post(`${environment.api}${environment.settings}`,payload).pipe(
+                    map((data)=>{
+                        let Name = data["Name"]
+                        let AvatarURL = data["AvatarURL"]
+                        let Bio = data["Bio"]
+                        return new fromAuthAction.SettingsOK({Name,AvatarURL,Bio})
+                    }),
+                    catchError((err)=>{
+                        return of(new fromAuthAction.SendInfo(err.error))
+                    })
+                )
+            })
+        )
+    })
+
 }

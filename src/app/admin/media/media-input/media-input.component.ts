@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
@@ -19,7 +19,7 @@ export class MediaInputComponent implements OnInit {
 
   ngOnInit(): void {
     this.mediaForm = new FormGroup({
-      'Image':new FormControl(null)
+      'Image':new FormControl(null, Validators.required)
     })
   }
 
@@ -41,6 +41,7 @@ export class MediaInputComponent implements OnInit {
     this.mediaForm.setValue({'Image':null})
     this.mediaForm.markAsPristine()
     this.mediaForm.markAsUntouched()
+    this.fileHolder = null
   }
 
 }

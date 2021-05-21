@@ -1,0 +1,10 @@
+<div id="container">
+    <div id="wrapper">
+        <form [formGroup]="settingsForm" (ngSubmit)="goSubmitChanges()">
+            <input type="file" formControlName="Avatar" (change)="onFileChange($event)">
+            <input placeholder="Name" formControlName="Name">
+            <textarea placeholder="Bio" formControlName="Bio"></textarea>
+            <button type="submit">submit</button>
+        </form>
+    </div>
+</div>>

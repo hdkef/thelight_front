@@ -5,6 +5,24 @@ export const AUTOLOGIN_START = "Auth AutoLogin Start"
 export const LOGIN_OK = "Auth Login OK"
 export const LOGOUT_START = "Auth Logout Start"
 export const SEND_INFO = "Auth Send Info"
+export const POST_SETTINGS = "Auth Post Settings"
+export const SETTINGS_OK = "Auth Settings Bio Name Avatar OK"
+
+export class PostSettings implements Action{
+    type: string = POST_SETTINGS
+
+    constructor(public payload:FormData){}
+}
+
+export class SettingsOK implements Action{
+    type: string = SETTINGS_OK
+
+    constructor(public payload:{
+        Name:string,
+        AvatarURL:string,
+        Bio:string,
+    }){}
+}
 
 export class LoginStart implements Action{
     type: string = LOGIN_START

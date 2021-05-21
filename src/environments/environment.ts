@@ -12,6 +12,7 @@ export const environment = {
   commentgetall:"/comment/getall",
   mediaws:"ws://localhost:4040/media/ws",
   mediaupload:"/media/upload",
+  settings:"/auth/settings",
 };
 
 /*

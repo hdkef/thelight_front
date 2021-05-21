@@ -25,6 +25,9 @@ import { ReactiveFormsModule } from '@angular/forms';
       {path:'media',loadChildren:()=>{
         return import('./media/media.module').then((m)=>{return m.MediaModule})
       }},
+      {path:'settings',loadChildren:()=>{
+        return import('./settings/settings.module').then((m)=>{return m.SettingsModule})
+      }},
     ]),
     ReactiveFormsModule
   ],

@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authSubs = this.store.select("auth").subscribe((data)=>{
-      if (data["ID"] == ""){
+      if (!data["ID"]){
         this.router.navigateByUrl("/admin/login")
       }
     })

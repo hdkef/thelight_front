@@ -1,0 +1,19 @@
+#container {
+    display: flex;
+    justify-content: center;
+    margin-top:20vh;
+}
+
+#wrapper input, #wrapper textarea, #wrapper button{
+    display: block;
+}
+
+#wrapper {
+    padding:15px;
+}
+
+@media only screen and (max-width:750px){
+    #container {
+        margin-top: 0;
+    }
+}

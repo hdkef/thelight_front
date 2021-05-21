@@ -1,6 +1,6 @@
 <div id="media-input">
     <form [formGroup]="mediaForm" (ngSubmit)="goUpload()">
         <input placeholder="upload image" type="file" (change)="onFileChange($event)" formControlName="Image">
-        <button type="submit">upload</button>
+        <button type="submit" [disabled]="mediaForm.invalid">upload</button>
     </form>
 </div>
