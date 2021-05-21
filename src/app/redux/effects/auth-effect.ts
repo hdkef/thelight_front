@@ -42,29 +42,23 @@ export class AuthEffect {
         return this.action$.pipe(
             ofType(fromAuthAction.AUTOLOGIN_START),
             switchMap((action:fromAuthAction.AutoLoginStart)=>{
-                let token = this.getfromLocal()
-                if (token){
-                    let payload = JSON.stringify({Token:token})
-                    return this.http.post(`${environment.api}${environment.autologin}`,payload).pipe(
-                        map((data)=>{
-                            let writerinfo = data["WriterInfo"]
-                            let ID = writerinfo["ID"]
-                            let Name = writerinfo["Name"]
-                            let AvatarURL = writerinfo["AvatarURL"]
-                            let Bio = writerinfo["Bio"]
-                            let newtoken = data["NewToken"]
-                            if (newtoken){
-                                this.savetoLocal(newtoken)
-                            }
-                            return new fromAuthAction.LoginOK({ID,Name,AvatarURL,Bio})
-                        }),
-                        catchError((err)=>{
-                            return of(new fromAuthAction.SendInfo(err.error))
-                        })
-                    )
-                }else{
-                    return of(new fromAuthAction.SendInfo("NO AUTOLOGIN"))
-                }
+                return this.http.get(`${environment.api}${environment.autologin}`).pipe(
+                    map((data)=>{
+                        let writerinfo = data["WriterInfo"]
+                        let ID = writerinfo["ID"]
+                        let Name = writerinfo["Name"]
+                        let AvatarURL = writerinfo["AvatarURL"]
+                        let Bio = writerinfo["Bio"]
+                        let newtoken = data["NewToken"]
+                        if (newtoken){
+                            this.savetoLocal(newtoken)
+                        }
+                        return new fromAuthAction.LoginOK({ID,Name,AvatarURL,Bio})
+                    }),
+                    catchError((err)=>{
+                        return of(new fromAuthAction.SendInfo(err.error))
+                    })
+                )
             })
         )
     })

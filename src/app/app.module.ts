@@ -7,12 +7,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppReducer } from './redux/reducers/app-reducer';
 import { AuthEffect } from './redux/effects/auth-effect';
 import { ArticleEffect } from './redux/effects/article-effect';
 import { CommentEffect } from './redux/effects/comment-effect';
 import { MediaEffect } from './redux/effects/media-effect';
+import { BearerInterceptor } from './bearer-interceptor';
+import { ClearbearerInterceptor } from './clearbearer-interceptor';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,10 @@ import { MediaEffect } from './redux/effects/media-effect';
     StoreModule.forRoot(AppReducer),
     EffectsModule.forRoot([AuthEffect,ArticleEffect,CommentEffect, MediaEffect]),
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS,useClass:BearerInterceptor,multi:true},
+    {provide:HTTP_INTERCEPTORS,useClass:ClearbearerInterceptor,multi:true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

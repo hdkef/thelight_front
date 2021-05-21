@@ -84,9 +84,8 @@ export class MediaEffect {
                 let state = value[1]
 
                 let payload = new FormData()
-                let filename = new Date().toISOString()
+                let filename = state.ID + new Date().toISOString()
                 payload.append('Image',action.payload,filename)
-                payload.append('ID',state.ID)
 
                 return this.http.post(`${environment.api}${environment.mediaupload}`,payload).pipe(
                     map((data)=>{

@@ -71,7 +71,6 @@ export class SettingsComponent implements OnInit {
       return
     }
     let formData = new FormData()
-    formData.append('ID',ID)
     if (Name && Name != this.Name){
       formData.append('Name',Name)
     }
