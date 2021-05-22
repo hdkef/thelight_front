@@ -1,5 +1,5 @@
 <div id="container">
-    <form [formGroup]="articleForm" (ngSubmit)="goPublish()">
+    <form [formGroup]="articleForm" (ngSubmit)="goEdit()">
     <div id="title">
         <h1>edit article</h1>
     </div>
@@ -16,8 +16,8 @@
         <button type="button" (click)="removeTag()">remove</button>
     </div>
     <div id="btn-group">
-        <button type="button">save</button>
-        <button type="submit">publish</button>
+        <button type="button" (click)="goSave()">save to draft</button>
+        <button type="submit">submit edit</button>
         <button type="button">preview</button>
     </div>
     <quill-editor formControlName="Body"></quill-editor>

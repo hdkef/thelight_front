@@ -7,6 +7,11 @@ export const LOGOUT_START = "Auth Logout Start"
 export const SEND_INFO = "Auth Send Info"
 export const POST_SETTINGS = "Auth Post Settings"
 export const SETTINGS_OK = "Auth Settings Bio Name Avatar OK"
+export const DESTROY_INFO = "Auth Destroy Info"
+
+export class DestroyInfo implements Action{
+    type: string = DESTROY_INFO
+}
 
 export class PostSettings implements Action{
     type: string = POST_SETTINGS

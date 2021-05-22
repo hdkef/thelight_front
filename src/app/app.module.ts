@@ -15,6 +15,7 @@ import { CommentEffect } from './redux/effects/comment-effect';
 import { MediaEffect } from './redux/effects/media-effect';
 import { BearerInterceptor } from './bearer-interceptor';
 import { ClearbearerInterceptor } from './clearbearer-interceptor';
+import { AdmArticleEffect } from './redux/effects/adm-article-effect';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { ClearbearerInterceptor } from './clearbearer-interceptor';
     EffectsModule.forRoot([]),
     HttpClientModule,
     StoreModule.forRoot(AppReducer),
-    EffectsModule.forRoot([AuthEffect,ArticleEffect,CommentEffect, MediaEffect]),
+    EffectsModule.forRoot([AuthEffect,ArticleEffect,CommentEffect, MediaEffect, AdmArticleEffect]),
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:BearerInterceptor,multi:true},

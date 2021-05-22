@@ -3,7 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { Article } from 'src/app/models/article';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
+import * as fromAdmArticleAction from '../../redux/actions/adm-article-action'
 
 @Component({
   selector: 'app-create-article',
@@ -61,12 +63,37 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
   }
 
   goPublish(){
-    console.log(this.articleForm.value.Body)
+    let payload:Article = {
+      ID:null, //new ID created in db, not client
+      Date:null, //processed in server
+      Title:this.articleForm.value.Title,
+      ImageURL:this.articleForm.value.ImageURL,
+      Tag:this.Tag,
+      Preview:null, //processed in server
+      Body:this.articleForm.value.Body,
+      WriterInfo:null, //processed in server via jwt claims
+    }
+    this.store.dispatch(new fromAdmArticleAction.PublishStart(payload))
+    console.log("GO PUBLISH")
   }
 
-  returnPreview(){
-    //TOBE IMPLEMENTED return preview text from Body
-    let spliceBody = this.articleForm.value.Body
+  goSave(){
+    let payload:Article = {
+      ID:null, //if ID is null, then server will store draft and respond with new ID and that new ID must be sent
+      Date:null, //processed in server
+      Title:this.articleForm.value.Title,
+      ImageURL:this.articleForm.value.ImageURL,
+      Tag:this.Tag,
+      Preview:null, //processed in server
+      Body:this.articleForm.value.Body,
+      WriterInfo:null, //processed in server via jwt claims
+    }
+    this.store.dispatch(new fromAdmArticleAction.SaveStart(payload))
+    console.log("GO SAVE")
+  }
+
+  goPreview(){
+    console.log("GO PREVIEW")
   }
 
 }

@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Article } from 'src/app/models/article';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
 import * as fromArticleAction from '../../redux/actions/article-action'
+import * as fromAdmArticleAction from '../../redux/actions/adm-article-action'
 
 @Component({
   selector: 'app-edit-article',
@@ -29,6 +30,7 @@ export class EditArticleComponent implements OnInit, OnDestroy {
   Tag:string[] = []
   TagString:string = ""
   ImageURL:string = ""
+  ID:string
 
   ngOnInit(): void {
     this.authSubs = this.store.select("auth").subscribe((data)=>{
@@ -41,6 +43,7 @@ export class EditArticleComponent implements OnInit, OnDestroy {
     this.store.select("article").subscribe((data)=>{
       let article = data["Article"]
       if (article){
+        this.ID = article.ID
         this.setForm(article)
       }
     })
@@ -54,7 +57,7 @@ export class EditArticleComponent implements OnInit, OnDestroy {
       "addTag":null,
       "Body":article.Body,
     })
-    this.Tag = article.Tag
+    this.Tag = [...article.Tag]
     this.TagString = this.Tag.toString()
   }
 
@@ -87,8 +90,34 @@ export class EditArticleComponent implements OnInit, OnDestroy {
     }
   }
 
-  goPublish(){
-    console.log(this.articleForm.value.Body)
+  goSave(){
+    let payload:Article = {
+      ID:null, //if ID is null, then server will store draft and respond with new ID and that new ID must be sent
+      Date:null, //processed in server
+      Title:this.articleForm.value.Title,
+      ImageURL:this.articleForm.value.ImageURL,
+      Tag:this.Tag,
+      Preview:null, //processed in server
+      Body:this.articleForm.value.Body,
+      WriterInfo:null, //processed in server via jwt claims
+    }
+    this.store.dispatch(new fromAdmArticleAction.SaveStart(payload))
+    console.log("GO SAVE")
+  }
+
+  goEdit(){
+    let payload:Article = {
+      ID:this.ID, //article ID that want to be updated
+      Date:null, //processed in server (add edited on bla/bla/bla)
+      Title:this.articleForm.value.Title,
+      ImageURL:this.articleForm.value.ImageURL,
+      Tag:this.Tag,
+      Preview:null, //processed in server
+      Body:this.articleForm.value.Body,
+      WriterInfo:null, //processed in server via jwt claims
+    }
+    this.store.dispatch(new fromAdmArticleAction.EditStart(payload))
+    console.log("GO EDIT")
   }
 
 }

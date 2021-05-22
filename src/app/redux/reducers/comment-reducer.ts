@@ -23,6 +23,8 @@ export function CommentReducer (
             return {...state,Comments:action.payload}
         case fromCommentAction.INSERT_COMMENT:
             return state
+        case fromCommentAction.DESTROY_INFO:
+            return {...state,Info:""}
         case fromCommentAction.DESTROY_COMMENT:
             return initialState
         case fromCommentAction.SEND_INFO:

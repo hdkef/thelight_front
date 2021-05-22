@@ -11,6 +11,11 @@ export const MEDIA_FROM_SERVER = "Media Media From Server"
 export const MEDIA_FROM_CLIENT = "Media Media From Client"
 export const DESTROY_MEDIAS = "Media Destroy Medias"
 export const SEND_INFO = "Media Send Info"
+export const DESTROY_INFO = "Media Destroy Info"
+
+export class DestroyInfo implements Action{
+    type:string = DESTROY_INFO
+}
 
 export class MediaFromClient implements Action{
     type:string = MEDIA_FROM_CLIENT

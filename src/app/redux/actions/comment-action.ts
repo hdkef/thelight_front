@@ -6,7 +6,11 @@ export const RETRIEVE_COMMENTS = "Comment Retrieve Comments"
 export const INSERT_COMMENT = "Comment Insert Comment"
 export const DESTROY_COMMENT = "Comment Destroy Comment"
 export const SEND_INFO = "Comment Send Info"
+export const DESTROY_INFO = "Comment Destroy Info"
 
+export class DestroyInfo implements Action{
+    type:string = DESTROY_INFO
+}
 
 export class GetComments implements Action{
     type: string = GET_COMMENTS

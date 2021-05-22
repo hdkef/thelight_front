@@ -16,8 +16,8 @@
         <button type="button" (click)="removeTag()">remove</button>
     </div>
     <div id="btn-group">
-        <button type="button">save</button>
-        <button type="submit">publish</button>
+        <button type="button" [disabled]="articleForm.invalid" (click)="goSave()">save to draft</button>
+        <button type="submit" [disabled]="articleForm.invalid">publish</button>
         <button type="button">preview</button>
     </div>
     <quill-editor formControlName="Body"></quill-editor>

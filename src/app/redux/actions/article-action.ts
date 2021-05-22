@@ -13,6 +13,11 @@ export const RETRIEVE_NEW_ARTICLES = "Article Retrieve New Articles"
 export const RETRIEVE_NEW_ARTICLE = "Article Retrieve New Article"
 export const DESTROY_ARTICLE = "Article Destroy Article"
 export const SEND_INFO = "Article Send Info"
+export const DESTROY_INFO = "Article Destroy Info"
+
+export class DestroyInfo implements Action{
+    type: string = DESTROY_INFO
+}
 
 export class CheckArticlesCache implements Action{
     type: string = CHECK_ARTICLES_CACHE

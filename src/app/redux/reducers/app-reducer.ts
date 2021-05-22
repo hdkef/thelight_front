@@ -3,12 +3,14 @@ import * as fromAuthReducer from './auth-reducer'
 import * as fromArticleReducer from './article-reducer'
 import * as fromCommentReducer from './comment-reducer'
 import * as fromMediaReducer from './media-reducer'
+import * as fromAdmArticle from './adm-article-reducer'
 
 export interface AppState {
     auth:fromAuthReducer.State,
     article:fromArticleReducer.State,
     comment:fromCommentReducer.State,
     media:fromMediaReducer.State,
+    admarticle:fromAdmArticle.State,
 }
 
 export const AppReducer:ActionReducerMap<AppState> = {
@@ -16,4 +18,5 @@ export const AppReducer:ActionReducerMap<AppState> = {
     article:fromArticleReducer.ArticleReducer,
     comment:fromCommentReducer.CommentReducer,
     media:fromMediaReducer.MediaReducer,
+    admarticle:fromAdmArticle.AdmArticleReducer,
 }

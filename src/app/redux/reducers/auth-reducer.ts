@@ -60,6 +60,8 @@ export function AuthReducer(
                 AvatarURL:action.payload["AvatarURL"],
                 Bio:action.payload["Bio"],
             }
+        case fromAuthAction.DESTROY_INFO:
+            return {...state,Info:""}
         default:
             return state
     }

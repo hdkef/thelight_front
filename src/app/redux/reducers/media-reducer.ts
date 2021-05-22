@@ -36,7 +36,9 @@ export function MediaReducer (
             tmp.pop()
             return {...state,Medias:tmp}
         case fromMediaAction.DESTROY_MEDIAS:
-            return {...state,Medias:null, Init:false}
+            return {...state,Medias:null, Init:false,Info:""}
+        case fromMediaAction.DESTROY_INFO:
+            return {...state,Info:""}
         default:
             return state
     }

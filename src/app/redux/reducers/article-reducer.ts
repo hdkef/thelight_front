@@ -50,7 +50,9 @@ export function ArticleReducer(
         case fromArticleAction.RETRIEVE_CACHE_ARTICLE:
             return {...state,Article:action.payload}
         case fromArticleAction.DESTROY_ARTICLE:
-            return {...state,Article:null}
+            return {...state,Article:null,Info:""}
+        case fromArticleAction.DESTROY_INFO:
+            return {...state,Info:""}
         case fromArticleAction.SEND_INFO:
             return {...state,Info:action.payload}
         default:

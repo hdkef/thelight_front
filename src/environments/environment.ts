@@ -13,6 +13,10 @@ export const environment = {
   mediaws:"ws://localhost:4040/media/ws",
   mediaupload:"/media/upload",
   settings:"/auth/settings",
+  publishArticle:"/article/publish",
+  editArticle:"/article/edit",
+  deleteArticle:"/article/delete",
+  saveArticle:"/article/save",
 };
 
 /*
