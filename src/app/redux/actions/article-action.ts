@@ -14,6 +14,13 @@ export const RETRIEVE_NEW_ARTICLE = "Article Retrieve New Article"
 export const DESTROY_ARTICLE = "Article Destroy Article"
 export const SEND_INFO = "Article Send Info"
 export const DESTROY_INFO = "Article Destroy Info"
+export const DELETE_ONE = " Article Delete One"
+
+export class DeleteOne implements Action{
+    type: string = DELETE_ONE
+
+    constructor(public payload:string){}
+}
 
 export class DestroyInfo implements Action{
     type: string = DESTROY_INFO

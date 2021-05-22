@@ -1,6 +1,9 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Article } from 'src/app/models/article';
+import { AppState } from 'src/app/redux/reducers/app-reducer';
+import { DeleteStart } from '../../../redux/actions/adm-article-action'
 
 @Component({
   selector: 'app-article-item',
@@ -12,7 +15,7 @@ export class ArticleItemComponent implements OnChanges {
   @Input()article:Article
   articleasync:Promise<Article>
   
-  constructor(private router:Router) { }
+  constructor(private router:Router, private store:Store<AppState>) { }
   
   ngOnChanges(changes: SimpleChanges): void {
     if (this.article){
@@ -24,6 +27,10 @@ export class ArticleItemComponent implements OnChanges {
 
   goEdit(){
     this.router.navigate(['/admin/edit-article'],{queryParams:{ID:this.article.ID}})
+  }
+
+  goDelete(){
+    this.store.dispatch(new DeleteStart(this.article.ID))
   }
 
   goView(){

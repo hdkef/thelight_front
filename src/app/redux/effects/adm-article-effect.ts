@@ -2,10 +2,10 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, map, switchMap } from "rxjs/operators";
+import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import * as fromAdmArticleAction from '../actions/adm-article-action'
-
+import { DeleteOne } from '../actions/article-action'
 
 @Injectable()
 export class AdmArticleEffect {
@@ -51,10 +51,10 @@ export class AdmArticleEffect {
         return this.action$.pipe(
             ofType(fromAdmArticleAction.DELETE_START),
             switchMap((action:fromAdmArticleAction.DeleteStart)=>{
-                let payload = JSON.stringify(action.payload)
+                let payload = JSON.stringify({ID:action.payload})
                 return this.http.post(`${environment.api}${environment.deleteArticle}`,payload).pipe(
                     map((data)=>{
-                        return new fromAdmArticleAction.SendInfo("Article deleted")
+                        return new DeleteOne(action.payload)
                     }),
                     catchError((err)=>{
                         return of(new fromAdmArticleAction.SendInfo(err.error))

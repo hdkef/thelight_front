@@ -7,6 +7,7 @@ import { catchError, map, switchMap, withLatestFrom } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import * as fromArticleAction from '../actions/article-action'
 import { AppState } from "../reducers/app-reducer";
+import { SendInfo } from "../actions/adm-article-action"
 
 @Injectable()
 export class ArticleEffect {
@@ -123,6 +124,15 @@ export class ArticleEffect {
                         return of(new fromArticleAction.SendInfo(err.error))
                     })
                 )
+            })
+        )
+    })
+
+    deleteOne = createEffect(()=>{
+        return this.action$.pipe(
+            ofType(fromArticleAction.DELETE_ONE),
+            switchMap(()=>{
+                return of(new SendInfo("Article deleted"))
             })
         )
     })

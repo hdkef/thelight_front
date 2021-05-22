@@ -23,6 +23,12 @@ export function ArticleReducer(
     action,
 ){
     switch(action.type){
+        case fromArticleAction.DELETE_ONE:
+            let tmpArticlesCache = state.ArticlesCache
+            let nwArticlesCache = tmpArticlesCache.filter((article)=>{return article.ID != action.payload})
+            let tmpArticles = state.Articles
+            let nwArticles = tmpArticles.filter((article)=>{return article.ID != action.payload})
+            return {...state,Articles:nwArticles,ArticlesCache:nwArticlesCache}
         case fromArticleAction.CHECK_ARTICLES_CACHE:
             return state
         case fromArticleAction.CHECK_ARTICLE_CACHE:
