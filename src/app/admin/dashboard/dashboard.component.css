@@ -3,11 +3,6 @@
     background-color: wheat;
 }
 
-#settings input, #settings textarea, #settings button{
-    margin-top: 5px;
-    margin-bottom: 5px;
-    display: block;
-}
 
 #grid-view {
     display: grid;
@@ -25,14 +20,6 @@
 #btn-group button{
     display: block;
     margin-left: 10px;
-}
-
-#media {
-    /* top:25px;
-    right: 0;
-    left: 0;
-    position: fixed;
-    z-index: 30000; */
 }
 
 @media only screen and (max-width:750px) {

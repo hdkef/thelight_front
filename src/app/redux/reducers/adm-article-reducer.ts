@@ -1,10 +1,12 @@
 import * as fromAdmArticleAction from '../actions/adm-article-action'
 
 export interface State {
+    SavedID:Number
     Info:string,
 }
 
 const initialState:State = {
+    SavedID:0,
     Info:"",
 }
 
@@ -13,7 +15,11 @@ export function AdmArticleReducer (
     action
 ){
     switch(action.type){
+        case fromAdmArticleAction.SAVE_AS_OK:
+            return {...state,SavedID:action.payload}
         case fromAdmArticleAction.EDIT_START:
+            return state
+        case fromAdmArticleAction.SAVE_AS_START:
             return state
         case fromAdmArticleAction.DESTROY_INFO:
             return {...state,Info:""}
@@ -25,5 +31,7 @@ export function AdmArticleReducer (
             return state
         case fromAdmArticleAction.SEND_INFO:
             return {...state,Info:action.payload}
+        default:
+            return state
     }
 }

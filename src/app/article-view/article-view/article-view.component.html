@@ -19,7 +19,7 @@
     </div>
     <div id="comment-sec" *ngIf="isCommentLoaded">
         <h4>comments</h4>
-        <form [formGroup]="commentForm">
+        <form [formGroup]="commentForm" (ngSubmit)="goInsertComment()">
             <mat-form-field>
                 <input matInput placeholder="Name" formControlName="Name">
             </mat-form-field>

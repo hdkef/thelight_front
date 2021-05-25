@@ -29,7 +29,7 @@ export class ArticleViewComponent implements OnInit, OnDestroy {
     this.store.dispatch(new fromCommentAction.DestroyComments())
   }
 
-  ID:string
+  ID:Number
   article:Promise<Article>
   articleSubs:Subscription
   comments:Promise<Comment[]>
@@ -38,7 +38,7 @@ export class ArticleViewComponent implements OnInit, OnDestroy {
   isCommentLoaded:boolean = false
 
   ngOnInit(): void {
-     this.ID = this.router.snapshot.queryParamMap.get('ID')
+     this.ID = Number(this.router.snapshot.queryParamMap.get('ID'))
      this.articleSubs = this.store.select("article").subscribe((data)=>{
        let article = data["Article"]
        if (article){
@@ -72,6 +72,15 @@ export class ArticleViewComponent implements OnInit, OnDestroy {
       }
     })
     this.store.dispatch(new fromCommentAction.GetComments(this.ID))
+  }
+
+  goInsertComment(){
+    let payload:Comment = {
+      ID:this.ID,
+      Name:this.commentForm.value.Name,
+      Text:this.commentForm.value.Text,
+    }
+    this.store.dispatch(new fromCommentAction.InsertComment(payload))
   }
 
 }

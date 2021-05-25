@@ -1,5 +1,5 @@
 export interface MediaPayload {
-    ID:string,
+    ID:Number,
 	Type:string,
 	Token:string,
 	Page:Number,

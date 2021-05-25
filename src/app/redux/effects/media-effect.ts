@@ -101,7 +101,7 @@ export class MediaEffect {
     })
 
 
-    funcInitMediaWS(ID:string){
+    funcInitMediaWS(ID:Number){
 
         try {
             this.Token = localStorage.getItem("Bearer")
@@ -113,7 +113,7 @@ export class MediaEffect {
                     Type:"initFromClient",
                     ID:ID,
                     Token:this.Token,
-                    Page:null,
+                    Page:1,
                 }
                 this.ws.send(JSON.stringify(payload))
             }

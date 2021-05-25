@@ -18,7 +18,7 @@ export class SettingsComponent implements OnInit {
   authSubs:Subscription
   settingsForm:FormGroup
   fileHolder:File | null
-  ID:string
+  ID:Number
   Name:string
   Bio:string
   AvatarURL:string

@@ -29,4 +29,25 @@ export class CommentEffect {
             })
         )
     })
+
+    insertComment = createEffect(()=>{
+        return this.action$.pipe(
+            ofType(fromCommentAction.INSERT_COMMENT),
+            switchMap((action:fromCommentAction.InsertComment)=>{
+                let payload = JSON.stringify({CommentFromClient:{
+                    ID:action.payload.ID,
+                    Name:action.payload.Name,
+                    Text:action.payload.Text,
+                }})
+                return this.http.post(`${environment.api}${environment.commentinsert}`,payload).pipe(
+                    map((data)=>{
+                        return new fromCommentAction.SendInfo("Comment Inserted")
+                    }),
+                    catchError((err)=>{
+                        return of(new fromCommentAction.SendInfo(err.error))
+                    })
+                )
+            })
+        )
+    })
 }

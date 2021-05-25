@@ -1,5 +1,4 @@
 import { Article } from "src/app/models/article";
-import { Comment } from "src/app/models/comment";
 import * as fromArticleAction from '../actions/article-action'
 
 export interface State {

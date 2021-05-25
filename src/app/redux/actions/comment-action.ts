@@ -15,7 +15,7 @@ export class DestroyInfo implements Action{
 export class GetComments implements Action{
     type: string = GET_COMMENTS
 
-    constructor(public payload:string){}
+    constructor(public payload:Number){}
 }
 
 export class RetrieveComments implements Action{
@@ -27,7 +27,7 @@ export class RetrieveComments implements Action{
 export class InsertComment implements Action{
     type: string = INSERT_COMMENT
 
-    constructor(public payload:{ID:string,Comment:Comment}){}
+    constructor(public payload:Comment){}
 }
 
 export class DestroyComments implements Action{

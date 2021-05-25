@@ -16,7 +16,8 @@
         <button type="button" (click)="removeTag()">remove</button>
     </div>
     <div id="btn-group">
-        <button type="button" [disabled]="articleForm.invalid" (click)="goSave()">save to draft</button>
+        <button type="button" [disabled]="articleForm.invalid" *ngIf="!saveas" (click)="goSaveAs()">save as</button>
+        <button type="button" (click)="goSave()" *ngIf="saveas">save</button>
         <button type="submit" [disabled]="articleForm.invalid">publish</button>
         <button type="button">preview</button>
     </div>

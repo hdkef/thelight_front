@@ -1,5 +1,5 @@
 export interface Comment {
-    ID:string,
+    ID:Number,
     Name:string,
     Text:string,
 }

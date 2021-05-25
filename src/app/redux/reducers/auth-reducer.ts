@@ -1,7 +1,7 @@
 import * as fromAuthAction from '../actions/auth-action'
 
 export interface State {
-    ID:string
+    ID:Number,
     Name:string
     AvatarURL:string
     Bio:string
@@ -9,7 +9,7 @@ export interface State {
 }
 
 const initialState:State = {
-    ID:"",
+    ID:0,
     Name:"",
     AvatarURL:"",
     Bio:"",

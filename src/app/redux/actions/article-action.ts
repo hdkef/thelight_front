@@ -19,7 +19,7 @@ export const DELETE_ONE = " Article Delete One"
 export class DeleteOne implements Action{
     type: string = DELETE_ONE
 
-    constructor(public payload:string){}
+    constructor(public payload:Number){}
 }
 
 export class DestroyInfo implements Action{
@@ -33,7 +33,7 @@ export class CheckArticlesCache implements Action{
 
 export class CheckArticleCache implements Action{
     type: string = CHECK_ARTICLE_CACHE
-    constructor(public payload:string){}
+    constructor(public payload:Number){}
 }
 
 export class RetrieveCacheArticles implements Action{
@@ -58,12 +58,12 @@ export class GetCacheArticles implements Action{
 
 export class GetCacheArticle implements Action{
     type: string = GET_CACHE_ARTICLE
-    constructor(public payload:{ID:string,ArticlesCache:Article[]}){}
+    constructor(public payload:{ID:Number,ArticlesCache:Article[]}){}
 }
 
 export class GetNewArticle implements Action{
     type: string = GET_NEW_ARTICLE
-    constructor(public payload:string){}
+    constructor(public payload:Number){}
 }
 
 export class RetrieveNewArticles implements Action{

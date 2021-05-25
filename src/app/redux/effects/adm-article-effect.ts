@@ -16,7 +16,7 @@ export class AdmArticleEffect {
         return this.action$.pipe(
             ofType(fromAdmArticleAction.PUBLISH_START),
             switchMap((action:fromAdmArticleAction.PublishStart)=>{
-                let payload = JSON.stringify(action.payload)
+                let payload = JSON.stringify({ArticleFromClient:action.payload})
                 return this.http.post(`${environment.api}${environment.publishArticle}`,payload).pipe(
                     map((data)=>{
                         return new fromAdmArticleAction.SendInfo("Article published")
@@ -30,14 +30,16 @@ export class AdmArticleEffect {
     })
 
 
-    saveStart = createEffect(()=>{
+    saveAsStart = createEffect(()=>{
         return this.action$.pipe(
-            ofType(fromAdmArticleAction.SAVE_START),
-            switchMap((action:fromAdmArticleAction.SaveStart)=>{
-                let payload = JSON.stringify(action.payload)
-                return this.http.post(`${environment.api}${environment.saveArticle}`,payload).pipe(
+            ofType(fromAdmArticleAction.SAVE_AS_START),
+            switchMap((action:fromAdmArticleAction.SaveAsStart)=>{
+                let payload = JSON.stringify({ArticleFromClient:action.payload})
+                return this.http.post(`${environment.api}${environment.saveArticleAs}`,payload).pipe(
                     map((data)=>{
-                        return new fromAdmArticleAction.SendInfo("Article saved")
+                        let ID = data["ID"]
+                        console.log("SavedID = ",ID)
+                        return new fromAdmArticleAction.SaveAsOK(ID)
                     }),
                     catchError((err)=>{
                         return of(new fromAdmArticleAction.SendInfo(err.error))
@@ -46,6 +48,24 @@ export class AdmArticleEffect {
             })
         )
     })
+
+    saveStart = createEffect(()=>{
+        return this.action$.pipe(
+            ofType(fromAdmArticleAction.SAVE_START),
+            switchMap((action:fromAdmArticleAction.SaveStart)=>{
+                let payload = JSON.stringify({ArticleFromClient:action.payload})
+                return this.http.post(`${environment.api}${environment.saveArticle}`,payload).pipe(
+                    map((data)=>{
+                        return new fromAdmArticleAction.SendInfo("Article Saved")
+                    }),
+                    catchError((err)=>{
+                        return of(new fromAdmArticleAction.SendInfo(err.error))
+                    })
+                )
+            })
+        )
+    })
+
 
     deleteStart = createEffect(()=>{
         return this.action$.pipe(
@@ -68,7 +88,7 @@ export class AdmArticleEffect {
         return this.action$.pipe(
             ofType(fromAdmArticleAction.EDIT_START),
             switchMap((action:fromAdmArticleAction.EditStart)=>{
-                let payload = JSON.stringify(action.payload)
+                let payload = JSON.stringify({ArticleFromClient:action.payload})
                 return this.http.post(`${environment.api}${environment.editArticle}`,payload).pipe(
                     map((data)=>{
                         return new fromAdmArticleAction.SendInfo("Article edited")

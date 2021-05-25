@@ -27,10 +27,13 @@ export class EditArticleComponent implements OnInit, OnDestroy {
 
   articleForm:FormGroup
   authSubs:Subscription
+  admArticleSubs:Subscription
   Tag:string[] = []
   TagString:string = ""
   ImageURL:string = ""
-  ID:string
+  ID:Number
+  SavedID:Number
+  saveas:boolean = false
 
   ngOnInit(): void {
     this.authSubs = this.store.select("auth").subscribe((data)=>{
@@ -38,8 +41,17 @@ export class EditArticleComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl("/admin/login")
       }
     })
+
+    this.admArticleSubs = this.store.select("admarticle").subscribe((data)=>{
+      let savedid = data["SavedID"]
+      if (savedid){
+        this.SavedID = savedid
+      }
+    })
+
     this.initForm()
-    let ID = this.route.snapshot.queryParamMap.get("ID")
+    
+    let ID = Number(this.route.snapshot.queryParamMap.get("ID"))
     this.store.select("article").subscribe((data)=>{
       let article = data["Article"]
       if (article){
@@ -92,7 +104,7 @@ export class EditArticleComponent implements OnInit, OnDestroy {
 
   goSave(){
     let payload:Article = {
-      ID:null, //if ID is null, then server will store draft and respond with new ID and that new ID must be sent
+      ID:this.SavedID,
       Date:null, //processed in server
       Title:this.articleForm.value.Title,
       ImageURL:this.articleForm.value.ImageURL,
@@ -103,6 +115,22 @@ export class EditArticleComponent implements OnInit, OnDestroy {
     }
     this.store.dispatch(new fromAdmArticleAction.SaveStart(payload))
     console.log("GO SAVE")
+  }
+
+  goSaveAs(){
+    let payload:Article = {
+      ID:null,
+      Date:null, //processed in server
+      Title:this.articleForm.value.Title,
+      ImageURL:this.articleForm.value.ImageURL,
+      Tag:this.Tag,
+      Preview:null, //processed in server
+      Body:this.articleForm.value.Body,
+      WriterInfo:null, //processed in server via jwt claims
+    }
+    this.store.dispatch(new fromAdmArticleAction.SaveAsStart(payload))
+    this.saveas = true
+    console.log("GO SAVE AS")
   }
 
   goEdit(){

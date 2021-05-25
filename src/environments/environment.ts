@@ -10,12 +10,14 @@ export const environment = {
   articlegetall:"/article/getall",
   articlegetone:"/article/getone",
   commentgetall:"/comment/getall",
+  commentinsert:"/comment/insert",
   mediaws:"ws://localhost:4040/media/ws",
   mediaupload:"/media/upload",
   settings:"/auth/settings",
   publishArticle:"/article/publish",
   editArticle:"/article/edit",
   deleteArticle:"/article/delete",
+  saveArticleAs:"/article/saveas",
   saveArticle:"/article/save",
 };
 

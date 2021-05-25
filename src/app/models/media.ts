@@ -1,4 +1,4 @@
 export interface Media {
-    ID:string,
+    ID:Number,
     ImageURL:string,
 }

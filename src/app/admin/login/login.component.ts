@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       'Pass':new FormControl(null,Validators.required),
     })
     this.authSubs = this.store.select("auth").subscribe((data)=>{
-      if (data["ID"] != ""){
+      if (data["ID"] != 0){
         this.router.navigateByUrl("/admin/dashboard")
       }
     })

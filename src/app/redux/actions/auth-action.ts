@@ -45,7 +45,7 @@ export class LoginOK implements Action{
     type: string = LOGIN_OK
 
     constructor(public payload:{
-        ID:string,
+        ID:Number,
         Name:string,
         AvatarURL:string,
         Bio:string,
