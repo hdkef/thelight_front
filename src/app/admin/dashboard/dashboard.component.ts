@@ -27,6 +27,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (this.authSubs){
       this.authSubs.unsubscribe()
     }
+    this.store.dispatch(new fromArticleAction.DestroyInfo())
+    this.store.dispatch(new fromAuthAction.DestroyInfo())
   }
 
   ngOnInit(): void {

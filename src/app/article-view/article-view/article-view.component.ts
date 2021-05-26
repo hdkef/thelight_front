@@ -17,7 +17,15 @@ import * as fromCommentAction from '../../redux/actions/comment-action'
 export class ArticleViewComponent implements OnInit, OnDestroy {
 
   constructor(private router:ActivatedRoute, private store:Store<AppState>) { }
-  
+
+  ID:Number
+  article:Promise<Article>
+  articleSubs:Subscription
+  comments:Promise<Comment[]>
+  commentSubs:Subscription
+  commentForm:FormGroup
+  isCommentLoaded:boolean = false
+
   ngOnDestroy(): void {
     if (this.articleSubs){
       this.articleSubs.unsubscribe()
@@ -27,15 +35,8 @@ export class ArticleViewComponent implements OnInit, OnDestroy {
       this.commentSubs.unsubscribe()
     }
     this.store.dispatch(new fromCommentAction.DestroyComments())
+    this.store.dispatch(new fromArticleAction.DestroyInfo())
   }
-
-  ID:Number
-  article:Promise<Article>
-  articleSubs:Subscription
-  comments:Promise<Comment[]>
-  commentSubs:Subscription
-  commentForm:FormGroup
-  isCommentLoaded:boolean = false
 
   ngOnInit(): void {
      this.ID = Number(this.router.snapshot.queryParamMap.get('ID'))
@@ -81,6 +82,11 @@ export class ArticleViewComponent implements OnInit, OnDestroy {
       Text:this.commentForm.value.Text,
     }
     this.store.dispatch(new fromCommentAction.InsertComment(payload))
+    this.commentForm.controls.Name.setErrors(null)
+    this.commentForm.controls.Text.setErrors(null)
+    this.commentForm.setValue({'Image':null})
+    this.commentForm.markAsPristine()
+    this.commentForm.markAsUntouched()
   }
 
 }

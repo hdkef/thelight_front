@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.authSubs){
       this.authSubs.unsubscribe()
     }
+    this.store.dispatch(new fromAuthAction.DestroyInfo())
   }
 
   loginForm:FormGroup

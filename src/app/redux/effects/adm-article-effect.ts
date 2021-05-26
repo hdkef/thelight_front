@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
@@ -12,7 +13,7 @@ import { InsertOne } from '../actions/article-action'
 @Injectable()
 export class AdmArticleEffect {
     
-    constructor(private action$:Actions, private http:HttpClient){}
+    constructor(private action$:Actions, private http:HttpClient, private router:Router){}
 
     publishStart = createEffect(()=>{
         return this.action$.pipe(
@@ -21,6 +22,8 @@ export class AdmArticleEffect {
                 let payload = JSON.stringify({ArticleFromClient:action.payload})
                 return this.http.post(`${environment.api}${environment.publishArticle}`,payload).pipe(
                     map((data)=>{
+                        alert("ARTICLE PUBLISHED")
+                        this.router.navigateByUrl("/admin/dashboard")
                         return new InsertOne(action.payload)
                     }),
                     catchError((err)=>{
@@ -40,7 +43,7 @@ export class AdmArticleEffect {
                 return this.http.post(`${environment.api}${environment.saveArticleAs}`,payload).pipe(
                     map((data)=>{
                         let ID = data["ID"]
-                        console.log("SavedID = ",ID)
+                        alert(`ARTICLE SAVED AS WITH ID : ${ID}`)
                         return new fromAdmArticleAction.SaveAsOK(ID)
                     }),
                     catchError((err)=>{
@@ -58,6 +61,7 @@ export class AdmArticleEffect {
                 let payload = JSON.stringify({ArticleFromClient:action.payload})
                 return this.http.post(`${environment.api}${environment.saveArticle}`,payload).pipe(
                     map((data)=>{
+                        alert("ARTICLE SAVED")
                         return new fromAdmArticleAction.SendInfo("Article Saved")
                     }),
                     catchError((err)=>{
@@ -93,6 +97,7 @@ export class AdmArticleEffect {
                 let payload = JSON.stringify({ArticleFromClient:action.payload})
                 return this.http.post(`${environment.api}${environment.editArticle}`,payload).pipe(
                     map((data)=>{
+                        alert("ARTICLE EDITED")
                         return new UpdateOne(action.payload)
                     }),
                     catchError((err)=>{

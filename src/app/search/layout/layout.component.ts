@@ -27,6 +27,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     if (this.searchSubs){
       this.searchSubs.unsubscribe()
     }
+    this.store.dispatch(new fromSearchAction.SearchReset())
   }
 
   ngOnInit(): void {

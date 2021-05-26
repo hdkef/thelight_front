@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -11,7 +11,7 @@ import * as fromAuthAction from '../../redux/actions/auth-action'
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
 
   constructor(private store:Store<AppState>, private router:Router) { }
 
@@ -22,6 +22,13 @@ export class SettingsComponent implements OnInit {
   Name:string
   Bio:string
   AvatarURL:string
+
+  ngOnDestroy(): void {
+    if (this.authSubs){
+      this.authSubs.unsubscribe()
+    }
+    this.store.dispatch(new fromAuthAction.DestroyInfo())
+  }
 
   ngOnInit(): void {
     this.initForm()

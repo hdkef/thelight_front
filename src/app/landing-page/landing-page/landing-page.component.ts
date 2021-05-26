@@ -19,6 +19,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     if (this.articleSubs){
       this.articleSubs.unsubscribe()
     }
+    this.store.dispatch(new fromArticleAction.DestroyInfo())
   }
 
   articleSubs:Subscription

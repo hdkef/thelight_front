@@ -11,7 +11,7 @@
     display: block;
 }
 
-@media only screen and (max-width:750px){
+@media only screen and (max-width:900px){
     
     #loginf {
         margin-top:5vh;

@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Article } from 'src/app/models/article';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
 import * as fromAdmArticleAction from '../../redux/actions/adm-article-action'
+import * as fromAuthAction from '../../redux/actions/auth-action'
 
 @Component({
   selector: 'app-create-article',
@@ -24,6 +25,8 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
       this.admArticleSubs.unsubscribe()
     }
     this.store.dispatch(new fromAdmArticleAction.DestroySavedID())
+    this.store.dispatch(new fromAdmArticleAction.DestroyInfo())
+    this.store.dispatch(new fromAuthAction.DestroyInfo())
   }
 
   articleForm:FormGroup
