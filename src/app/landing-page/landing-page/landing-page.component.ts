@@ -23,13 +23,16 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   articleSubs:Subscription
   articles:Promise<Article[]>
-  totalpage:Number
+  totalpage:Number = 1
 
   ngOnInit(): void {
     this.articleSubs = this.store.select("article").subscribe((data)=>{
+      console.log(data)
       let articles = data["Articles"]
       let totalpage = data["TotalPage"]
-      this.totalpage = totalpage
+      if (totalpage){
+        this.totalpage = totalpage
+      }
       if (articles){
         this.articles = new Promise((resolve,_)=>{
           resolve(articles)

@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   showArticles:boolean = false
   authSubs:Subscription
   articleSubs:Subscription
-  totalpage:Number
+  totalpage:Number = 1
 
   constructor(private store:Store<AppState>, private router:Router, private pagingEvent:PaginatorEventService) { }
   
@@ -46,7 +46,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.articleSubs = this.store.select("article").subscribe((data)=>{
       let articles = data["Articles"]
       let totalpage = data["TotalPage"]
-      this.totalpage = totalpage
+      if (totalpage){
+        this.totalpage = totalpage
+      }
       if (articles){
         this.articles = new Promise((resolve,_)=>{
           resolve(articles)

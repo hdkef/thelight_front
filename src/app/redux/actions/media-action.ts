@@ -44,7 +44,7 @@ export class InitMediaWS implements Action{
 export class InitFromServer implements Action{
     type: string = INIT_FROM_SERVER
 
-    constructor(public payload:{Page:Number,Medias:Media[]}){}
+    constructor(public payload:Media[]){}
 }
 
 export class PagingFromServer implements Action{

@@ -120,17 +120,15 @@ export class MediaEffect {
 
             this.ws.onmessage = (event) => {
                 let data = JSON.parse(event.data)
-                console.log(data)
                 let type = data["Type"]
                 let medias = data["Medias"]
                 let page = data["Page"]
                 let media = data["Media"]
                 switch (type){
                     case "initFromServer":
-                        this.store.dispatch(new fromMediaAction.InitFromServer({Page:page,Medias:medias}))
+                        this.store.dispatch(new fromMediaAction.InitFromServer(medias))
                         break
                     case "pagingFromServer":
-                        
                         this.store.dispatch(new fromMediaAction.PagingFromServer({Page:page,Medias:medias}))
                         break
                     case "mediaFromServer":

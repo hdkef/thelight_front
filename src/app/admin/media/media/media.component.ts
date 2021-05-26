@@ -26,7 +26,7 @@ export class MediaComponent implements OnInit, OnDestroy {
 
   mediasasync:Promise<Media[]>
   authSubs:Subscription
-  totalpage:Number
+  totalpage:Number = 1
 
   ngOnInit(): void {
     this.authSubs = this.store.select("auth").subscribe((data)=>{
@@ -35,10 +35,11 @@ export class MediaComponent implements OnInit, OnDestroy {
       }
     })
     this.store.select("media").subscribe((data)=>{
-      console.log(data)
       let medias = data["Medias"]
       let totalpage = data["TotalPage"]
-      this.totalpage = totalpage
+      if (totalpage){
+        this.totalpage = totalpage
+      }
       if (medias){
         this.mediasasync = new Promise((resolve,_)=>{
           resolve(medias)

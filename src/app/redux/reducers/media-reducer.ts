@@ -19,6 +19,7 @@ export function MediaReducer (
     state:State = initialState,
     action,
 ){
+    let totalpage = state.TotalPage
     switch(action.type){
         case fromMediaAction.INIT_MEDIA_WS:
             return state
@@ -26,12 +27,11 @@ export function MediaReducer (
             return state
         case fromMediaAction.INIT_FROM_SERVER:
             console.log("init from server", action.payload)
-            return {...state,Medias:action.payload.Medias, TotalPage:action.payload.Page}
+            return {...state,Medias:action.payload}
         case fromMediaAction.INIT_MEDIA_WS_OK:
             return {...state,Init:true,Info:"WEBSOCKET HAS BEEN INITIATED"}
         case fromMediaAction.PAGING_FROM_SERVER:
-            console.log("paging from server", action.payload)
-            let totalpage = state.TotalPage
+            console.log("paging from server")
             if (action.payload.Page > totalpage){
                 return {...state,Medias:action.payload.Medias,TotalPage:action.payload.Page}
             }else{
