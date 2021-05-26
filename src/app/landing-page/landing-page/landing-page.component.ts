@@ -29,8 +29,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     this.articleSubs = this.store.select("article").subscribe((data)=>{
       let articles = data["Articles"]
       let totalpage = data["TotalPage"]
+      this.totalpage = totalpage
       if (articles){
-        this.totalpage = totalpage
         this.articles = new Promise((resolve,_)=>{
           resolve(articles)
         })

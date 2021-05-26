@@ -5,12 +5,14 @@ export interface State{
     Medias:Media[],
     Info:string,
     Init:boolean,
+    TotalPage:Number,
 }
 
 const initialState:State = {
     Medias:null,
     Info:"",
     Init:false,
+    TotalPage:0,
 }
 
 export function MediaReducer (
@@ -24,12 +26,17 @@ export function MediaReducer (
             return state
         case fromMediaAction.INIT_FROM_SERVER:
             console.log("init from server", action.payload)
-            return {...state,Medias:action.payload}
+            return {...state,Medias:action.payload.Medias, TotalPage:action.payload.Page}
         case fromMediaAction.INIT_MEDIA_WS_OK:
             return {...state,Init:true,Info:"WEBSOCKET HAS BEEN INITIATED"}
         case fromMediaAction.PAGING_FROM_SERVER:
             console.log("paging from server", action.payload)
-            return {...state,Medias:action.payload}
+            let totalpage = state.TotalPage
+            if (action.payload.Page > totalpage){
+                return {...state,Medias:action.payload.Medias,TotalPage:action.payload.Page}
+            }else{
+                return {...state,Medias:action.payload.Medias}
+            }
         case fromMediaAction.MEDIA_FROM_SERVER: //TOBEIMPLEMENTED
             console.log("media from server", action.payload)
             let tmp = [action.payload, ...state.Medias]

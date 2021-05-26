@@ -6,6 +6,7 @@ import { Article } from 'src/app/models/article';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
 import * as fromAuthAction from '../../redux/actions/auth-action'
 import * as fromArticleAction from '../../redux/actions/article-action'
+import { PaginatorEventService } from 'src/app/paginator/paginator-event.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,8 +19,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   showArticles:boolean = false
   authSubs:Subscription
   articleSubs:Subscription
+  totalpage:Number
 
-  constructor(private store:Store<AppState>, private router:Router) { }
+  constructor(private store:Store<AppState>, private router:Router, private pagingEvent:PaginatorEventService) { }
   
   ngOnDestroy(): void {
     if (this.authSubs){
@@ -43,6 +45,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   getArticles(){
     this.articleSubs = this.store.select("article").subscribe((data)=>{
       let articles = data["Articles"]
+      let totalpage = data["TotalPage"]
+      this.totalpage = totalpage
       if (articles){
         this.articles = new Promise((resolve,_)=>{
           resolve(articles)
@@ -52,8 +56,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.showArticles = !this.showArticles
   }
 
-  onPageEvent(event){
-    this.store.dispatch(new fromArticleAction.CheckArticlesCache(event))
+  onPageEvent(page){
+    if (page == Number(this.totalpage) + 1 || page <= this.totalpage){
+      this.store.dispatch(new fromArticleAction.CheckArticlesCache(page))
+    }else{
+      this.pagingEvent.emitMax(this.totalpage)
+      this.pagingEvent.emitCurPage(this.totalpage)
+      return
+    }
   }
 
 }

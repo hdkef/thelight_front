@@ -4,6 +4,7 @@ import { Comment } from "src/app/models/comment"
 export const GET_COMMENTS = "Comment Get Comments"
 export const RETRIEVE_COMMENTS = "Comment Retrieve Comments"
 export const INSERT_COMMENT = "Comment Insert Comment"
+export const INSERT_COMMENT_OK = "Comment Insert Comment OK"
 export const DESTROY_COMMENT = "Comment Destroy Comment"
 export const SEND_INFO = "Comment Send Info"
 export const DESTROY_INFO = "Comment Destroy Info"
@@ -26,6 +27,12 @@ export class RetrieveComments implements Action{
 
 export class InsertComment implements Action{
     type: string = INSERT_COMMENT
+
+    constructor(public payload:Comment){}
+}
+
+export class InsertCommentOK implements Action{
+    type: string = INSERT_COMMENT_OK
 
     constructor(public payload:Comment){}
 }

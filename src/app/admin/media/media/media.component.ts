@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Media } from 'src/app/models/media';
+import { PaginatorEventService } from 'src/app/paginator/paginator-event.service';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
 import * as fromMediaAction from '../../../redux/actions/media-action'
 
@@ -13,7 +14,7 @@ import * as fromMediaAction from '../../../redux/actions/media-action'
 })
 export class MediaComponent implements OnInit, OnDestroy {
 
-  constructor(private store:Store<AppState>, private router:Router) { }
+  constructor(private store:Store<AppState>, private router:Router, private pagingEvent:PaginatorEventService) { }
   
   
   ngOnDestroy(): void {
@@ -25,6 +26,7 @@ export class MediaComponent implements OnInit, OnDestroy {
 
   mediasasync:Promise<Media[]>
   authSubs:Subscription
+  totalpage:Number
 
   ngOnInit(): void {
     this.authSubs = this.store.select("auth").subscribe((data)=>{
@@ -33,7 +35,10 @@ export class MediaComponent implements OnInit, OnDestroy {
       }
     })
     this.store.select("media").subscribe((data)=>{
+      console.log(data)
       let medias = data["Medias"]
+      let totalpage = data["TotalPage"]
+      this.totalpage = totalpage
       if (medias){
         this.mediasasync = new Promise((resolve,_)=>{
           resolve(medias)
@@ -43,8 +48,14 @@ export class MediaComponent implements OnInit, OnDestroy {
     this.store.dispatch(new fromMediaAction.TryPagingFromClient(1))
   }
 
-  onPageEvent(event){
-    this.store.dispatch(new fromMediaAction.TryPagingFromClient(event))
+  onPageEvent(page){
+    if (page == Number(this.totalpage) + 1 || page <= this.totalpage){
+      this.store.dispatch(new fromMediaAction.TryPagingFromClient(page))
+    }else{
+      this.pagingEvent.emitMax(this.totalpage)
+      this.pagingEvent.emitCurPage(this.totalpage)
+      return
+    }
   }
 
 }

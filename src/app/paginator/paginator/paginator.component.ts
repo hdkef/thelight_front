@@ -34,7 +34,7 @@ export class PaginatorComponent implements OnInit, OnDestroy {
   }
 
   paginate(i){
-    if (this.curPage + i == 0 || this.curPage +i > this.maxPage){
+    if (this.curPage + i <= 0 || this.curPage +i > this.maxPage){
       return
     }else{
       this.curPage +=i

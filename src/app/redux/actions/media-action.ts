@@ -44,13 +44,13 @@ export class InitMediaWS implements Action{
 export class InitFromServer implements Action{
     type: string = INIT_FROM_SERVER
 
-    constructor(public payload:Media[]){}
+    constructor(public payload:{Page:Number,Medias:Media[]}){}
 }
 
 export class PagingFromServer implements Action{
     type: string = PAGING_FROM_SERVER
 
-    constructor(public payload:Media[]){}
+    constructor(public payload:{Page:Number,Medias:Media[]}){}
 }
 
 export class MediaFromServer implements Action{

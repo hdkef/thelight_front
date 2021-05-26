@@ -41,7 +41,7 @@ export class CommentEffect {
                 }})
                 return this.http.post(`${environment.api}${environment.commentinsert}`,payload).pipe(
                     map((data)=>{
-                        return new fromCommentAction.SendInfo("Comment Inserted")
+                        return new fromCommentAction.InsertCommentOK(action.payload)
                     }),
                     catchError((err)=>{
                         return of(new fromCommentAction.SendInfo(err.error))
