@@ -15,12 +15,19 @@ export class PaginatorComponent implements OnInit, OnDestroy {
   maxPage = Number.POSITIVE_INFINITY
   maxSubs:Subscription
   curPageSubs:Subscription
+  resetSubs:Subscription
 
   constructor(private pagingEvent:PaginatorEventService) { }
   
   ngOnDestroy(): void {
     if (this.maxSubs){
       this.maxSubs.unsubscribe()
+    }
+    if (this.curPageSubs){
+      this.curPageSubs.unsubscribe()
+    }
+    if (this.resetSubs){
+      this.resetSubs.unsubscribe()
     }
   }
 
@@ -32,6 +39,13 @@ export class PaginatorComponent implements OnInit, OnDestroy {
     this.curPageSubs = this.pagingEvent.listenCurPage().subscribe((page)=>{
       this.curPage = Number(page)
       console.log("CUR ", page)
+    })
+    this.resetSubs = this.pagingEvent.listenReset().subscribe((bool)=>{
+      if (bool){
+        console.log("RESET")
+        this.curPage = 1
+        this.maxPage = Number.POSITIVE_INFINITY
+      }
     })
   }
 

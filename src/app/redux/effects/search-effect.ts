@@ -19,7 +19,11 @@ export class SearchEffect {
                 return this.http.post(`${environment.api}${environment.searcharticle}`,payload).pipe(
                     map((data)=>{
                         let Articles = data["ArticlesFromServer"]
-                        return new fromSearchAction.SearchArticlesOK(Articles)
+                        if (!Articles){
+                            return new fromSearchAction.SendInfo("NO NEW ARTICLES")
+                        }else{
+                            return new fromSearchAction.SearchArticlesOK({Page:action.payload.Page,Articles:Articles})
+                        }
                     }),
                     catchError((err)=>{
                         return of(new fromSearchAction.SendInfo(err.error))
