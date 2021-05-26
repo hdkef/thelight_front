@@ -43,7 +43,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     if (page == Number(this.totalpage) + 1 || page <= this.totalpage){
       this.store.dispatch(new fromArticleAction.CheckArticlesCache(page))
     }else{
-      alert("RETURNED")
       this.pagingEvent.emitMax(this.totalpage)
       this.pagingEvent.emitCurPage(this.totalpage)
       return
