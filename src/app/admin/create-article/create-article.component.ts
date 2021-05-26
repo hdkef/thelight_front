@@ -23,6 +23,7 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
     if (this.admArticleSubs){
       this.admArticleSubs.unsubscribe()
     }
+    this.store.dispatch(new fromAdmArticleAction.DestroySavedID())
   }
 
   articleForm:FormGroup

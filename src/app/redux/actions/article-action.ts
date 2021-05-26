@@ -15,6 +15,20 @@ export const DESTROY_ARTICLE = "Article Destroy Article"
 export const SEND_INFO = "Article Send Info"
 export const DESTROY_INFO = "Article Destroy Info"
 export const DELETE_ONE = " Article Delete One"
+export const UPDATE_ONE = "Article Update One"
+export const INSERT_ONE = "Article Insert One"
+
+export class InsertOne implements Action{
+    type: string = INSERT_ONE
+
+    constructor(public payload:Article){}
+}
+
+export class UpdateOne implements Action{
+    type: string = UPDATE_ONE
+
+    constructor(public payload:Article){}
+}
 
 export class DeleteOne implements Action{
     type: string = DELETE_ONE

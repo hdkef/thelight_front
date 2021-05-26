@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Article } from 'src/app/models/article';
+import { PaginatorEventService } from 'src/app/paginator/paginator-event.service';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
 import * as fromArticleAction from '../../redux/actions/article-action'
 
@@ -12,7 +13,7 @@ import * as fromArticleAction from '../../redux/actions/article-action'
 })
 export class LandingPageComponent implements OnInit, OnDestroy {
 
-  constructor(private store:Store<AppState>) { }
+  constructor(private store:Store<AppState>, private pagingEvent:PaginatorEventService) { }
   
   ngOnDestroy(): void {
     if (this.articleSubs){
@@ -22,21 +23,32 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   articleSubs:Subscription
   articles:Promise<Article[]>
+  totalpage:Number
 
   ngOnInit(): void {
     this.articleSubs = this.store.select("article").subscribe((data)=>{
       let articles = data["Articles"]
+      let totalpage = data["TotalPage"]
       if (articles){
+        this.totalpage = totalpage
         this.articles = new Promise((resolve,_)=>{
           resolve(articles)
         })
-      } 
+      }
     })
+    this.store.dispatch(new fromArticleAction.CheckArticlesCache(1))
   }
 
   onPageEvent(page){
-    console.log("onPageEvent")
-    this.store.dispatch(new fromArticleAction.CheckArticlesCache(page))
+    if (page == Number(this.totalpage) + 1 || page <= this.totalpage){
+      this.store.dispatch(new fromArticleAction.CheckArticlesCache(page))
+    }else{
+      alert("RETURNED")
+      this.pagingEvent.emitMax(this.totalpage)
+      this.pagingEvent.emitCurPage(this.totalpage)
+      return
+    }
+
   }
 
 }

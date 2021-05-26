@@ -43,7 +43,11 @@ export class ArticleEffect {
                 return this.http.post(`${environment.api}${environment.articlegetall}`,payload).pipe(
                     map((data)=>{
                         let Articles = data["ArticlesFromServer"]
-                        return new fromArticleAction.RetrieveNewArticles({Articles:Articles,TotalPage:action.payload})
+                        if (!Articles){
+                            return new fromArticleAction.SendInfo("NO NEW ARTICLES")
+                        }else{
+                            return new fromArticleAction.RetrieveNewArticles({Articles:Articles,TotalPage:action.payload})
+                        }
                     }),
                     catchError((err)=>{
                         return of(new fromArticleAction.SendInfo(err.error))

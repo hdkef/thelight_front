@@ -6,6 +6,8 @@ import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import * as fromAdmArticleAction from '../actions/adm-article-action'
 import { DeleteOne } from '../actions/article-action'
+import { UpdateOne } from '../actions/article-action'
+import { InsertOne } from '../actions/article-action'
 
 @Injectable()
 export class AdmArticleEffect {
@@ -19,7 +21,7 @@ export class AdmArticleEffect {
                 let payload = JSON.stringify({ArticleFromClient:action.payload})
                 return this.http.post(`${environment.api}${environment.publishArticle}`,payload).pipe(
                     map((data)=>{
-                        return new fromAdmArticleAction.SendInfo("Article published")
+                        return new InsertOne(action.payload)
                     }),
                     catchError((err)=>{
                         return of(new fromAdmArticleAction.SendInfo(err.error))
@@ -91,7 +93,7 @@ export class AdmArticleEffect {
                 let payload = JSON.stringify({ArticleFromClient:action.payload})
                 return this.http.post(`${environment.api}${environment.editArticle}`,payload).pipe(
                     map((data)=>{
-                        return new fromAdmArticleAction.SendInfo("Article edited")
+                        return new UpdateOne(action.payload)
                     }),
                     catchError((err)=>{
                         return of(new fromAdmArticleAction.SendInfo(err.error))

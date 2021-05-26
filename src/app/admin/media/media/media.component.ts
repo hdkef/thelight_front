@@ -40,6 +40,7 @@ export class MediaComponent implements OnInit, OnDestroy {
         })
       }
     })
+    this.store.dispatch(new fromMediaAction.TryPagingFromClient(1))
   }
 
   onPageEvent(event){

@@ -19,6 +19,7 @@ export const environment = {
   deleteArticle:"/article/delete",
   saveArticleAs:"/article/saveas",
   saveArticle:"/article/save",
+  searcharticle:"/article/search",
 };
 
 /*

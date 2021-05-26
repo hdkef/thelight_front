@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl("/admin/login")
       }
     })
+    this.store.dispatch(new fromArticleAction.CheckArticlesCache(1))
   }
 
   goLogout(){

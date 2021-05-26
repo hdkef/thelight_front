@@ -9,6 +9,14 @@ export const EDIT_START = "Adm Article Edit Start"
 export const SEND_INFO = "Adm Article Send Info"
 export const DESTROY_INFO = "Adm Article Destroy Info"
 export const SAVE_AS_OK = "Adm Article SaveAs OK"
+export const DESTROY_SAVEDID = "Adm Article Destroy SavedID"
+
+export class DestroySavedID implements Action {
+    
+    type: string= DESTROY_SAVEDID
+
+    constructor(){}
+}
 
 export class EditStart implements Action {
     

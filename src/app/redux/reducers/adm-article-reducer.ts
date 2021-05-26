@@ -15,6 +15,8 @@ export function AdmArticleReducer (
     action
 ){
     switch(action.type){
+        case fromAdmArticleAction.DESTROY_SAVEDID:
+            return {...state,SavedID:0}
         case fromAdmArticleAction.SAVE_AS_OK:
             return {...state,SavedID:action.payload}
         case fromAdmArticleAction.EDIT_START:
