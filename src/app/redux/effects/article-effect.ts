@@ -37,25 +37,36 @@ export class ArticleEffect {
     getNewArticles = createEffect(()=>{
         return this.action$.pipe(
             ofType(fromArticleAction.GET_NEW_ARTICLES),
-            switchMap((action:fromArticleAction.GetNewArticles)=>{
-                console.log("getNewArticles", action)
-                let payload = JSON.stringify({Page:action.payload})
-                return this.http.post(`${environment.api}${environment.articlegetall}`,payload).pipe(
-                    map((data)=>{
-                        let Articles = data["ArticlesFromServer"]
-                        if (!Articles){
-                            return new fromArticleAction.SendInfo("NO NEW ARTICLES")
-                        }else{
-                            return new fromArticleAction.RetrieveNewArticles({Articles:Articles,TotalPage:action.payload})
-                        }
-                    }),
-                    catchError((err)=>{
-                        return of(new fromArticleAction.SendInfo(err.error))
-                    })
-                )
-            })
+            withLatestFrom(this.store.select("article")),
+            switchMap((value)=>{
+                let action:fromArticleAction.GetNewArticles = value[0]
+                let state = value[1]
+                let ArticlesCache = state.ArticlesCache
+                if (!ArticlesCache){
+                    return this.PagingByID(0,action.payload)
+                }else{
+                    let LastID = ArticlesCache[state.ArticlesCache.length-1].ID
+                    return this.PagingByID(LastID,action.payload)}
+                }
+            )
         )
     })
+
+    PagingByID(LastID:Number,Page:Number){
+        let payload = JSON.stringify({LastID:LastID})
+        return this.http.post(`${environment.api}${environment.articlegetall}`,payload).pipe(
+            map((data)=>{
+                let Articles = data["ArticlesFromServer"]
+                if (!Articles){
+                    return new fromArticleAction.SendInfo("NO NEW ARTICLES")
+                }else{
+                    return new fromArticleAction.RetrieveNewArticles({Articles:Articles,TotalPage:Page})
+            }}),
+            catchError((err)=>{
+                    return of(new fromArticleAction.SendInfo(err.error))
+            })
+        )
+    }
 
     getCacheArticles = createEffect(()=>{
         return this.action$.pipe(
