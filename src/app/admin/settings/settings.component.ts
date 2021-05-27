@@ -93,11 +93,11 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   afterSubmitChanges(){
-    this.settingsForm.controls.Avatar.setErrors(null)
     this.settingsForm.setValue({'Bio':null,'Avatar':null,'Name':null})
     this.settingsForm.markAsTouched()
     this.settingsForm.markAsPristine()
     this.settingsForm.markAsUntouched()
+    this.settingsForm.controls.Avatar.setErrors(null)
     this.fileHolder = null
   }
 

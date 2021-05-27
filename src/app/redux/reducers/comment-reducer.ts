@@ -25,8 +25,12 @@ export function CommentReducer (
         case fromCommentAction.INSERT_COMMENT:
             return state
         case fromCommentAction.INSERT_COMMENT_OK:
-            let newcomments = [action.payload,...tmpcomments]
-            return {...state,Comments:newcomments}
+            if (tmpcomments){
+                let newcomments = [action.payload,...tmpcomments]
+                return {...state,Comments:newcomments}
+            }else{
+                return {...state,Comments:[action.payload]}
+            }
         case fromCommentAction.DESTROY_INFO:
             return {...state,Info:""}
         case fromCommentAction.DESTROY_COMMENT:

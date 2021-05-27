@@ -37,10 +37,10 @@ export class MediaInputComponent implements OnInit {
   }
 
   afterUpload(){
-    this.mediaForm.controls.Image.setErrors(null)
     this.mediaForm.setValue({'Image':null})
     this.mediaForm.markAsPristine()
     this.mediaForm.markAsUntouched()
+    this.mediaForm.controls.Image.setErrors(null)
     this.fileHolder = null
   }
 

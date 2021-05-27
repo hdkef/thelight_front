@@ -82,11 +82,15 @@ export class ArticleViewComponent implements OnInit, OnDestroy {
       Text:this.commentForm.value.Text,
     }
     this.store.dispatch(new fromCommentAction.InsertComment(payload))
-    this.commentForm.controls.Name.setErrors(null)
-    this.commentForm.controls.Text.setErrors(null)
-    this.commentForm.setValue({'Image':null})
+    this.afterInsertComment()
+  }
+
+  afterInsertComment(){
+    this.commentForm.setValue({'Text':null, 'Name':null})
     this.commentForm.markAsPristine()
     this.commentForm.markAsUntouched()
+    this.commentForm.controls.Name.setErrors(null)
+    this.commentForm.controls.Text.setErrors(null)
   }
 
 }

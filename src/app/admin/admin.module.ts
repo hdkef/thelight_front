@@ -28,6 +28,12 @@ import { ReactiveFormsModule } from '@angular/forms';
       {path:'settings',loadChildren:()=>{
         return import('./settings/settings.module').then((m)=>{return m.SettingsModule})
       }},
+      {path:'draft',loadChildren:()=>{
+        return import('./draft/draft.module').then((m)=>{return m.DraftModule})
+      }},
+      {path:'analyze',loadChildren:()=>{
+        return import('./analyze/analyze.module').then((m)=>{return m.AnalyzeModule})
+      }},
     ]),
     ReactiveFormsModule
   ],
