@@ -1,25 +1,40 @@
 import { Action } from "@ngrx/store"
 import { Article } from "src/app/models/article"
 
-export const SEARCH_ARTICLES_START = "Search Articles Start"
-export const SEARCH_ARTICLES_OK = "Search Articles OK"
+
 export const SEND_INFO = "Search Articles Send Info"
 export const DESTROY_INFO = "Search Articles Destroy Info"
 export const RESET = "Search Articles Reset"
 
-export class SearchReset implements Action {
-    type: string = RESET
-    constructor(){}
+export const CHECK_SEARCH_CACHE = "Search Check Cache"
+export const GET_NEW = "Search Get New"
+export const GET_CACHE = "Search Get Cache"
+export const RETRIEVE_NEW = "Search Retrieve New"
+export const RETRIEVE_CACHE = "Search Retrieve Cache"
+
+export class CheckSearchCache implements Action {
+    type:string = CHECK_SEARCH_CACHE
+    constructor(public payload:{Page:Number, Key:string,Filter:string}){}
 }
 
-export class SearchArticlesStart implements Action {
-    type: string = SEARCH_ARTICLES_START
-    constructor(public payload:{Page:Number,Key:string,Filter:string}){}
+export class GetNew implements Action {
+    type:string = GET_NEW
+    constructor(public payload:{Page:Number, Key:string,Filter:string}){}
 }
 
-export class SearchArticlesOK implements Action {
-    type: string = SEARCH_ARTICLES_OK
-    constructor(public payload:{Page:Number,Articles:Article[]}){}
+export class GetCache implements Action {
+    type:string = GET_CACHE
+    constructor(public payload:Number){}
+}
+
+export class RetrieveNew implements Action {
+    type:string = RETRIEVE_NEW
+    constructor(public payload:{Articles:Article[],TotalPage:Number}){}
+}
+
+export class RetrieveCache implements Action {
+    type:string = RETRIEVE_CACHE
+    constructor(public payload:Article[]){}
 }
 
 export class SendInfo implements Action {
@@ -29,5 +44,10 @@ export class SendInfo implements Action {
 
 export class DestroyInfo implements Action {
     type: string = DESTROY_INFO
+    constructor(){}
+}
+
+export class SearchReset implements Action {
+    type: string = RESET
     constructor(){}
 }

@@ -58,7 +58,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   findArticle(Key:string, Filter:string, Page:Number){
     console.log(Key,Filter,Page)
-    this.store.dispatch(new fromSearchAction.SearchArticlesStart({Page:Page,Key:Key,Filter:Filter}))
+    this.store.dispatch(new fromSearchAction.CheckSearchCache({Page:Page,Key:Key,Filter:Filter}))
   }
 
   onSearchEvent(event){
