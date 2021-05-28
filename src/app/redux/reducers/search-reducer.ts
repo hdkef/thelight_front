@@ -23,7 +23,7 @@ export function SearchReducer (
     let tmparticlescache = state.ArticlesCache
     switch(action.type){
         case fromSearchAction.RETRIEVE_NEW:
-            if (state.ArticlesCache){
+            if (tmparticlescache){
                 let newArticlesCache = tmparticlescache.concat(action.payload.Articles)
                 return {...state,Articles:action.payload.Articles,ArticlesCache:newArticlesCache,TotalPage:action.payload.TotalPage}
             }else{

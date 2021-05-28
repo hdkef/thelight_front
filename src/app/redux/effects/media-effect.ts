@@ -16,64 +16,112 @@ export class MediaEffect {
 
     ws:WebSocket
     Token:string
+    ID:Number
 
-    tryPagingFromClient = createEffect(()=>{
+    tryPaging = createEffect(()=>{
         return this.action$.pipe(
-            ofType(fromMediaAction.TRY_PAGING_FROM_CLIENT),
+            ofType(fromMediaAction.TRY_PAGING),
             withLatestFrom(this.store.select("media")),
             switchMap((value)=>{
-                console.log("tryPagingFromClient")
-                let action:fromMediaAction.TryPagingFromClient = value[0]
+                console.log("tryPaging")
+                let action:fromMediaAction.TryPaging = value[0]
                 let state = value[1]
 
                 if (state.Init){
-                    return of(new fromMediaAction.PagingFromClient(action.payload))
+                    return of(new fromMediaAction.CheckCache(action.payload))
                 }else{
-                    return of(new fromMediaAction.InitMediaWS())
+                    return of(new fromMediaAction.InitWS())
                 }
             })
         )
     })
 
-    pagingFromClient = createEffect(()=>{
+    initWS = createEffect(()=>{
         return this.action$.pipe(
-            ofType(fromMediaAction.PAGING_FROM_CLIENT),
+            ofType(fromMediaAction.INIT_WS),
             withLatestFrom(this.store.select("auth")),
             switchMap((value)=>{
-                console.log("pagingFromClient")
-                let action:fromMediaAction.PagingFromClient = value[0]
-                let state = value[1]
-                let payload:MediaPayload = {
-                    Type:"pagingFromClient",
-                    ID:state.ID,
-                    Token:this.Token,
-                    Page:action.payload,
-                }
-
-                this.ws.send(JSON.stringify(payload))
-
-                return of(new fromMediaAction.SendInfo("send paging from client..."))
-            })
-        )
-    })
-
-
-    initMediaWS = createEffect(()=>{
-        return this.action$.pipe(
-            ofType(fromMediaAction.INIT_MEDIA_WS),
-            withLatestFrom(this.store.select("auth")),
-            switchMap((value)=>{
-                console.log("initMediaWS")
+                console.log("initWS")
                 let state = value[1]
                 let success = this.funcInitMediaWS(state.ID)
                 if (success){
-                    return of(new fromMediaAction.InitMediaWSOK())
+                    return of(new fromMediaAction.InitWSOK())
                 }else{
                     return of(new fromMediaAction.SendInfo("FAILED INITIATING WS"))
                 }
             })
         )
     })
+
+    checkCache = createEffect(()=>{
+        return this.action$.pipe(
+            ofType(fromMediaAction.CHECK_CACHE),
+            withLatestFrom(this.store.select("media")),
+            switchMap((value)=>{
+                console.log("checkcache")
+                let action:fromMediaAction.CheckCache = value[0]
+                let state = value[1]
+                let totalpage = state.TotalPage
+                let nextpage = action.payload
+                if (nextpage > totalpage){
+                    return of(new fromMediaAction.GetNew(nextpage))
+                }else{
+                    return of(new fromMediaAction.GetCache(nextpage))
+                }
+            })
+        )
+    })
+
+    getCache = createEffect(()=>{
+        return this.action$.pipe(
+            ofType(fromMediaAction.GET_CACHE),
+            withLatestFrom(this.store.select("media")),
+            switchMap((value)=>{
+                console.log("getcache")
+                let action:fromMediaAction.CheckCache = value[0]
+                let state = value[1]
+                let MediasCache = state.MediasCache
+                let nextpage = action.payload
+                let firstslice = (<number>nextpage - 1) * 6
+                let endslice = <number>nextpage * 6
+                let mediasFromCache = MediasCache.slice(firstslice,endslice)
+                return of(new fromMediaAction.RetrieveCache(mediasFromCache))
+            })
+        )
+    })
+
+    getNew = createEffect(()=>{
+        return this.action$.pipe(
+            ofType(fromMediaAction.GET_NEW),
+            withLatestFrom(this.store.select("media")),
+            switchMap((value)=>{
+                console.log("getnew")
+                let action:fromMediaAction.CheckCache = value[0]
+                let state = value[1]
+                let MediasCache = state.MediasCache
+                let Page = action.payload
+                if (!MediasCache){
+                    return this.PagingByID(0,Page)
+                }else{
+                    let LastID = MediasCache[state.MediasCache.length-1].ID
+                    return this.PagingByID(LastID,Page)
+                }
+            })
+        )
+    })
+
+    PagingByID(LastID:Number,Page:Number){
+        console.log("pagingbyID")
+        let payload:MediaPayload = {
+            Type:"pagingFromClient",
+            ID:this.ID,
+            Token:this.Token,
+            Page:Page,
+            LastID:LastID,
+        }
+        this.ws.send(JSON.stringify(payload)) 
+        return of(new fromMediaAction.SendInfo("send pagingfromclient..."))
+    }
 
     mediaFromClient = createEffect(()=>{
         return this.action$.pipe(
@@ -105,6 +153,7 @@ export class MediaEffect {
 
         try {
             this.Token = localStorage.getItem("Bearer")
+            this.ID = ID
 
             this.ws = new WebSocket(`${environment.mediaws}`)
 
@@ -114,6 +163,7 @@ export class MediaEffect {
                     ID:ID,
                     Token:this.Token,
                     Page:1,
+                    LastID:0,
                 }
                 this.ws.send(JSON.stringify(payload))
             }
@@ -125,11 +175,9 @@ export class MediaEffect {
                 let page = data["Page"]
                 let media = data["Media"]
                 switch (type){
-                    case "initFromServer":
-                        this.store.dispatch(new fromMediaAction.InitFromServer(medias))
-                        break
                     case "pagingFromServer":
-                        this.store.dispatch(new fromMediaAction.PagingFromServer({Page:page,Medias:medias}))
+                        console.log("pagingFromServer ", medias)
+                        this.store.dispatch(new fromMediaAction.RetrieveNew({TotalPage:page,Medias:medias}))
                         break
                     case "mediaFromServer":
                         this.store.dispatch(new fromMediaAction.MediaFromServer(media))

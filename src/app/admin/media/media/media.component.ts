@@ -52,12 +52,12 @@ export class MediaComponent implements OnInit, OnDestroy {
         })
       }
     })
-    this.store.dispatch(new fromMediaAction.TryPagingFromClient(1))
+    this.store.dispatch(new fromMediaAction.TryPaging(1))
   }
 
   onPageEvent(page){
     if (page == Number(this.totalpage) + 1 || page <= this.totalpage){
-      this.store.dispatch(new fromMediaAction.TryPagingFromClient(page))
+      this.store.dispatch(new fromMediaAction.TryPaging(page))
     }else{
       this.pagingEvent.emitMax(this.totalpage)
       this.pagingEvent.emitCurPage(this.totalpage)

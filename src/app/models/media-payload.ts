@@ -3,4 +3,5 @@ export interface MediaPayload {
 	Type:string,
 	Token:string,
 	Page:Number,
+	LastID:Number,
 }
