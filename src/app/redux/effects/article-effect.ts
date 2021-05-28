@@ -112,9 +112,14 @@ export class ArticleEffect {
             ofType(fromArticleAction.GET_CACHE_ARTICLE),
             switchMap((action:fromArticleAction.GetCacheArticle)=>{
                 console.log("getCacheArticle")
-                let articleFound = action.payload.ArticlesCache.filter((article)=>{
-                    return article.ID == action.payload.ID
-                })[0]
+                let articleFound
+                let articlesCache = action.payload.ArticlesCache
+                for (let i=0;i < articlesCache.length;i++){
+                    if (articlesCache[i].ID == action.payload.ID){
+                        articleFound = articlesCache[i]
+                    }
+                    break
+                }
                 if (articleFound){
                     return of(new fromArticleAction.RetrieveCacheArticle(articleFound))
                 }else{

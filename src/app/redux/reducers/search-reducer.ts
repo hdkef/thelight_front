@@ -3,6 +3,7 @@ import * as fromSearchAction from '../actions/search-action'
 
 
 export interface State {
+    Article:Article,
     Articles:Article[],
     ArticlesCache:Article[],
     Info:string,
@@ -10,6 +11,7 @@ export interface State {
 }
 
 const initialState:State = {
+    Article:null,
     Articles:null,
     ArticlesCache:null,
     Info:"",
@@ -22,6 +24,16 @@ export function SearchReducer (
 ){
     let tmparticlescache = state.ArticlesCache
     switch(action.type){
+        case fromSearchAction.CHECK_ARTICLE_CACHE:
+            return state
+        case fromSearchAction.GET_NEW_ARTICLE:
+            return state
+        case fromSearchAction.GET_CACHE_ARTICLE:
+            return state
+        case fromSearchAction.RETRIEVE_CACHE_ARTICLE:
+            return {...state,Article:action.payload}
+        case fromSearchAction.RETRIEVE_NEW_ARTICLE:
+            return {...state,Article:action.payload}
         case fromSearchAction.RETRIEVE_NEW:
             if (tmparticlescache){
                 let newArticlesCache = tmparticlescache.concat(action.payload.Articles)

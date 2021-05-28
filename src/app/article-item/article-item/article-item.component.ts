@@ -10,6 +10,7 @@ import { Article } from 'src/app/models/article';
 export class ArticleItemComponent implements OnChanges {
 
   @Input()article:Article
+  @Input()from:string
   articleasync:Promise<Article>
 
   constructor(private router:Router) { }
@@ -23,7 +24,12 @@ export class ArticleItemComponent implements OnChanges {
   }
 
   readMore(){
-    this.router.navigate(['view'],{queryParams:{ID:this.article.ID}})
+    if (this.from == "Article" || !this.from){
+      this.router.navigate(['view'],{queryParams:{ID:this.article.ID,From:"Article"}})
+    }
+    else {
+      this.router.navigate(['view'],{queryParams:{ID:this.article.ID,From:"Search"}})
+    }
   }
 
 }

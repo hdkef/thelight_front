@@ -8,6 +8,7 @@ import { Article } from 'src/app/models/article';
 import { Comment } from 'src/app/models/comment';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
 import * as fromCommentAction from '../../redux/actions/comment-action'
+import * as fromSearchAction from '../../redux/actions/search-action'
 
 @Component({
   selector: 'app-article-view',
@@ -19,6 +20,7 @@ export class ArticleViewComponent implements OnInit, OnDestroy {
   constructor(private router:ActivatedRoute, private store:Store<AppState>) { }
 
   ID:Number
+  From:string
   article:Promise<Article>
   articleSubs:Subscription
   comments:Promise<Comment[]>
@@ -35,20 +37,47 @@ export class ArticleViewComponent implements OnInit, OnDestroy {
       this.commentSubs.unsubscribe()
     }
     this.store.dispatch(new fromCommentAction.DestroyComments())
-    this.store.dispatch(new fromArticleAction.DestroyInfo())
+    if (!this.From || this.From == "Article"){
+      this.store.dispatch(new fromArticleAction.DestroyInfo())
+    }else if (this.From == "Search"){
+      this.store.dispatch(new fromSearchAction.DestroyInfo())
+    }
   }
 
   ngOnInit(): void {
      this.ID = Number(this.router.snapshot.queryParamMap.get('ID'))
-     this.articleSubs = this.store.select("article").subscribe((data)=>{
-       let article = data["Article"]
-       if (article){
-         this.article = new Promise((resolve,_)=>{
-           resolve(article)
-         })
-       }
-     })
-     this.store.dispatch(new fromArticleAction.CheckArticleCache(this.ID))
+     this.From = this.router.snapshot.queryParamMap.get('From')
+     if (!this.From || this.From == "Article"){
+       this.initFromArticle()
+     } else if (this.From == "Search"){
+       this.initFromSearch()
+     }
+  }
+
+  initFromArticle(){
+    console.log("initFromArticle")
+    this.articleSubs = this.store.select("article").subscribe((data)=>{
+      let article = data["Article"]
+      if (article){
+        this.article = new Promise((resolve,_)=>{
+          resolve(article)
+        })
+      }
+    })
+    this.store.dispatch(new fromArticleAction.CheckArticleCache(this.ID))
+  }
+
+  initFromSearch(){
+    console.log("initFromSearch")
+    this.articleSubs = this.store.select("search").subscribe((data)=>{
+      let article = data["Article"]
+      if (article){
+        this.article = new Promise((resolve,_)=>{
+          resolve(article)
+        })
+      }
+    })
+    this.store.dispatch(new fromSearchAction.CheckArticleCache(this.ID))
   }
 
   createCommentForm(){

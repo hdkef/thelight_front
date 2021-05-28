@@ -1,7 +1,7 @@
 <app-search (searchEvent)="onSearchEvent($event)"></app-search>
 <div id="container">
     <div id="grid-view">
-        <app-article-item *ngFor="let article of articles | async" [article]="article"></app-article-item>
+        <app-article-item *ngFor="let article of articles | async" [article]="article" [from]="from"></app-article-item>
     </div>
 </div>
 <app-paginator (pageEvent)="onPageEvent($event)"></app-paginator>

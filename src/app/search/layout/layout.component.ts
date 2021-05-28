@@ -16,6 +16,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   articles:Promise<Article[]>
   searchSubs:Subscription
+  from:string = "Search"
   Page:Number = 1
   Key:string
   Filter:string

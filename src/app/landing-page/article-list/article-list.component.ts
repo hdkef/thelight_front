@@ -10,6 +10,7 @@ export class ArticleListComponent implements OnChanges {
 
   @Input()articles:Article[]
   articlesasync:Promise<Article[]>
+  from:string = "Article"
 
   constructor() { }
   
