@@ -1,3 +1,7 @@
 #media-input input, #media-input button{
     display: block;
 }
+
+#imgprev img{
+    width:250px
+}

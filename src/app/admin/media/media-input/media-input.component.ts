@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
 import * as fromMediaAction from '../../../redux/actions/media-action'
@@ -16,6 +16,7 @@ export class MediaInputComponent implements OnInit {
 
   mediaForm:FormGroup
   fileHolder:File | null
+  imgPreview:SafeUrl | null
 
   ngOnInit(): void {
     this.mediaForm = new FormGroup({
@@ -26,7 +27,7 @@ export class MediaInputComponent implements OnInit {
   onFileChange(event){
     if (event.target.files && event.target.files.length) {
       this.fileHolder = event.target.files[0];
-      // this.preview = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.fileHolder))
+      this.imgPreview = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.fileHolder))
       this.mediaForm.controls.Image.setErrors(null)
     }
   }
@@ -42,6 +43,7 @@ export class MediaInputComponent implements OnInit {
     this.mediaForm.markAsUntouched()
     this.mediaForm.controls.Image.setErrors(null)
     this.fileHolder = null
+    this.imgPreview = null
   }
 
 }

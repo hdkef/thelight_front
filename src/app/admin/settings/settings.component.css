@@ -12,6 +12,10 @@
     padding:15px;
 }
 
+#imgprev img{
+    width:250px
+}
+
 @media only screen and (max-width:900px){
     #container {
         margin-top: 0;

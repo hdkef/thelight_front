@@ -1,5 +1,8 @@
 <div id="container">
     <div id="wrapper">
+        <div *ngIf="imgPreview" id="imgprev">
+            <img [src]="imgPreview">
+        </div>
         <form [formGroup]="settingsForm" (ngSubmit)="goSubmitChanges()">
             <input type="file" formControlName="Avatar" (change)="onFileChange($event)">
             <input placeholder="Name" formControlName="Name">

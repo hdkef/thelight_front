@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -13,11 +14,12 @@ import * as fromAuthAction from '../../redux/actions/auth-action'
 })
 export class SettingsComponent implements OnInit, OnDestroy {
 
-  constructor(private store:Store<AppState>, private router:Router) { }
+  constructor(private store:Store<AppState>, private router:Router, private sanitizer:DomSanitizer) { }
 
   authSubs:Subscription
   settingsForm:FormGroup
   fileHolder:File | null
+  imgPreview:SafeUrl | null
   ID:Number
   Name:string
   Bio:string
@@ -63,7 +65,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   onFileChange(event){
     if (event.target.files && event.target.files.length) {
       this.fileHolder = event.target.files[0];
-      // this.preview = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.fileHolder))
+      this.imgPreview = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.fileHolder))
       this.settingsForm.controls.Avatar.setErrors(null)
     }
   }
@@ -99,6 +101,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.settingsForm.markAsUntouched()
     this.settingsForm.controls.Avatar.setErrors(null)
     this.fileHolder = null
+    this.imgPreview = null
   }
 
 }
