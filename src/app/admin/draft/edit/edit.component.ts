@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Article } from 'src/app/models/article';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
 import * as fromDraftAction from '../../../redux/actions/draft-action'
+import * as fromAuthAction from '../../../redux/actions/auth-action'
 
 @Component({
   selector: 'app-edit',
@@ -14,11 +15,13 @@ import * as fromDraftAction from '../../../redux/actions/draft-action'
 })
 export class EditComponent implements OnInit, OnDestroy {
 
-  constructor(private store:Store<AppState>, private route:ActivatedRoute) { }
+  constructor(private store:Store<AppState>, private route:ActivatedRoute, private router:Router) { }
 
   draftSubs:Subscription
+  authSubs:Subscription
   draftForm:FormGroup
   Tag:string[] = []
+  ID:Number
   TagString:string
   ImageURL:string = ""
 
@@ -26,19 +29,29 @@ export class EditComponent implements OnInit, OnDestroy {
     if (this.draftSubs){
       this.draftSubs.unsubscribe()
     }
+    if (this.authSubs){
+      this.authSubs.unsubscribe()
+    }
     this.store.dispatch(new fromDraftAction.DestroyInfo())
     this.store.dispatch(new fromDraftAction.DestroyDraft())
+    this.store.dispatch(new fromAuthAction.DestroyInfo())
   }
 
   ngOnInit(): void {
     this.initForm()
+    let ID = Number(this.route.snapshot.queryParamMap.get("ID"))
+    this.authSubs = this.store.select("auth").subscribe((data)=>{
+      if (!data["ID"]){
+        this.router.navigateByUrl("/admin/login")
+      }
+    })
     this.draftSubs = this.store.select("draft").subscribe((data)=>{
       let draft = data["Draft"]
       if (draft){
         this.setForm(draft)
+        this.ID = ID
       }
     })
-    let ID = Number(this.route.snapshot.queryParamMap.get("ID"))
     this.store.dispatch(new fromDraftAction.CheckCacheDraft(ID))
   }
 

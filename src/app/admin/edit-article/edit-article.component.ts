@@ -26,8 +26,8 @@ export class EditArticleComponent implements OnInit, OnDestroy {
   Tag:string[] = []
   TagString:string = ""
   ImageURL:string = ""
-  ID:Number
-  SavedID:Number
+  ID:Number 
+  SavedID:Number //this ID is for ID using in save as and save not ID of article that will be published / edited
   saveas:boolean = false
 
   ngOnDestroy(): void {
