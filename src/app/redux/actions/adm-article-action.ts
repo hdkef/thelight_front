@@ -10,6 +10,22 @@ export const SEND_INFO = "Adm Article Send Info"
 export const DESTROY_INFO = "Adm Article Destroy Info"
 export const SAVE_AS_OK = "Adm Article SaveAs OK"
 export const DESTROY_SAVEDID = "Adm Article Destroy SavedID"
+export const PREVIEW_ARTICLE_START = "Adm Article Preview Article Start"
+export const PREVIEW_ARTICLE_DESTROY = "Adm Article Preview Article Destroy"
+
+export class PreviewArticleDestroy implements Action {
+    
+    type: string= PREVIEW_ARTICLE_DESTROY
+
+    constructor(){}
+}
+
+export class PreviewArticleStart implements Action {
+    
+    type: string= PREVIEW_ARTICLE_START
+
+    constructor(public payload:Article){}
+}
 
 export class DestroySavedID implements Action {
     

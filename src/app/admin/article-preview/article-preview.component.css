@@ -1,0 +1,50 @@
+#container {
+    margin:0 auto;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+#title {
+    margin-top:25px;
+    padding:19px;
+    background-color: wheat;
+}
+
+#container h1{
+    padding-top: 25px;
+    margin-top: 0;
+}
+
+#preview-image{
+    display: flex;
+    justify-content: center;
+    width:100%;
+}
+
+#preview-image img{
+    padding: 19px;
+    display: block;
+    width:100%;
+    overflow-y: hidden;
+}
+
+#body {
+    padding:19px;
+    margin-top: 35px;
+}
+
+#body p {
+    display: block;
+}
+
+#toggle {
+    padding-top:5px;
+    padding-bottom: 5px;
+}
+
+@media only screen and (max-width:900px){
+    #container{
+        margin-left:0;
+        margin-right:0;
+    }
+}

@@ -110,40 +110,45 @@ export class EditArticleComponent implements OnInit, OnDestroy {
   }
 
   goSave(){
-    let payload:Article = {
-      ID:this.SavedID,
-      Date:null, //processed in server
-      Title:this.articleForm.value.Title,
-      ImageURL:this.articleForm.value.ImageURL,
-      Tag:this.Tag,
-      Preview:null, //processed in server
-      Body:this.articleForm.value.Body,
-      WriterInfo:null, //processed in server via jwt claims
-    }
+    let payload:Article = this.getPayload()
+    payload.ID = this.SavedID
     this.store.dispatch(new fromAdmArticleAction.SaveStart(payload))
     console.log("GO SAVE")
   }
 
   goSaveAs(){
-    let payload:Article = {
-      ID:null,
-      Date:null, //processed in server
-      Title:this.articleForm.value.Title,
-      ImageURL:this.articleForm.value.ImageURL,
-      Tag:this.Tag,
-      Preview:null, //processed in server
-      Body:this.articleForm.value.Body,
-      WriterInfo:null, //processed in server via jwt claims
-    }
+    let payload:Article = this.getPayload()
+    payload.ID = null
     this.store.dispatch(new fromAdmArticleAction.SaveAsStart(payload))
     this.saveas = true
     console.log("GO SAVE AS")
   }
 
   goEdit(){
+    let payload:Article = this.getPayload()
+    this.store.dispatch(new fromAdmArticleAction.EditStart(payload))
+    console.log("GO EDIT")
+  }
+
+  goPreview(){
+    let payload = this.getPayload()
+    payload.ID = null
+    payload.Date = new Date().toDateString()
+    payload.WriterInfo = {
+      ID:0,
+      Name:"Preview",
+      AvatarURL:"https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png",
+      Bio:"This is preview for writer's bio, remember this is just a preview",
+    }
+    this.store.dispatch(new fromAdmArticleAction.PreviewArticleStart(payload))
+    this.router.navigateByUrl('/admin/preview')
+    console.log("GO PREVIEW")
+  }
+
+  getPayload():Article{
     let payload:Article = {
-      ID:this.ID, //article ID that want to be updated
-      Date:null, //processed in server (add edited on bla/bla/bla)
+      ID:this.ID,
+      Date:null, //processed in server
       Title:this.articleForm.value.Title,
       ImageURL:this.articleForm.value.ImageURL,
       Tag:this.Tag,
@@ -151,8 +156,7 @@ export class EditArticleComponent implements OnInit, OnDestroy {
       Body:this.articleForm.value.Body,
       WriterInfo:null, //processed in server via jwt claims
     }
-    this.store.dispatch(new fromAdmArticleAction.EditStart(payload))
-    console.log("GO EDIT")
+    return payload
   }
 
 }

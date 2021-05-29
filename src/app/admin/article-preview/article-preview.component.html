@@ -1,1 +1,17 @@
-<p>article-preview works!</p>
+<div id="container">
+    <div id="title">
+        <h1>
+            {{(article | async)?.Title}}
+        </h1>
+        <p>
+            {{(article | async)?.Date}}
+        </p>
+    </div>
+    <div id="preview-image">
+        <img [src]="(article | async)?.ImageURL">
+    </div>
+    <div id="body">
+        {{(article | async)?.Body}}
+    </div>
+    <app-writer-info [writer]="(article | async)?.WriterInfo"></app-writer-info>
+</div>

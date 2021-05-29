@@ -7,6 +7,7 @@ import { Article } from 'src/app/models/article';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
 import * as fromDraftAction from '../../../redux/actions/draft-action'
 import * as fromAuthAction from '../../../redux/actions/auth-action'
+import * as fromAdmArticleAction from '../../../redux/actions/adm-article-action'
 
 @Component({
   selector: 'app-edit',
@@ -76,7 +77,9 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   goSave(){
-
+    let payload:Article = this.getPayload()
+    this.store.dispatch(new fromAdmArticleAction.SaveStart(payload))
+    console.log("GO SAVE")
   }
 
   peek(){
@@ -99,6 +102,35 @@ export class EditComponent implements OnInit, OnDestroy {
       this.Tag = tmpTag
       this.TagString = this.Tag.toString()
     }
+  }
+
+  goPreview(){
+    let payload = this.getPayload()
+    payload.ID = null
+    payload.Date = new Date().toDateString()
+    payload.WriterInfo = {
+      ID:0,
+      Name:"Preview",
+      AvatarURL:"https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png",
+      Bio:"This is preview for writer's bio, remember this is just a preview",
+    }
+    this.store.dispatch(new fromAdmArticleAction.PreviewArticleStart(payload))
+    this.router.navigateByUrl('/admin/preview')
+    console.log("GO PREVIEW")
+  }
+
+  getPayload():Article{
+    let payload:Article = {
+      ID:this.ID,
+      Date:null, //processed in server
+      Title:this.draftForm.value.Title,
+      ImageURL:this.draftForm.value.ImageURL,
+      Tag:this.Tag,
+      Preview:null, //processed in server
+      Body:this.draftForm.value.Body,
+      WriterInfo:null, //processed in server via jwt claims
+    }
+    return payload
   }
 
 }

@@ -36,7 +36,7 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
   TagString:string = ""
   ImageURL:string = ""
   saveas:boolean = false
-  ID:Number
+  SavedID:Number
 
   ngOnInit(): void {
     this.authSubs = this.store.select("auth").subscribe((data)=>{
@@ -48,7 +48,7 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
     this.admArticleSubs = this.store.select("admarticle").subscribe((data)=>{
       let savedid = data["SavedID"]
       if (savedid){
-        this.ID = savedid
+        this.SavedID = savedid
       }
     })
 
@@ -83,39 +83,45 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
   }
 
   goPublish(){
-    let payload:Article = {
-      ID:null, //new ID created in db, not client
-      Date:null, //processed in server
-      Title:this.articleForm.value.Title,
-      ImageURL:this.articleForm.value.ImageURL,
-      Tag:this.Tag,
-      Preview:null, //processed in server
-      Body:this.articleForm.value.Body,
-      WriterInfo:null, //processed in server via jwt claims
-    }
+    let payload:Article = this.getPayload()
+    payload.ID = null
     this.store.dispatch(new fromAdmArticleAction.PublishStart(payload))
     console.log("GO PUBLISH", payload)
   }
 
   goSaveAs(){
-    let payload:Article = {
-      ID:null,
-      Date:null, //processed in server
-      Title:this.articleForm.value.Title,
-      ImageURL:this.articleForm.value.ImageURL,
-      Tag:this.Tag,
-      Preview:null, //processed in server
-      Body:this.articleForm.value.Body,
-      WriterInfo:null, //processed in server via jwt claims
-    }
+    let payload:Article = this.getPayload()
+    payload.ID = null
     this.store.dispatch(new fromAdmArticleAction.SaveAsStart(payload))
     this.saveas = true
     console.log("GO SAVE AS")
   }
 
   goSave(){
+    let payload:Article = this.getPayload()
+    this.store.dispatch(new fromAdmArticleAction.SaveStart(payload))
+    this.saveas = true
+    console.log("GO SAVE")
+  }
+
+  goPreview(){
+    let payload = this.getPayload()
+    payload.ID = null
+    payload.Date = new Date().toDateString()
+    payload.WriterInfo = {
+      ID:0,
+      Name:"Preview",
+      AvatarURL:"https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png",
+      Bio:"This is preview for writer's bio, remember this is just a preview",
+    }
+    this.store.dispatch(new fromAdmArticleAction.PreviewArticleStart(payload))
+    this.router.navigateByUrl('/admin/preview')
+    console.log("GO PREVIEW")
+  }
+
+  getPayload():Article{
     let payload:Article = {
-      ID:this.ID,
+      ID:this.SavedID,
       Date:null, //processed in server
       Title:this.articleForm.value.Title,
       ImageURL:this.articleForm.value.ImageURL,
@@ -124,13 +130,7 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
       Body:this.articleForm.value.Body,
       WriterInfo:null, //processed in server via jwt claims
     }
-    this.store.dispatch(new fromAdmArticleAction.SaveStart(payload))
-    this.saveas = true
-    console.log("GO SAVE")
-  }
-
-  goPreview(){
-    console.log("GO PREVIEW")
+    return payload
   }
 
 }

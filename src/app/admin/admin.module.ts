@@ -31,6 +31,9 @@ import { ReactiveFormsModule } from '@angular/forms';
       {path:'draft',loadChildren:()=>{
         return import('./draft/draft.module').then((m)=>{return m.DraftModule})
       }},
+      {path:'preview',loadChildren:()=>{
+        return import('./article-preview/article-preview.module').then((m)=>{return m.ArticlePreviewModule})
+      }},
       {path:'analyze',loadChildren:()=>{
         return import('./analyze/analyze.module').then((m)=>{return m.AnalyzeModule})
       }},
