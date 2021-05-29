@@ -1,0 +1,24 @@
+<div id="container">
+    <form [formGroup]="articleForm" (ngSubmit)="goSave()">
+    <div id="title">
+        <h1>edit article</h1>
+    </div>
+    <div id="input-group">
+        <input placeholder="give a title..." formControlName="Title">
+        <input placeholder="add an ImageURL..." formControlName="ImageURL">
+        <div id="peek" *ngIf="ImageURL | async">
+            <img [src]="ImageURL | async">
+        </div>
+        <button type="button" (click)="peek()">peek</button>
+        <input placeholder="add some tags..." formControlName="addTag">
+        <p>{{TagString | async}}</p>
+        <button type="button" (click)="addTag()">add</button>
+        <button type="button" (click)="removeTag()">remove</button>
+    </div>
+    <div id="btn-group">
+        <button type="submit">save</button>
+        <button type="button">preview</button>
+    </div>
+    <quill-editor formControlName="Body"></quill-editor>
+    </form>
+</div>

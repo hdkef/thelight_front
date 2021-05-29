@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DraftViewOneComponent } from './draft-view-one.component';
+import { ArticlePreviewComponent } from './article-preview.component';
 
-describe('DraftViewOneComponent', () => {
-  let component: DraftViewOneComponent;
-  let fixture: ComponentFixture<DraftViewOneComponent>;
+describe('ArticlePreviewComponent', () => {
+  let component: ArticlePreviewComponent;
+  let fixture: ComponentFixture<ArticlePreviewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DraftViewOneComponent ]
+      declarations: [ ArticlePreviewComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DraftViewOneComponent);
+    fixture = TestBed.createComponent(ArticlePreviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

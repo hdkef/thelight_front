@@ -32,15 +32,16 @@ export class ArticleViewComponent implements OnInit, OnDestroy {
     if (this.articleSubs){
       this.articleSubs.unsubscribe()
     }
-    this.store.dispatch(new fromArticleAction.DestroyArticle())
     if (this.commentSubs){
       this.commentSubs.unsubscribe()
     }
     this.store.dispatch(new fromCommentAction.DestroyComments())
     if (!this.From || this.From == "Article"){
       this.store.dispatch(new fromArticleAction.DestroyInfo())
+      this.store.dispatch(new fromArticleAction.DestroyArticle())
     }else if (this.From == "Search"){
       this.store.dispatch(new fromSearchAction.DestroyInfo())
+      this.store.dispatch(new fromSearchAction.DestroyArticle())
     }
   }
 

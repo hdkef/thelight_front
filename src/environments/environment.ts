@@ -20,6 +20,8 @@ export const environment = {
   saveArticleAs:"/article/saveas",
   saveArticle:"/article/save",
   searcharticle:"/article/search",
+  draftgetall:"/draft/getall",
+  draftgetone:"/draft/getone"
 };
 
 /*

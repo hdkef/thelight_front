@@ -24,6 +24,8 @@ export function SearchReducer (
 ){
     let tmparticlescache = state.ArticlesCache
     switch(action.type){
+        case fromSearchAction.DESTROY_ARTICLE:
+            return {...state,Article:null}
         case fromSearchAction.CHECK_ARTICLE_CACHE:
             return state
         case fromSearchAction.GET_NEW_ARTICLE:

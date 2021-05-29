@@ -1,0 +1,14 @@
+<div class="card">
+    <h1>{{(draftasync | async)?.ID}}</h1>
+    <h1>{{(draftasync | async)?.Title}}</h1>
+    <div class="imageurl">
+        <img [src]="(articleasync | async)?.ImageURL">
+    </div>
+    <p>{{(draftasync | async)?.Preview}}</p>
+    <div>
+        <button (click)="goEdit()">edit</button>
+        <button (click)="goDelete()">delete</button>
+        <button (click)="goView()">view</button>
+        <button>analyze</button>
+    </div>
+</div>

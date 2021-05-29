@@ -36,6 +36,7 @@ export class EditArticleComponent implements OnInit, OnDestroy {
       this.authSubs.unsubscribe()
     }
     this.store.dispatch(new fromAdmArticleAction.DestroyInfo())
+    this.store.dispatch(new fromArticleAction.DestroyArticle())
     this.store.dispatch(new fromAuthAction.DestroyInfo())
   }
 

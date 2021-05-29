@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DraftViewAllComponent } from './draft-view-all.component';
+import { DraftItemComponent } from './draft-item.component';
 
-describe('DraftViewAllComponent', () => {
-  let component: DraftViewAllComponent;
-  let fixture: ComponentFixture<DraftViewAllComponent>;
+describe('DraftItemComponent', () => {
+  let component: DraftItemComponent;
+  let fixture: ComponentFixture<DraftItemComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DraftViewAllComponent ]
+      declarations: [ DraftItemComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DraftViewAllComponent);
+    fixture = TestBed.createComponent(DraftItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,22 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DraftComponent } from './draft.component';
 import { RouterModule } from '@angular/router';
-import { DraftViewOneComponent } from './draft-view-one/draft-view-one.component';
-import { DraftViewAllComponent } from './draft-view-all/draft-view-all.component';
+import { ViewAllComponent } from './view-all/view-all.component';
+import { DraftItemComponent } from './draft-item/draft-item.component';
+import { PaginatorModule } from 'src/app/paginator/paginator.module';
 
 
 
 @NgModule({
   declarations: [
-    DraftComponent,
-    DraftViewOneComponent,
-    DraftViewAllComponent
+    ViewAllComponent,
+    DraftItemComponent,
   ],
   imports: [
     CommonModule,
+    PaginatorModule,
     RouterModule.forChild([
-      {path:'',component:DraftComponent}
+      {path:'',pathMatch:'full', redirectTo:'view-all'},
+      {path:'view-all',component:ViewAllComponent},
+      {path:'edit',loadChildren:()=>{
+        return import('./edit/edit.module').then((m)=>{return m.EditModule})
+      }},
     ])
   ]
 })

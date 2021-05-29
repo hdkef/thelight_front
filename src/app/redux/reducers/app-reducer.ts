@@ -5,6 +5,7 @@ import * as fromCommentReducer from './comment-reducer'
 import * as fromMediaReducer from './media-reducer'
 import * as fromAdmArticle from './adm-article-reducer'
 import * as fromSearch from './search-reducer'
+import * as fromDraft from './draft-reducer'
 
 export interface AppState {
     auth:fromAuthReducer.State,
@@ -13,6 +14,7 @@ export interface AppState {
     media:fromMediaReducer.State,
     admarticle:fromAdmArticle.State,
     search:fromSearch.State,
+    draft:fromDraft.State,
 }
 
 export const AppReducer:ActionReducerMap<AppState> = {
@@ -22,4 +24,5 @@ export const AppReducer:ActionReducerMap<AppState> = {
     media:fromMediaReducer.MediaReducer,
     admarticle:fromAdmArticle.AdmArticleReducer,
     search:fromSearch.SearchReducer,
+    draft:fromDraft.DraftReducer,
 }

@@ -1,0 +1,6 @@
+<div id="container">
+    <div id="gridview">
+        <app-draft-item *ngFor="let draft of drafts | async" [draft]="draft"></app-draft-item>
+    </div>
+    <app-paginator (pageEvent)="onPageEvent($event)"></app-paginator>
+</div>

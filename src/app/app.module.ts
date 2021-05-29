@@ -17,6 +17,7 @@ import { BearerInterceptor } from './bearer-interceptor';
 import { ClearbearerInterceptor } from './clearbearer-interceptor';
 import { AdmArticleEffect } from './redux/effects/adm-article-effect';
 import { SearchEffect } from './redux/effects/search-effect';
+import { DraftEffect } from './redux/effects/draft-effect';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { SearchEffect } from './redux/effects/search-effect';
     EffectsModule.forRoot([]),
     HttpClientModule,
     StoreModule.forRoot(AppReducer),
-    EffectsModule.forRoot([AuthEffect,ArticleEffect,CommentEffect, MediaEffect, AdmArticleEffect, SearchEffect]),
+    EffectsModule.forRoot([AuthEffect,ArticleEffect,CommentEffect, MediaEffect, AdmArticleEffect, SearchEffect, DraftEffect]),
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:BearerInterceptor,multi:true},

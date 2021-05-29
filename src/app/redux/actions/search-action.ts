@@ -15,6 +15,12 @@ export const GET_NEW = "Search Get New"
 export const GET_CACHE = "Search Get Cache"
 export const RETRIEVE_NEW = "Search Retrieve New"
 export const RETRIEVE_CACHE = "Search Retrieve Cache"
+export const DESTROY_ARTICLE = "Search Destroy Articles"
+
+export class DestroyArticle implements Action {
+    type:string = DESTROY_ARTICLE
+    constructor(){}
+}
 
 export class CheckArticleCache implements Action {
     type:string = CHECK_ARTICLE_CACHE
