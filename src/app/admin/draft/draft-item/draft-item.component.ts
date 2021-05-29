@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { Article } from 'src/app/models/article';
 
 @Component({
@@ -11,7 +12,7 @@ export class DraftItemComponent implements OnChanges {
   @Input()draft:Article
   draftasync:Promise<Article>
 
-  constructor() { }
+  constructor(private router:Router) { }
   
   ngOnChanges(changes: SimpleChanges): void {
     if (this.draft){
@@ -23,7 +24,7 @@ export class DraftItemComponent implements OnChanges {
 
   goEdit(){
     alert("goedit")
-    // this.router.navigate(['/admin/edit-article'],{queryParams:{ID:this.draft.ID}})
+    this.router.navigate(['/admin/draft/edit'],{queryParams:{ID:this.draft.ID}})
   }
 
   goDelete(){

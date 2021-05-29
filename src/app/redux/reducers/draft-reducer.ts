@@ -36,7 +36,7 @@ export function DraftReducer (
                 let newDraftsCache = tmpdraftscache.concat(action.payload.Drafts)
                 return {...state,DraftsCache:newDraftsCache,Drafts:action.payload.Drafts,TotalPage:action.payload.TotalPage}
             }else{
-                return {...state,DraftsCache:action.payload.Drafts,Draft:action.payload.Drafts,TotalPage:action.payload.TotalPage}
+                return {...state,DraftsCache:action.payload.Drafts,Drafts:action.payload.Drafts,TotalPage:action.payload.TotalPage}
             }
         case fromDraftAction.GET_NEW_DRAFTS:
             return state

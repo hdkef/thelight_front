@@ -1,0 +1,29 @@
+#container {
+    margin:0 auto;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+#title {
+    width: 100%;
+    background-color: wheat;
+}
+
+#peek img{
+    width: 128px;
+}
+
+#input-group input{
+    display: block;
+    margin-top:5px;
+    margin-bottom: 5px;
+}
+
+#btn-group button{
+    margin-right:10px;
+}
+
+#btn-group {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}

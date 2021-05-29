@@ -1,4 +1,5 @@
 import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { of } from "rxjs";
@@ -7,6 +8,7 @@ import { environment } from "src/environments/environment";
 import * as fromDraftAction from '../actions/draft-action'
 import { AppState } from "../reducers/app-reducer";
 
+@Injectable()
 export class DraftEffect {
 
     constructor(private action$:Actions, private http:HttpClient, private store:Store<AppState>){}
@@ -55,6 +57,7 @@ export class DraftEffect {
         return this.http.post(`${environment.api}${environment.draftgetall}`,payload).pipe(
             map((data)=>{
                 let drafts = data["ArticlesFromServer"]
+                console.log("articles from server ", drafts)
                 if (!drafts){
                     return new fromDraftAction.SendInfo("NO NEW DRAFTS")
                 }else{
@@ -69,9 +72,10 @@ export class DraftEffect {
 
     getCacheDrafts = createEffect(()=>{
         return this.action$.pipe(
-            ofType(fromDraftAction.GET_NEW_DRAFTS),
+            ofType(fromDraftAction.GET_CACHE_DRAFTS),
             withLatestFrom(this.store.select("draft")),
             switchMap((value)=>{
+                console.log("getCacheDrafts")
                 let action:fromDraftAction.GetCacheDrafts = value[0]
                 let state = value[1]
                 let nextpage = action.payload
@@ -106,11 +110,12 @@ export class DraftEffect {
         return this.action$.pipe(
             ofType(fromDraftAction.GET_NEW_DRAFT),
             switchMap((action:fromDraftAction.GetNewDraft)=>{
+                console.log("getNewDraft")
                 let ID = action.payload
                 let payload = JSON.stringify({ID:ID})
                 return this.http.post(`${environment.api}${environment.draftgetone}`,payload).pipe(
                     map((data)=>{
-                        let draft = data["ArticlesFromServer"]
+                        let draft = data["ArticleFromServer"]
                         return new fromDraftAction.RetrieveNewDraft(draft)
                     }),
                     catchError((err)=>{

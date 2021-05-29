@@ -73,7 +73,6 @@ export class EditComponent implements OnInit, OnDestroy {
     })
     this.Tag = draft.Tag
     this.TagString = draft.Tag.toString()
-    this.ImageURL = draft.ImageURL
   }
 
   goSave(){
@@ -95,7 +94,9 @@ export class EditComponent implements OnInit, OnDestroy {
 
   removeTag(){
     if (this.Tag.length > 0){
-      this.Tag.pop()
+      let tmpTag = [...this.Tag]
+      tmpTag.pop()
+      this.Tag = tmpTag
       this.TagString = this.Tag.toString()
     }
   }

@@ -75,7 +75,9 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
 
   removeTag(){
     if (this.Tag.length > 0){
-      this.Tag.pop()
+      let tmpTag = [...this.Tag]
+      tmpTag.pop()
+      this.Tag = tmpTag
       this.TagString = this.Tag.toString()
     }
   }
