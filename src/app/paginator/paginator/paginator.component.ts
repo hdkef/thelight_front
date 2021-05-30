@@ -34,15 +34,12 @@ export class PaginatorComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.maxSubs = this.pagingEvent.listenMax().subscribe((max)=>{
       this.maxPage = Number(max)
-      console.log("MAX ", max)
     })
     this.curPageSubs = this.pagingEvent.listenCurPage().subscribe((page)=>{
       this.curPage = Number(page)
-      console.log("CUR ", page)
     })
     this.resetSubs = this.pagingEvent.listenReset().subscribe((bool)=>{
       if (bool){
-        console.log("RESET")
         this.curPage = 1
         this.maxPage = Number.POSITIVE_INFINITY
       }
@@ -51,10 +48,8 @@ export class PaginatorComponent implements OnInit, OnDestroy {
 
   paginate(i){
     if (this.curPage + i <= 0 || this.curPage +i > this.maxPage){
-      console.log("RETURNED ", this.curPage + i )
       return
     }else{
-      console.log("NOT RETURNED ", this.curPage + i )
       this.curPage +=i
       this.emitPagingEvent(this.curPage)
     }

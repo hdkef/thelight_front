@@ -18,7 +18,6 @@ export class DraftEffect {
             ofType(fromDraftAction.CHECK_CACHE_DRAFTS),
             withLatestFrom(this.store.select("draft")),
             switchMap((value)=>{
-                console.log("checkCacheDrafts")
                 let action:fromDraftAction.CheckCacheDrafts = value[0]
                 let state = value[1]
                 let totalpage = state.TotalPage
@@ -37,7 +36,6 @@ export class DraftEffect {
             ofType(fromDraftAction.GET_NEW_DRAFTS),
             withLatestFrom(this.store.select("draft")),
             switchMap((value)=>{
-                console.log("getNewDrafts")
                 let action:fromDraftAction.GetNewDrafts = value[0]
                 let state = value[1]
                 let draftsCache = state.DraftsCache
@@ -57,7 +55,6 @@ export class DraftEffect {
         return this.http.post(`${environment.api}${environment.draftgetall}`,payload).pipe(
             map((data)=>{
                 let drafts = data["ArticlesFromServer"]
-                console.log("articles from server ", drafts)
                 if (!drafts){
                     return new fromDraftAction.SendInfo("NO NEW DRAFTS")
                 }else{
@@ -75,7 +72,6 @@ export class DraftEffect {
             ofType(fromDraftAction.GET_CACHE_DRAFTS),
             withLatestFrom(this.store.select("draft")),
             switchMap((value)=>{
-                console.log("getCacheDrafts")
                 let action:fromDraftAction.GetCacheDrafts = value[0]
                 let state = value[1]
                 let nextpage = action.payload
@@ -110,7 +106,6 @@ export class DraftEffect {
         return this.action$.pipe(
             ofType(fromDraftAction.GET_NEW_DRAFT),
             switchMap((action:fromDraftAction.GetNewDraft)=>{
-                console.log("getNewDraft")
                 let ID = action.payload
                 let payload = JSON.stringify({ID:ID})
                 return this.http.post(`${environment.api}${environment.draftgetone}`,payload).pipe(

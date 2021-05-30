@@ -19,7 +19,6 @@ export class ArticleEffect {
             ofType(fromArticleAction.CHECK_ARTICLES_CACHE),
             withLatestFrom(this.store.select("article")),
             switchMap((value)=>{
-                console.log("checkArticlesCache", value)
                 let action:fromArticleAction.CheckArticlesCache = value[0]
                 let state = value[1]
                 let nextpage = action.payload
@@ -73,7 +72,6 @@ export class ArticleEffect {
             ofType(fromArticleAction.GET_CACHE_ARTICLES),
             withLatestFrom(this.store.select("article")),
             switchMap((value)=>{
-                console.log("getCacheArticles", value)
                 let action:fromArticleAction.GetCacheArticles = value[0]
                 let state = value[1]
                 let ArticlesCache = state.ArticlesCache
@@ -81,9 +79,6 @@ export class ArticleEffect {
                 let firstslice = (<number>nextpage - 1) * 6
                 let endslice = <number>nextpage * 6
                 let articles = ArticlesCache.slice(firstslice,endslice)
-                console.log("firstslice : ", firstslice)
-                console.log("endslice : ", endslice)
-                console.log("articles length from cache : ", articles.length)
                 return of(new fromArticleAction.RetrieveCacheArticles(articles))
             })
         )
@@ -94,7 +89,6 @@ export class ArticleEffect {
             ofType(fromArticleAction.CHECK_ARTICLE_CACHE),
             withLatestFrom(this.store.select("article")),
             switchMap((value)=>{
-                console.log("checkArticleCache", value)
                 let action:fromArticleAction.CheckArticleCache = value[0]
                 let state = value[1]
                 let ArticlesCache = state.ArticlesCache
@@ -111,7 +105,6 @@ export class ArticleEffect {
         return this.action$.pipe(
             ofType(fromArticleAction.GET_CACHE_ARTICLE),
             switchMap((action:fromArticleAction.GetCacheArticle)=>{
-                console.log("getCacheArticle")
                 let articleFound
                 let articlesCache = action.payload.ArticlesCache
                 for (let i=0;i < articlesCache.length;i++){
@@ -133,7 +126,6 @@ export class ArticleEffect {
         return this.action$.pipe(
             ofType(fromArticleAction.GET_NEW_ARTICLE),
             switchMap((action:fromArticleAction.GetNewArticle)=>{
-                console.log("getNewArticle")
                 let payload = JSON.stringify({ID:action.payload})
                 return this.http.post(`${environment.api}${environment.articlegetone}`,payload).pipe(
                     map((data)=>{

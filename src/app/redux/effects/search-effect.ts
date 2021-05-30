@@ -90,7 +90,6 @@ export class SearchEffect {
             ofType(fromSearchAction.CHECK_ARTICLE_CACHE),
             withLatestFrom(this.store.select("search")),
             switchMap((value)=>{
-                console.log("checkArticleCache", value)
                 let action:fromSearchAction.CheckArticleCache = value[0]
                 let state = value[1]
                 let ArticlesCache = state.ArticlesCache
@@ -107,7 +106,6 @@ export class SearchEffect {
         return this.action$.pipe(
             ofType(fromSearchAction.GET_CACHE_ARTICLE),
             switchMap((action:fromSearchAction.GetCacheArticle)=>{
-                console.log("getCacheArticle")
                 let articleFound
                 let articlesCache = action.payload.ArticlesCache
                 for (let i=0;i < articlesCache.length;i++){
@@ -129,7 +127,6 @@ export class SearchEffect {
         return this.action$.pipe(
             ofType(fromSearchAction.GET_NEW_ARTICLE),
             switchMap((action:fromSearchAction.GetNewArticle)=>{
-                console.log("getNewArticle")
                 let payload = JSON.stringify({ID:action.payload})
                 return this.http.post(`${environment.api}${environment.articlegetone}`,payload).pipe(
                     map((data)=>{

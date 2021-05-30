@@ -28,7 +28,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.articleSubs = this.store.select("article").subscribe((data)=>{
-      console.log(data)
       let articles = data["Articles"]
       let totalpage = data["TotalPage"]
       if (totalpage){

@@ -15,7 +15,6 @@ export class CommentEffect {
         return this.action$.pipe(
             ofType(fromCommentAction.GET_COMMENTS),
             switchMap((action:fromCommentAction.GetComments)=>{
-                console.log("getComments")
                 let payload = JSON.stringify({ID:action.payload})
                 return this.http.post(`${environment.api}${environment.commentgetall}`,payload).pipe(
                     map((data)=>{

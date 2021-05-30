@@ -29,7 +29,6 @@ export function MediaReducer (
         case fromMediaAction.INIT_WS_OK:
             return {...state,Init:true}
         case fromMediaAction.RETRIEVE_NEW:
-            console.log("RETRIEVE_NEW ", action.payload)
             if (oldmediasCache){
                 let newMediasCache = oldmediasCache.concat(action.payload.Medias)
                 return {...state,Medias:action.payload.Medias,MediasCache:newMediasCache,TotalPage:action.payload.TotalPage}

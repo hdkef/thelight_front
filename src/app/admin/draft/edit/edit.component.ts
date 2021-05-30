@@ -79,7 +79,6 @@ export class EditComponent implements OnInit, OnDestroy {
   goSave(){
     let payload:Article = this.getPayload()
     this.store.dispatch(new fromAdmArticleAction.SaveStart(payload))
-    console.log("GO SAVE")
   }
 
   peek(){
@@ -116,7 +115,6 @@ export class EditComponent implements OnInit, OnDestroy {
     }
     this.store.dispatch(new fromAdmArticleAction.PreviewArticleStart(payload))
     this.router.navigateByUrl('/admin/preview')
-    console.log("GO PREVIEW")
   }
 
   getPayload():Article{

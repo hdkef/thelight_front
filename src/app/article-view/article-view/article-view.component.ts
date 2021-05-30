@@ -56,7 +56,6 @@ export class ArticleViewComponent implements OnInit, OnDestroy {
   }
 
   initFromArticle(){
-    console.log("initFromArticle")
     this.articleSubs = this.store.select("article").subscribe((data)=>{
       let article = data["Article"]
       if (article){
@@ -69,7 +68,6 @@ export class ArticleViewComponent implements OnInit, OnDestroy {
   }
 
   initFromSearch(){
-    console.log("initFromSearch")
     this.articleSubs = this.store.select("search").subscribe((data)=>{
       let article = data["Article"]
       if (article){

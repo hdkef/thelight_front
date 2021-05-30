@@ -14,7 +14,6 @@ export class ClearbearerInterceptor implements HttpInterceptor{
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).pipe(
             catchError((err:HttpErrorResponse)=>{
-                console.log("catchError", err.headers.get("Clearbearer"))
                 if (err.headers.get("Clearbearer")){
                     this.store.dispatch(new fromAuthAction.LogoutStart())
                 }else{

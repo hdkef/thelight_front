@@ -86,7 +86,6 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
     let payload:Article = this.getPayload()
     payload.ID = null
     this.store.dispatch(new fromAdmArticleAction.PublishStart(payload))
-    console.log("GO PUBLISH", payload)
   }
 
   goSaveAs(){
@@ -94,14 +93,12 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
     payload.ID = null
     this.store.dispatch(new fromAdmArticleAction.SaveAsStart(payload))
     this.saveas = true
-    console.log("GO SAVE AS")
   }
 
   goSave(){
     let payload:Article = this.getPayload()
     this.store.dispatch(new fromAdmArticleAction.SaveStart(payload))
     this.saveas = true
-    console.log("GO SAVE")
   }
 
   goPreview(){
@@ -116,7 +113,6 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
     }
     this.store.dispatch(new fromAdmArticleAction.PreviewArticleStart(payload))
     this.router.navigateByUrl('/admin/preview')
-    console.log("GO PREVIEW")
   }
 
   getPayload():Article{

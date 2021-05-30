@@ -23,7 +23,6 @@ export class MediaEffect {
             ofType(fromMediaAction.TRY_PAGING),
             withLatestFrom(this.store.select("media")),
             switchMap((value)=>{
-                console.log("tryPaging")
                 let action:fromMediaAction.TryPaging = value[0]
                 let state = value[1]
 
@@ -41,7 +40,6 @@ export class MediaEffect {
             ofType(fromMediaAction.INIT_WS),
             withLatestFrom(this.store.select("auth")),
             switchMap((value)=>{
-                console.log("initWS")
                 let state = value[1]
                 let success = this.funcInitMediaWS(state.ID)
                 if (success){
@@ -58,7 +56,6 @@ export class MediaEffect {
             ofType(fromMediaAction.CHECK_CACHE),
             withLatestFrom(this.store.select("media")),
             switchMap((value)=>{
-                console.log("checkcache")
                 let action:fromMediaAction.CheckCache = value[0]
                 let state = value[1]
                 let totalpage = state.TotalPage
@@ -77,7 +74,6 @@ export class MediaEffect {
             ofType(fromMediaAction.GET_CACHE),
             withLatestFrom(this.store.select("media")),
             switchMap((value)=>{
-                console.log("getcache")
                 let action:fromMediaAction.CheckCache = value[0]
                 let state = value[1]
                 let MediasCache = state.MediasCache
@@ -95,7 +91,6 @@ export class MediaEffect {
             ofType(fromMediaAction.GET_NEW),
             withLatestFrom(this.store.select("media")),
             switchMap((value)=>{
-                console.log("getnew")
                 let action:fromMediaAction.CheckCache = value[0]
                 let state = value[1]
                 let MediasCache = state.MediasCache
@@ -111,7 +106,6 @@ export class MediaEffect {
     })
 
     PagingByID(LastID:Number,Page:Number){
-        console.log("pagingbyID")
         let payload:MediaPayload = {
             Type:"pagingFromClient",
             ID:this.ID,
@@ -176,7 +170,6 @@ export class MediaEffect {
                 let media = data["Media"]
                 switch (type){
                     case "pagingFromServer":
-                        console.log("pagingFromServer ", medias)
                         this.store.dispatch(new fromMediaAction.RetrieveNew({TotalPage:page,Medias:medias}))
                         break
                     case "mediaFromServer":
