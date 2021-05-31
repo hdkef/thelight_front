@@ -9,6 +9,7 @@ import { Comment } from 'src/app/models/comment';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
 import * as fromCommentAction from '../../redux/actions/comment-action'
 import * as fromSearchAction from '../../redux/actions/search-action'
+import { Meta, Title } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-article-view',
@@ -17,7 +18,7 @@ import * as fromSearchAction from '../../redux/actions/search-action'
 })
 export class ArticleViewComponent implements OnInit, OnDestroy {
 
-  constructor(private router:ActivatedRoute, private store:Store<AppState>) { }
+  constructor(private router:ActivatedRoute, private store:Store<AppState>, private meta:Meta, private title:Title) { }
 
   ID:Number
   From:string
@@ -59,6 +60,7 @@ export class ArticleViewComponent implements OnInit, OnDestroy {
     this.articleSubs = this.store.select("article").subscribe((data)=>{
       let article = data["Article"]
       if (article){
+        this.setMeta(article)
         this.article = new Promise((resolve,_)=>{
           resolve(article)
         })
@@ -71,6 +73,7 @@ export class ArticleViewComponent implements OnInit, OnDestroy {
     this.articleSubs = this.store.select("search").subscribe((data)=>{
       let article = data["Article"]
       if (article){
+        this.setMeta(article)
         this.article = new Promise((resolve,_)=>{
           resolve(article)
         })
@@ -119,6 +122,17 @@ export class ArticleViewComponent implements OnInit, OnDestroy {
     this.commentForm.markAsUntouched()
     this.commentForm.controls.Name.setErrors(null)
     this.commentForm.controls.Text.setErrors(null)
+  }
+
+  setMeta(Article:Article){
+    this.title.setTitle(Article.Title)
+    this.meta.addTags([
+      {name:'description',content:Article.Preview},
+      {name:'keywords',content:Article.Tag.toString()},
+      {name:'author',content:Article.WriterInfo.Name},
+      {name:'date',content:Article.Date},
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    ])
   }
 
 }

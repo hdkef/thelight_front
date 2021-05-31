@@ -8,7 +8,7 @@
         </p>
     </div>
     <div id="preview-image">
-        <img [src]="(article | async)?.ImageURL">
+        <img [src]="(article | async)?.ImageURL" alt="(article | async)?.Title">
     </div>
     <div id="body">
         {{(article | async)?.Body}}
