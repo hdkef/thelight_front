@@ -126,7 +126,7 @@ export class MediaEffect {
                 let state = value[1]
 
                 let payload = new FormData()
-                let filename = state.ID + new Date().toISOString()
+                let filename = state.ID + new Date().toISOString() + action.payload.name
                 payload.append('Image',action.payload,filename)
 
                 return this.http.post(`${environment.api}${environment.mediaupload}`,payload).pipe(
@@ -142,6 +142,22 @@ export class MediaEffect {
         )
     })
 
+    deleteMedia = createEffect(()=>{
+        return this.action$.pipe(
+            ofType(fromMediaAction.DELETE_START),
+            switchMap((action:fromMediaAction.DeleteStart)=>{
+                let payload = JSON.stringify({ID:action.payload})
+                return this.http.post(`${environment.api}${environment.mediadel}`,payload).pipe(
+                    map((data)=>{
+                        return new fromMediaAction.DeleteOK(action.payload)
+                    }),
+                    catchError((err)=>{
+                        return of(new fromMediaAction.SendInfo(err.error))
+                    })
+                )
+            })
+        )
+    })
 
     funcInitMediaWS(ID:Number){
 

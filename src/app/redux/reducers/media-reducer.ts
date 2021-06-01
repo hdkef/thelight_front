@@ -24,6 +24,25 @@ export function MediaReducer (
     let oldmediasCache = state.MediasCache
     let oldmedias = state.Medias
     switch(action.type){
+        case fromMediaAction.DELETE_OK:
+            if (!oldmedias || !oldmediasCache){
+                return state
+            }
+            let tmpMedias = [...oldmedias]
+            let tmpMediasC = [...oldmediasCache]
+            for (let i=0;i < tmpMedias.length;i++){
+                if (tmpMedias[i].ID == action.payload){
+                    tmpMedias[i] = null
+                    break
+                }
+            }
+            for (let i=0;i < tmpMediasC.length;i++){
+                if (tmpMediasC[i].ID == action.payload){
+                    tmpMediasC[i] = null
+                    break
+                }
+            }
+            return {...state,Medias:tmpMedias,MediasCache:tmpMediasC}
         case fromMediaAction.MEDIA_FROM_CLIENT:
             return state
         case fromMediaAction.INIT_WS_OK:

@@ -11,13 +11,21 @@ export const INIT_WS_OK = "Media Init WS OK"
 export const TRY_PAGING = "Media Try Paging"
 export const CHECK_CACHE = "Media Check Cache"
 export const RETRIEVE_NEW = "Media Retrieve New"
-
-
 export const RETRIEVE_CACHE = "Media Retrieve Cache"
 export const GET_NEW = "Media Get New"
 export const GET_CACHE = "Media Get Cache"
+export const DELETE_START = "Media Delete Start"
+export const DELETE_OK = "Media Delete OK"
 
+export class DeleteOK implements Action {
+    type: string = DELETE_OK
+    constructor(public payload:Number){}
+}
 
+export class DeleteStart implements Action {
+    type: string = DELETE_START
+    constructor(public payload:Number){}
+}
 
 export class InitWS implements Action {
     type: string = INIT_WS

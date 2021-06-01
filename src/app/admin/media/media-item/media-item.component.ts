@@ -1,5 +1,8 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Media } from 'src/app/models/media';
+import { AppState } from 'src/app/redux/reducers/app-reducer';
+import {DeleteStart} from '../../../redux/actions/media-action'
 
 @Component({
   selector: 'app-media-item',
@@ -11,7 +14,7 @@ export class MediaItemComponent implements OnChanges {
 
   @Input()media:Media
   mediaasync:Promise<Media>
-  constructor() { }
+  constructor(private store:Store<AppState>) { }
   
   ngOnChanges(changes: SimpleChanges): void {
     if (this.media){
@@ -22,8 +25,15 @@ export class MediaItemComponent implements OnChanges {
   }
 
   copyURL(){
-    alert("COPIED")
-    document.execCommand(this.media.ImageURL)
+    navigator.clipboard.writeText(this.media.ImageURL).then(()=>{
+      alert("COPIED")
+    },()=>{
+      alert(`Failed to copy, try copying this : ${this.media.ImageURL}`)
+    })
+  }
+
+  goDelete(){
+    this.store.dispatch(new DeleteStart(this.media.ID))
   }
 
 }

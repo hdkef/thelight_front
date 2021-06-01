@@ -13,6 +13,7 @@ export const environment = {
   commentinsert:"/comment/insert",
   mediaws:"ws://localhost:4040/media/ws",
   mediaupload:"/media/upload",
+  mediadel:"/media/delete",
   settings:"/auth/settings",
   publishArticle:"/article/publish",
   editArticle:"/article/edit",

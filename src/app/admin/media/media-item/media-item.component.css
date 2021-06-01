@@ -22,3 +22,8 @@
     display: flex;
     justify-content: center;
 }
+
+.btn-group button {
+    margin-left: 3px;
+    margin-right: 3px;
+}
