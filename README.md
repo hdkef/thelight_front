@@ -48,3 +48,12 @@ this component specially designed for searching feature.
     WriterInfo    : To render writer's information
     Comment       : To render article comments
     Navbar        : a navbar, (round hamburger icon)
+
+#TODO
+
+1. Analytics
+for example, article hit counter, geography tracking, user agent tracking, etc
+
+2. Server side rendering
+because this is a blogging medium, this web app needs to be exposed to search engine. But,
+server side rendering for angular is using node.js and not golang, i'll find a way to make it possible to work with golang. Maybe, i make two separated entities, nodejs for handling the static things (like serving images, html, css, js) and golang for handling data processing.
