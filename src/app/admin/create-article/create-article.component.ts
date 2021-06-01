@@ -56,6 +56,7 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
       'Title': new FormControl(null, Validators.required),
       'ImageURL': new FormControl(null, Validators.required),
       'addTag': new FormControl(null),
+      'Preview': new FormControl(null, [Validators.required, Validators.pattern('^[\w\W]{0,200}$')]),
       'Body': new FormControl(null, Validators.required),
     })
   }
@@ -122,7 +123,7 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
       Title:this.articleForm.value.Title,
       ImageURL:this.articleForm.value.ImageURL,
       Tag:this.Tag,
-      Preview:null, //processed in server
+      Preview:this.articleForm.value.Preview,
       Body:this.articleForm.value.Body,
       WriterInfo:null, //processed in server via jwt claims
     }

@@ -22,7 +22,29 @@ export function DraftReducer (
     action
 ){
     let tmpdraftscache = state.DraftsCache
+    let tmpdrafts = state.Drafts
     switch(action.type){
+        case fromDraftAction.DELETE_OK:
+            if (!tmpdrafts || !tmpdraftscache){
+                return state
+            }
+            let tmp1 = [...tmpdrafts]
+            let tmp2 = [...tmpdraftscache]
+            for (let i=0;i < tmp1.length;i++){
+                if (tmp1[i].ID == action.payload){
+                    tmp1[i] = null
+                    break
+                }
+            }
+            for (let i=0;i < tmp2.length;i++){
+                if (tmp2[i].ID == action.payload){
+                    tmp2[i] = null
+                    break
+                }
+            }
+            return {...state,Drafts:tmp1,DraftsCache:tmp2}
+        case fromDraftAction.DELETE_START:
+            return state
         case fromDraftAction.DESTROY_DRAFT:
             return {...state,Draft:null}
         case fromDraftAction.RETRIEVE_CACHE_DRAFT:

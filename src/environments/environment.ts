@@ -21,7 +21,8 @@ export const environment = {
   saveArticle:"/article/save",
   searcharticle:"/article/search",
   draftgetall:"/draft/getall",
-  draftgetone:"/draft/getone"
+  draftgetone:"/draft/getone",
+  draftdelete:"/draft/delete",
 };
 
 /*

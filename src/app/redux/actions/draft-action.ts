@@ -14,6 +14,20 @@ export const RETRIEVE_CACHE_DRAFT = "Draft Retrieve Cache Draft"
 export const SEND_INFO = "Draft Send Info"
 export const DESTROY_INFO = "Draft Destroy Info"
 export const DESTROY_DRAFT = "Draft Destroy Draft"
+export const DELETE_START = "Draft Delete Start"
+export const DELETE_OK = "Draft Delete OK"
+
+export class DeleteOK implements Action {
+    type:string = DELETE_OK
+
+    constructor(public payload:Number){}
+}
+
+export class DeleteStart implements Action {
+    type:string = DELETE_START
+
+    constructor(public payload:Number){}
+}
 
 export class DestroyDraft implements Action {
     type:string = DESTROY_DRAFT

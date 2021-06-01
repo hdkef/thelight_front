@@ -143,4 +143,21 @@ export class DraftEffect {
         )
     })
 
+    deleteStart = createEffect(()=>{
+        return this.action$.pipe(
+            ofType(fromDraftAction.DELETE_START),
+            switchMap((action:fromDraftAction.DeleteStart)=>{
+                let payload = JSON.stringify({ID:action.payload})
+                return this.http.post(`${environment.api}${environment.draftdelete}`,payload).pipe(
+                    map((data)=>{
+                        return new fromDraftAction.DeleteOK(action.payload)
+                    }),
+                    catchError((err)=>{
+                        return of(new fromDraftAction.SendInfo(err.error))
+                    })
+                )
+            })
+        )
+    })
+
 }

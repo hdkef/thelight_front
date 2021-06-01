@@ -62,6 +62,7 @@ export class EditComponent implements OnInit, OnDestroy {
       'Title': new FormControl(null,Validators.required),
       'ImageURL':new FormControl(null,Validators.required),
       'addTag': new FormControl(null),
+      'Preview':new FormControl(null,[Validators.required, Validators.pattern('^[\w\W]{0,200}$')]),
     })
   }
 
@@ -71,6 +72,7 @@ export class EditComponent implements OnInit, OnDestroy {
       "ImageURL":draft.ImageURL,
       "addTag":null,
       "Body":draft.Body,
+      "Preview":draft.Preview,
     })
     this.Tag = draft.Tag
     this.TagString = draft.Tag.toString()
@@ -124,7 +126,7 @@ export class EditComponent implements OnInit, OnDestroy {
       Title:this.draftForm.value.Title,
       ImageURL:this.draftForm.value.ImageURL,
       Tag:this.Tag,
-      Preview:null, //processed in server
+      Preview:this.draftForm.value.Preview,
       Body:this.draftForm.value.Body,
       WriterInfo:null, //processed in server via jwt claims
     }
