@@ -7,7 +7,6 @@ import { Article } from 'src/app/models/article';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
 import * as fromArticleAction from '../../redux/actions/article-action'
 import * as fromAdmArticleAction from '../../redux/actions/adm-article-action'
-import * as fromAuthAction from '../../redux/actions/auth-action'
 
 @Component({
   selector: 'app-edit-article',
@@ -21,7 +20,6 @@ export class EditArticleComponent implements OnInit, OnDestroy {
   
 
   articleForm:FormGroup
-  authSubs:Subscription
   admArticleSubs:Subscription
   Tag:string[] = []
   TagString:string = ""
@@ -32,20 +30,11 @@ export class EditArticleComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.store.dispatch(new fromArticleAction.DestroyArticle())
-    if (this.authSubs){
-      this.authSubs.unsubscribe()
-    }
     this.store.dispatch(new fromAdmArticleAction.DestroyInfo())
     this.store.dispatch(new fromArticleAction.DestroyArticle())
-    this.store.dispatch(new fromAuthAction.DestroyInfo())
   }
 
   ngOnInit(): void {
-    this.authSubs = this.store.select("auth").subscribe((data)=>{
-      if (!data["ID"]){
-        this.router.navigateByUrl("/admin/login")
-      }
-    })
 
     this.admArticleSubs = this.store.select("admarticle").subscribe((data)=>{
       let savedid = data["SavedID"]

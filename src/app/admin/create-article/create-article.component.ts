@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 import { Article } from 'src/app/models/article';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
 import * as fromAdmArticleAction from '../../redux/actions/adm-article-action'
-import * as fromAuthAction from '../../redux/actions/auth-action'
 
 @Component({
   selector: 'app-create-article',
@@ -18,20 +17,15 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
   constructor(private store:Store<AppState>, private router:Router) { }
   
   ngOnDestroy(): void {
-    if (this.authSubs){
-      this.authSubs.unsubscribe()
-    }
     if (this.admArticleSubs){
       this.admArticleSubs.unsubscribe()
     }
     this.store.dispatch(new fromAdmArticleAction.DestroySavedID())
     this.store.dispatch(new fromAdmArticleAction.DestroyInfo())
-    this.store.dispatch(new fromAuthAction.DestroyInfo())
   }
 
   articleForm:FormGroup
   admArticleSubs:Subscription
-  authSubs:Subscription
   Tag:string[] = []
   TagString:string = ""
   ImageURL:string = ""
@@ -39,12 +33,6 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
   SavedID:Number
 
   ngOnInit(): void {
-    this.authSubs = this.store.select("auth").subscribe((data)=>{
-      if (!data["ID"]){
-        this.router.navigateByUrl("/admin/login")
-      }
-    })
-
     this.admArticleSubs = this.store.select("admarticle").subscribe((data)=>{
       let savedid = data["SavedID"]
       if (savedid){

@@ -22,7 +22,8 @@ export class MediaItemComponent implements OnChanges {
   }
 
   copyURL(){
-    alert(this.media.ImageURL)
+    alert("COPIED")
+    document.execCommand(this.media.ImageURL)
   }
 
 }

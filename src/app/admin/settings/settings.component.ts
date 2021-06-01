@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AppState } from 'src/app/redux/reducers/app-reducer';
@@ -14,7 +13,7 @@ import * as fromAuthAction from '../../redux/actions/auth-action'
 })
 export class SettingsComponent implements OnInit, OnDestroy {
 
-  constructor(private store:Store<AppState>, private router:Router, private sanitizer:DomSanitizer) { }
+  constructor(private store:Store<AppState>, private sanitizer:DomSanitizer) { }
 
   authSubs:Subscription
   settingsForm:FormGroup
@@ -36,9 +35,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.initForm()
     this.authSubs = this.store.select("auth").subscribe((data)=>{
       let ID = data["ID"]
-      if (!ID){
-        this.router.navigateByUrl("/admin/login")
-      }else{
+      if (ID){
         this.ID = ID
         this.Name = data["Name"]
         this.AvatarURL = data["AvatarURL"]

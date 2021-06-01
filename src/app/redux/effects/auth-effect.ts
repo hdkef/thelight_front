@@ -1,15 +1,16 @@
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import * as fromAuthAction from '../actions/auth-action'
 import { HttpClient } from '@angular/common/http';
-import {catchError, map, switchMap, tap} from 'rxjs/operators'
+import {catchError, map, switchMap} from 'rxjs/operators'
 import { of } from "rxjs";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthEffect {
     
-    constructor(private action$:Actions, private http:HttpClient){}
+    constructor(private action$:Actions, private http:HttpClient, private router:Router){}
 
     loginStart$ = createEffect(()=>{
         return this.action$.pipe(
@@ -42,23 +43,27 @@ export class AuthEffect {
         return this.action$.pipe(
             ofType(fromAuthAction.AUTOLOGIN_START),
             switchMap((action:fromAuthAction.AutoLoginStart)=>{
-                return this.http.get(`${environment.api}${environment.autologin}`).pipe(
-                    map((data)=>{
-                        let writerinfo = data["WriterInfo"]
-                        let ID = writerinfo["ID"]
-                        let Name = writerinfo["Name"]
-                        let AvatarURL = writerinfo["AvatarURL"]
-                        let Bio = writerinfo["Bio"]
-                        let newtoken = data["NewToken"]
-                        if (newtoken){
-                            this.savetoLocal(newtoken)
-                        }
-                        return new fromAuthAction.LoginOK({ID,Name,AvatarURL,Bio})
-                    }),
-                    catchError((err)=>{
-                        return of(new fromAuthAction.SendInfo(err.error))
-                    })
-                )
+                if (!localStorage.getItem("Bearer")){
+                    return of(new fromAuthAction.SendInfo("NO TOKEN IN LOCAL STORAGE"))
+                }else{
+                    return this.http.get(`${environment.api}${environment.autologin}`).pipe(
+                        map((data)=>{
+                            let writerinfo = data["WriterInfo"]
+                            let ID = writerinfo["ID"]
+                            let Name = writerinfo["Name"]
+                            let AvatarURL = writerinfo["AvatarURL"]
+                            let Bio = writerinfo["Bio"]
+                            let newtoken = data["NewToken"]
+                            if (newtoken){
+                                this.savetoLocal(newtoken)
+                            }
+                            return new fromAuthAction.LoginOK({ID,Name,AvatarURL,Bio})
+                        }),
+                        catchError((err)=>{
+                            return of(new fromAuthAction.SendInfo(err.error))
+                        })
+                    )
+                }
             })
         )
     })
@@ -68,6 +73,7 @@ export class AuthEffect {
             ofType(fromAuthAction.LOGOUT_START),
             switchMap((action:fromAuthAction.LogoutStart)=>{
                 this.removeLocal()
+                this.router.navigateByUrl("/admin/login")
                 return of(new fromAuthAction.SendInfo("logged out"))
             }),
         )

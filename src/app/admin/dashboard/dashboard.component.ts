@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Article } from 'src/app/models/article';
@@ -17,26 +16,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   articles:Promise<Article[]>
   showArticles:boolean = false
-  authSubs:Subscription
   articleSubs:Subscription
   totalpage:Number = 1
 
-  constructor(private store:Store<AppState>, private router:Router, private pagingEvent:PaginatorEventService) { }
+  constructor(private store:Store<AppState>, private pagingEvent:PaginatorEventService) { }
   
   ngOnDestroy(): void {
-    if (this.authSubs){
-      this.authSubs.unsubscribe()
-    }
     this.store.dispatch(new fromArticleAction.DestroyInfo())
-    this.store.dispatch(new fromAuthAction.DestroyInfo())
   }
 
   ngOnInit(): void {
-    this.authSubs = this.store.select("auth").subscribe((data)=>{
-      if (!data["ID"]){
-        this.router.navigateByUrl("/admin/login")
-      }
-    })
     this.store.dispatch(new fromArticleAction.CheckArticlesCache(1))
   }
 
