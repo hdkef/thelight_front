@@ -21,6 +21,10 @@ export function AuthReducer(
     action,
 ){
     switch (action.type){
+        case fromAuthAction.EMAILVER_START:
+            return state
+        case fromAuthAction.REGISTER_START:
+            return state
         case fromAuthAction.LOGIN_START:
             return state
         case fromAuthAction.SEND_INFO:

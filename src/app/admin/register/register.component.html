@@ -1,0 +1,15 @@
+<div id="container">
+    <div id="registerf">
+        <form [formGroup]="emailverForm" (ngSubmit)="goEmailVer()">
+            <h4>register</h4>
+            <input type="text"placeholder="Name" formControlName="Name">
+            <input type="password" placeholder="Pass" formControlName="Pass">
+            <input type="email" placeholder="Email" formControlName="Email">
+            <button type="submit" [disabled]="emailverForm.invalid">send email verif</button>
+        </form>
+        <form (ngSubmit)="goRegister()" [formGroup]="registerForm">
+            <input type="text" placeholder="Email verif Code" formControlName="Code">
+            <button type="submit" [disabled]="registerForm.invalid">register</button>
+        </form>
+    </div>
+</div>

@@ -8,6 +8,18 @@ export const SEND_INFO = "Auth Send Info"
 export const POST_SETTINGS = "Auth Post Settings"
 export const SETTINGS_OK = "Auth Settings Bio Name Avatar OK"
 export const DESTROY_INFO = "Auth Destroy Info"
+export const REGISTER_START = "Auth Register Start"
+export const EMAILVER_START = "Auth EmailVer Start"
+
+export class EmailVerStart implements Action{
+    type: string = EMAILVER_START
+    constructor(public payload:{Name:string,Pass:string,Email:string}){}
+}
+
+export class RegisterStart implements Action{
+    type: string = REGISTER_START
+    constructor(public payload:{Email:string,Code:string}){}
+}
 
 export class DestroyInfo implements Action{
     type: string = DESTROY_INFO

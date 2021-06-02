@@ -3,17 +3,17 @@
     justify-content: center;
 }
 
-#loginf {
+#registerf {
     margin-top: 20vh;
 }
 
-#loginf input, #loginf button{
+#registerf input, #registerf button{
     display: block;
 }
 
 @media only screen and (max-width:900px){
     
-    #loginf {
+    #registerf {
         margin-top:5vh;
     }
 }

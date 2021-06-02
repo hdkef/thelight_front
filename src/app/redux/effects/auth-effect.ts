@@ -112,4 +112,44 @@ export class AuthEffect {
         )
     })
 
+    emailVerStart = createEffect(()=>{
+        return this.action$.pipe(
+            ofType(fromAuthAction.EMAILVER_START),
+            switchMap((action:fromAuthAction.EmailVerStart)=>{
+                let payload = JSON.stringify(action.payload)
+                return this.http.post(`${environment.api}${environment.emailver}`,payload).pipe(
+                    map((data)=>{
+                        alert("email verification code sent")
+                        let msg = data["MSG"]
+                        return new fromAuthAction.SendInfo(msg)
+                    }),
+                    catchError((err)=>{
+                        alert(err.error)
+                        return of(new fromAuthAction.SendInfo(err.error))
+                    })
+                )
+            })
+        )
+    })
+
+    registerStart = createEffect(()=>{
+        return this.action$.pipe(
+            ofType(fromAuthAction.REGISTER_START),
+            switchMap((action:fromAuthAction.RegisterStart)=>{
+                let payload = JSON.stringify(action.payload)
+                return this.http.post(`${environment.api}${environment.register}`,payload).pipe(
+                    map((data)=>{
+                        alert("REGISTRATION SUCCEED")
+                        let msg = data["MSG"]
+                        return new fromAuthAction.SendInfo(msg)
+                    }),
+                    catchError((err)=>{
+                        alert(err.error)
+                        return of(new fromAuthAction.SendInfo(err.error))
+                    })
+                )
+            })
+        )
+    })
+
 }

@@ -39,6 +39,9 @@ import { LoginGuard } from './login.guard';
       {path:'analyze', canActivate:[AdminGuard],loadChildren:()=>{
         return import('./analyze/analyze.module').then((m)=>{return m.AnalyzeModule})
       }},
+      {path:'register',loadChildren:()=>{
+        return import('./register/register.module').then((m)=>{return m.RegisterModule})
+      }},
     ]),
     ReactiveFormsModule
   ],
