@@ -44,7 +44,7 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
       'Title': new FormControl(null, Validators.required),
       'ImageURL': new FormControl(null, Validators.required),
       'addTag': new FormControl(null),
-      'Preview': new FormControl(null, [Validators.required, Validators.pattern('^[\w\W]{0,200}$')]),
+      'Preview': new FormControl(null, [Validators.required, Validators.max(200)]),
       'Body': new FormControl(null, Validators.required),
     })
   }

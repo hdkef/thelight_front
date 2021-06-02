@@ -74,7 +74,7 @@ export class EditArticleComponent implements OnInit, OnDestroy {
       'ImageURL': new FormControl(null, Validators.required),
       'addTag': new FormControl(null),
       'Body': new FormControl(null, Validators.required),
-      'Preview': new FormControl(null, [Validators.required, Validators.pattern('^[\w\W]{0,200}$')]),
+      'Preview': new FormControl(null, [Validators.required, Validators.max(200)]),
     })
   }
 
