@@ -10,8 +10,6 @@
     <div id="preview-image">
         <img [src]="(article | async)?.ImageURL">
     </div>
-    <div id="body">
-        {{(article | async)?.Body}}
-    </div>
+    <div id="body" [innerHTML]="(article | async)?.Body"></div>
     <app-writer-info [writer]="(article | async)?.WriterInfo"></app-writer-info>
 </div>
