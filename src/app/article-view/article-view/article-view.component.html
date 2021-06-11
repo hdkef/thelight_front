@@ -16,6 +16,7 @@
         <button mat-flat-button (click)="showComments()">show comments...</button>
     </div>
     <div id="comment-sec" *ngIf="isCommentLoaded">
+        <app-comment *ngFor="let comment of comments | async" [comment]="comment"></app-comment>
         <h4>comments</h4>
         <form [formGroup]="commentForm" (ngSubmit)="goInsertComment()">
             <mat-form-field>
@@ -26,6 +27,5 @@
             </mat-form-field>
             <button mat-flat-button type="submit" color="primary">send</button>
         </form>
-        <app-comment *ngFor="let comment of comments | async" [comment]="comment"></app-comment>
     </div>
 </div>
